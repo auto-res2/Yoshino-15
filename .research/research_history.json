@@ -1,0 +1,10 @@
+{
+  "research_topic": "ASR（攻撃成功率）削減におけるConstitutional AIの改善を目的とし、有用性を維持しながらジェイルブレイク攻撃により良く抵抗するためにConstitutional AI防御メカニズムを強化することを目標とし、現在のベースラインとして標準的なConstitutional AIがAdvBench有害指示で約20-30%の攻撃成功率を達成している一方で、「浅い安全性アライメント」脆弱性（安全制約が最初の数トークンにのみ影響し、洗練された攻撃を可能にする）という研究ギャップが存在するため、具体的アプローチとして深い安全性検証を伴う多層Constitutional AI（アルゴリズムA）を用い、AdvBenchおよびHarmBenchでの攻撃成功率（指標B）を評価指標とし、初期トークンだけでなく複数の生成段階でConstitutional原則を強制する点に革新性を有し、実装詳細としてはベースモデルにLlama 3.2 3Bまたは類似（約6GBベースメモリ）を採用し、Constitutional分類器用LoRAアダプターとDPO訓練を用いた手法により、効率的ファインチューニングで10-12GBのメモリ使用量、Constitutional訓練データを使用した2-3時間の訓練時間を必要とし、データセットとしてAnthropicのConstitutional訓練データおよびSafetyPromptsコレクションを利用し、評価フレームワークとしては主要にAdvBench（500有害指示）でのASR、副次的に包括的安全性評価のためのHarmBenchおよびToxiGenを用い、有用性確認のためにMMLUおよびMT-Benchを使用するものである。",
+  "queries": [
+    "Constitutional AI jailbreak",
+    "deep safety alignment",
+    "multi-layer constitutional AI",
+    "AdvBench ASR",
+    "LoRA DPO fine-tuning"
+  ]
+}
