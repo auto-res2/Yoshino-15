@@ -26,12 +26,12 @@ from .train import ModelBuilder, TrainerWrapper
 from .evaluate import Evaluator, Plotter
 
 # ---------------------------------------------------------------------------
-# Project-level paths (UPDATED to iteration2 as per requirements)
+# Project-level paths (UPDATED to iteration3 as per requirements)
 # ---------------------------------------------------------------------------
 PROJECT_DIR = Path(__file__).resolve().parent.parent
-RESEARCH_DIR = PROJECT_DIR / ".research" / "iteration2"
+RESEARCH_DIR = PROJECT_DIR / ".research" / "iteration3"
 IMAGES_DIR = RESEARCH_DIR / "images"
-RESULTS_DIR = RESEARCH_DIR
+RESULTS_DIR = RESEARCH_DIR  # JSON files live directly inside iteration3/
 DATA_DIR = PROJECT_DIR / "data"
 
 # Ensure directories exist ---------------------------------------------------
@@ -128,8 +128,10 @@ def run_experiment(cfg: ExperimentConfig, *, smoke: bool):
             # Evaluation (prompt-level ASR)
             # ------------------------------------------------------
             evaluator = Evaluator(model_id=base_id)  # vLLM expects an ID / path
+
+            attack_split = cfg.evaluation.get("attack_split", "test")
             attack_ds = dm.resolve_dataset(
-                cfg.datasets[cfg.evaluation["attack_set"]], split="test", smoke=smoke
+                cfg.datasets[cfg.evaluation["attack_set"]], split=attack_split, smoke=smoke
             )
             column_name = (
                 "prompt" if "prompt" in attack_ds.column_names else attack_ds.column_names[0]
@@ -162,7 +164,7 @@ def run_experiment(cfg: ExperimentConfig, *, smoke: bool):
     results["figures"] = [fig_name]
 
     # ----------------------------------------------------------------------
-    # Persist JSON into .research/iteration2 and also print to stdout
+    # Persist JSON into .research/iteration3 and also print to stdout
     # ----------------------------------------------------------------------
     out_path = RESULTS_DIR / f"{cfg.name.replace(' ', '_')}_results.json"
     with out_path.open("w") as f:

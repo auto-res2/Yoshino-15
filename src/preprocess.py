@@ -52,7 +52,7 @@ class DataManager:
         if file_path.suffix == ".zip":
             with zipfile.ZipFile(file_path, "r") as zf:
                 zf.extractall(dst_dir)
-        elif file_path.suffix in {".tar", ".gz", ".tgz"}:
+        elif file_path.suffix in {".tar", ".gz", ".tgz", ".tar.gz"}:
             with tarfile.open(file_path, "r:*") as tf:
                 tf.extractall(dst_dir)
 

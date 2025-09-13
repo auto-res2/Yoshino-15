@@ -8,8 +8,7 @@ description: |
   audit, GPT-4 judge) is handled offline.
 datasets:
   AdvBench:
-    hf_repo: "MBZUAI/AdvBenchmark"
-    config: "default"
+    hf_repo: "HuggingFaceH4/advbench"
   HarmBench:
     hf_repo: "HuggingFaceH4/harmbench"
   JailbreakBench:
@@ -20,14 +19,14 @@ datasets:
     hf_repo: "PKU-Alignment/PKU-SafeRLHF"
 models:
   PRANCE:
-    hf_id: "meta-llama/Meta-Llama-3-8B-Instruct"
+    hf_id: "facebook/opt-125m"  # use a permissive model for CI
     8bit: false
     lora: true
     lora_r: 16
     training: "PKU_SafeRLHF"
     eval: "PKU_SafeRLHF"
   Constitutional:
-    hf_id: "meta-llama/Meta-Llama-3-8B-Instruct"
+    hf_id: "facebook/opt-125m"
     8bit: true
     lora: false
 training:
@@ -38,6 +37,7 @@ training:
   seeds: [11, 17, 23, 29, 31]
 evaluation:
   attack_set: "AdvBench"
+  attack_split: "test"
   temperature: 0.8
   top_p: 0.95
   bad_keywords: ["harmful", "jailbreak", "kill", "attack succeeded"]
