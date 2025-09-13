@@ -26,10 +26,10 @@ from .train import ModelBuilder, TrainerWrapper
 from .evaluate import Evaluator, Plotter
 
 # ---------------------------------------------------------------------------
-# Project-level paths
+# Project-level paths (UPDATED to iteration2 as per requirements)
 # ---------------------------------------------------------------------------
 PROJECT_DIR = Path(__file__).resolve().parent.parent
-RESEARCH_DIR = PROJECT_DIR / ".research" / "iteration1"
+RESEARCH_DIR = PROJECT_DIR / ".research" / "iteration2"
 IMAGES_DIR = RESEARCH_DIR / "images"
 RESULTS_DIR = RESEARCH_DIR
 DATA_DIR = PROJECT_DIR / "data"
@@ -162,7 +162,7 @@ def run_experiment(cfg: ExperimentConfig, *, smoke: bool):
     results["figures"] = [fig_name]
 
     # ----------------------------------------------------------------------
-    # Persist JSON into .research/iteration1 and also print to stdout
+    # Persist JSON into .research/iteration2 and also print to stdout
     # ----------------------------------------------------------------------
     out_path = RESULTS_DIR / f"{cfg.name.replace(' ', '_')}_results.json"
     with out_path.open("w") as f:

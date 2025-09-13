@@ -11,8 +11,8 @@ datasets:
     config: "default"
 models:
   PRANCE:
-    hf_id: "meta-llama/Meta-Llama-3-8B-Instruct"
-    8bit: true
+    hf_id: "facebook/opt-125m"
+    8bit: false
     lora: false
 training:
   batch: 1
