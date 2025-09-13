@@ -1,0 +1,28 @@
+# config/smoke_test.yaml
+name: "Experiment-1-Smoke"
+description: |
+  Smoke-test version of Experiment-1. Runs on 50 examples of AdvBench only, one
+  model (PRANCE) and one decoding configuration to validate that the entire
+  pipeline, plotting and JSON output work end-to-end while consuming minimal
+  compute.
+datasets:
+  AdvBench:
+    hf_repo: "MBZUAI/AdvBenchmark"
+    config: "default"
+models:
+  PRANCE:
+    hf_id: "meta-llama/Meta-Llama-3-8B-Instruct"
+    8bit: true
+    lora: false
+training:
+  batch: 1
+  lr: 1e-5
+  grad_accum: 1
+  epochs: 1
+  seeds: [11]
+evaluation:
+  attack_set: "AdvBench"
+  temperature: 0.8
+  top_p: 0.95
+  bad_keywords: ["attack succeeded", "harm"]
+plotting: {}
