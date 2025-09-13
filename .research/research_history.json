@@ -6,5 +6,157 @@
     "multi-layer constitutional AI",
     "AdvBench ASR",
     "LoRA DPO fine-tuning"
+  ],
+  "research_study_list": [
+    {
+      "title": "Universal Jailbreak Backdoors from Poisoned Human Feedback"
+    },
+    {
+      "title": "Refusal in Language Models Is Mediated by a Single Direction"
+    },
+    {
+      "title": "JailbreakBench: An Open Robustness Benchmark for Jailbreaking Large Language Models"
+    },
+    {
+      "title": "When LLM Meets DRL: Advancing Jailbreaking Efficiency via DRL-guided Search"
+    },
+    {
+      "title": "Jailbroken: How Does LLM Safety Training Fail?"
+    },
+    {
+      "title": "Jailbroken: How Does LLM Safety Training Fail?"
+    },
+    {
+      "title": "Improved Few-Shot Jailbreaking Can Circumvent Aligned Language Models and Their Defenses"
+    },
+    {
+      "title": "Catastrophic Jailbreak of Open-source LLMs via Exploiting Generation"
+    },
+    {
+      "title": "COLD-Attack: Jailbreaking LLMs with Stealthiness and Controllability"
+    },
+    {
+      "title": "AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models"
+    },
+    {
+      "title": "Can an AI Agent Safely Run a Government? Existence of Probably Approximately Aligned Policies"
+    },
+    {
+      "title": "What Makes and Breaks Safety Fine-tuning? A Mechanistic Study"
+    },
+    {
+      "title": "Navigating the Safety Landscape: Measuring Risks in Finetuning Large Language Models"
+    },
+    {
+      "title": "One-Shot Safety Alignment for Large Language Models via Optimal Dualization"
+    },
+    {
+      "title": "Stepwise Alignment for Constrained Language Model Policy Optimization"
+    },
+    {
+      "title": "Lisa: Lazy Safety Alignment for Large Language Models against Harmful Fine-tuning Attack"
+    },
+    {
+      "title": "Safety Gymnasium: A Unified Safe Reinforcement Learning Benchmark"
+    },
+    {
+      "title": "The Alignment Problem from a Deep Learning Perspective"
+    },
+    {
+      "title": "Gaining Wisdom from Setbacks: Aligning Large Language Models via Mistake Analysis"
+    },
+    {
+      "title": "Understanding the Learning Dynamics of Alignment with Human Feedback"
+    },
+    {
+      "title": "Learning Joint Latent Space EBM Prior Model for Multi-Layer Generator"
+    },
+    {
+      "title": "Position: A Roadmap to Pluralistic Alignment"
+    },
+    {
+      "title": "MULAN: A Multi Layer Annotated Dataset for Controllable Text-to-Image Generation"
+    },
+    {
+      "title": "Position: Social Choice Should Guide AI Alignment in Dealing with Diverse Human Feedback"
+    },
+    {
+      "title": "Dual Decomposition of Convex Optimization Layers for Consistent Attention in Medical Images"
+    },
+    {
+      "title": "Dual Decomposition of Convex Optimization Layers for Consistent Attention in Medical Images"
+    },
+    {
+      "title": "Joint Prompt Optimization of Stacked LLMs using Variational Inference"
+    },
+    {
+      "title": "Understanding Information Storage and Transfer in Multi-Modal Large Language Models"
+    },
+    {
+      "title": "Interactive Continual Learning: Fast and Slow Thinking"
+    },
+    {
+      "title": "Richelieu: Self-Evolving LLM-Based Agents for AI Diplomacy"
+    },
+    {
+      "title": "NAS-Bench-ASR: Reproducible Neural Architecture Search for Speech Recognition"
+    },
+    {
+      "title": "AudioMarkBench: Benchmarking Robustness of Audio Watermarking"
+    },
+    {
+      "title": "Defending against Adversarial Audio  via Diffusion Model"
+    },
+    {
+      "title": "HyPoradise: An Open Baseline for Generative Speech Recognition with Large Language Models"
+    },
+    {
+      "title": "BackdoorBench: A Comprehensive Benchmark of Backdoor Learning"
+    },
+    {
+      "title": "BackdoorBench: A Comprehensive Benchmark of Backdoor Learning"
+    },
+    {
+      "title": "Language Without Borders: A Dataset and Benchmark for Code-Switching Lip Reading"
+    },
+    {
+      "title": "TabularBench: Benchmarking Adversarial Robustness for Tabular Deep Learning in Real-world Use-cases"
+    },
+    {
+      "title": "VoiceBlock: Privacy through Real-Time Adversarial Attacks with Audio-to-Audio Models"
+    },
+    {
+      "title": "Revisiting Character-level Adversarial Attacks for Language Models"
+    },
+    {
+      "title": "Using Human Feedback to Fine-tune Diffusion Models without Any Reward Model"
+    },
+    {
+      "title": "Token-level Direct Preference Optimization"
+    },
+    {
+      "title": "DoRA: Weight-Decomposed Low-Rank Adaptation"
+    },
+    {
+      "title": "DoRA: Weight-Decomposed Low-Rank Adaptation"
+    },
+    {
+      "title": "Direct Preference Optimization: Your Language Model is Secretly a Reward Model"
+    },
+    {
+      "title": "Direct Preference Optimization: Your Language Model is Secretly a Reward Model"
+    },
+    {
+      "title": "$\\beta$-DPO: Direct Preference Optimization with Dynamic $\\beta$"
+    },
+    {
+      "title": "Active Preference Learning for Large Language Models"
+    },
+    {
+      "title": "Diffusion Model Alignment Using Direct Preference Optimization"
+    },
+    {
+      "title": "Adaptive Budget Allocation for Parameter-Efficient Fine-Tuning "
+    }
   ]
 }
