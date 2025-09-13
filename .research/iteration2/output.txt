@@ -1,0 +1,83 @@
+=== uv sync start Sat Sep 13 11:47:56 PM UTC 2025 ===
+=== uv install end Sat Sep 13 11:49:21 PM UTC 2025 ===
+=== [PHASE 1/2] Smoke test start Sat Sep 13 11:49:21 PM UTC 2025 ===
+INFO 09-13 23:49:42 [__init__.py:216] Automatically detected platform cuda.
+INFO 09-13 23:49:57 [utils.py:328] non-default args: {'tensor_parallel_size': 2, 'disable_log_stats': True, 'model': 'facebook/opt-125m'}
+INFO 09-13 23:50:10 [__init__.py:742] Resolved architecture: OPTForCausalLM
+INFO 09-13 23:50:10 [__init__.py:1815] Using max model len 2048
+INFO 09-13 23:50:11 [scheduler.py:222] Chunked prefill is enabled with max_num_batched_tokens=8192.
+WARNING 09-13 23:50:14 [__init__.py:2974] We must use the `spawn` multiprocessing start method. Overriding VLLM_WORKER_MULTIPROC_METHOD to 'spawn'. See https://docs.vllm.ai/en/latest/usage/troubleshooting.html#python-multiprocessing for more information. Reasons: CUDA is initialized
+INFO 09-13 23:50:20 [__init__.py:216] Automatically detected platform cuda.
+[1;36m(EngineCore_DP0 pid=1651770)[0;0m INFO 09-13 23:50:22 [core.py:654] Waiting for init message from front-end.
+[1;36m(EngineCore_DP0 pid=1651770)[0;0m INFO 09-13 23:50:22 [core.py:76] Initializing a V1 LLM engine (v0.10.2) with config: model='facebook/opt-125m', speculative_config=None, tokenizer='facebook/opt-125m', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.float16, max_seq_len=2048, download_dir=None, load_format=auto, tensor_parallel_size=2, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, device_config=cuda, decoding_config=DecodingConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_backend=''), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None), seed=0, served_model_name=facebook/opt-125m, enable_prefix_caching=True, chunked_prefill_enabled=True, use_async_output_proc=True, pooler_config=None, compilation_config={"level":3,"debug_dump_path":"","cache_dir":"","backend":"","custom_ops":[],"splitting_ops":["vllm.unified_attention","vllm.unified_attention_with_output","vllm.mamba_mixer2","vllm.mamba_mixer","vllm.short_conv","vllm.linear_attention","vllm.plamo2_mamba_mixer","vllm.gdn_attention"],"use_inductor":true,"compile_sizes":[],"inductor_compile_config":{"enable_auto_functionalized_v2":false},"inductor_passes":{},"cudagraph_mode":1,"use_cudagraph":true,"cudagraph_num_of_warmups":1,"cudagraph_capture_sizes":[512,504,496,488,480,472,464,456,448,440,432,424,416,408,400,392,384,376,368,360,352,344,336,328,320,312,304,296,288,280,272,264,256,248,240,232,224,216,208,200,192,184,176,168,160,152,144,136,128,120,112,104,96,88,80,72,64,56,48,40,32,24,16,8,4,2,1],"cudagraph_copy_inputs":false,"full_cuda_graph":false,"pass_config":{},"max_capture_size":512,"local_cache_dir":null}
+[1;36m(EngineCore_DP0 pid=1651770)[0;0m WARNING 09-13 23:50:22 [multiproc_worker_utils.py:273] Reducing Torch parallelism from 128 threads to 1 to avoid unnecessary CPU contention. Set OMP_NUM_THREADS in the external environment to tune this value as needed.
+[1;36m(EngineCore_DP0 pid=1651770)[0;0m INFO 09-13 23:50:22 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[0, 1], buffer_handle=(2, 16777216, 10, 'psm_fa3189e9'), local_subscribe_addr='ipc:///tmp/546a5d90-b10d-4bc2-b3f7-3a47d61fd531', remote_subscribe_addr=None, remote_addr_ipv6=False)
+INFO 09-13 23:50:28 [__init__.py:216] Automatically detected platform cuda.
+INFO 09-13 23:50:28 [__init__.py:216] Automatically detected platform cuda.
+INFO 09-13 23:50:33 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[0], buffer_handle=(1, 10485760, 10, 'psm_4baa3b1a'), local_subscribe_addr='ipc:///tmp/61bc0f3d-642a-4134-82d4-c9daf3d73f45', remote_subscribe_addr=None, remote_addr_ipv6=False)
+INFO 09-13 23:50:33 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[0], buffer_handle=(1, 10485760, 10, 'psm_8d6b2509'), local_subscribe_addr='ipc:///tmp/7848f160-a001-45a7-831c-f5fd197d84a9', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[Gloo] Rank 0 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 1 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 1 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 0 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+INFO 09-13 23:50:34 [__init__.py:1433] Found nccl from library libnccl.so.2
+INFO 09-13 23:50:34 [__init__.py:1433] Found nccl from library libnccl.so.2
+INFO 09-13 23:50:34 [pynccl.py:70] vLLM is using nccl==2.27.3
+INFO 09-13 23:50:34 [pynccl.py:70] vLLM is using nccl==2.27.3
+INFO 09-13 23:50:35 [custom_all_reduce.py:35] Skipping P2P check and trusting the driver's P2P report.
+INFO 09-13 23:50:35 [custom_all_reduce.py:35] Skipping P2P check and trusting the driver's P2P report.
+INFO 09-13 23:50:35 [shm_broadcast.py:289] vLLM message queue communication handle: Handle(local_reader_ranks=[1], buffer_handle=(1, 4194304, 6, 'psm_3791b9f2'), local_subscribe_addr='ipc:///tmp/837b839f-e93b-4143-9db5-403282a5a916', remote_subscribe_addr=None, remote_addr_ipv6=False)
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+[Gloo] Rank 1 is connected to 1 peer ranks. Expected number of connected peer ranks is : 1
+INFO 09-13 23:50:35 [parallel_state.py:1165] rank 1 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 1, EP rank 1
+INFO 09-13 23:50:35 [parallel_state.py:1165] rank 0 in world size 2 is assigned as DP rank 0, PP rank 0, TP rank 0, EP rank 0
+WARNING 09-13 23:50:35 [topk_topp_sampler.py:69] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
+WARNING 09-13 23:50:35 [topk_topp_sampler.py:69] FlashInfer is not available. Falling back to the PyTorch-native implementation of top-p & top-k sampling. For the best performance, please install FlashInfer.
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:35 [gpu_model_runner.py:2338] Starting to load model facebook/opt-125m...
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:35 [gpu_model_runner.py:2338] Starting to load model facebook/opt-125m...
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:35 [gpu_model_runner.py:2370] Loading model from scratch...
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:35 [gpu_model_runner.py:2370] Loading model from scratch...
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:35 [cuda.py:362] Using Flash Attention backend on V1 engine.
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:35 [cuda.py:362] Using Flash Attention backend on V1 engine.
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:36 [weight_utils.py:348] Using model weights format ['*.safetensors', '*.bin', '*.pt']
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:36 [weight_utils.py:348] Using model weights format ['*.safetensors', '*.bin', '*.pt']
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:39 [weight_utils.py:369] Time spent downloading weights for facebook/opt-125m: 3.220271 seconds
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:39 [default_loader.py:268] Loading weights took 0.53 seconds
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:39 [default_loader.py:268] Loading weights took 0.22 seconds
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:40 [gpu_model_runner.py:2392] Model loading took 0.1189 GiB and 4.297910 seconds
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:40 [gpu_model_runner.py:2392] Model loading took 0.1189 GiB and 4.414035 seconds
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:44 [backends.py:539] Using cache directory: /home/toma/.cache/vllm/torch_compile_cache/e6b5e51e21/rank_1_0/backbone for vLLM's torch.compile
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:44 [backends.py:550] Dynamo bytecode transform time: 3.70 s
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:44 [backends.py:539] Using cache directory: /home/toma/.cache/vllm/torch_compile_cache/e6b5e51e21/rank_0_0/backbone for vLLM's torch.compile
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:44 [backends.py:550] Dynamo bytecode transform time: 3.70 s
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:47 [backends.py:194] Cache the graph for dynamic shape for later use
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:47 [backends.py:194] Cache the graph for dynamic shape for later use
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:51 [backends.py:215] Compiling a graph for dynamic shape takes 7.31 s
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:51 [backends.py:215] Compiling a graph for dynamic shape takes 7.38 s
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:52 [monitor.py:34] torch.compile takes 11.01 s in total
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:52 [monitor.py:34] torch.compile takes 11.09 s in total
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:53 [gpu_worker.py:298] Available KV cache memory: 69.54 GiB
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:53 [gpu_worker.py:298] Available KV cache memory: 69.54 GiB
+[1;36m(EngineCore_DP0 pid=1651770)[0;0m INFO 09-13 23:50:54 [kv_cache_utils.py:864] GPU KV cache size: 4,051,280 tokens
+[1;36m(EngineCore_DP0 pid=1651770)[0;0m INFO 09-13 23:50:54 [kv_cache_utils.py:868] Maximum concurrency for 2,048 tokens per request: 1978.16x
+[1;36m(EngineCore_DP0 pid=1651770)[0;0m INFO 09-13 23:50:54 [kv_cache_utils.py:864] GPU KV cache size: 4,051,280 tokens
+[1;36m(EngineCore_DP0 pid=1651770)[0;0m INFO 09-13 23:50:54 [kv_cache_utils.py:868] Maximum concurrency for 2,048 tokens per request: 1978.16x
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:55 [custom_all_reduce.py:203] Registering 1675 cuda graph addresses
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:55 [custom_all_reduce.py:203] Registering 1675 cuda graph addresses
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:55 [gpu_model_runner.py:3118] Graph capturing finished in 2 secs, took 0.66 GiB
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:55 [gpu_worker.py:391] Free memory on device (78.25/79.15 GiB) on startup. Desired GPU memory utilization is (0.9, 71.24 GiB). Actual usage is 0.12 GiB for weight, 0.48 GiB for peak activation, 1.09 GiB for non-torch memory, and 0.66 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=73811357696` to fit into requested memory, or `--kv-cache-memory=81344917504` to fully utilize gpu memory. Current kv cache memory in use is 74673287168 bytes.
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:55 [gpu_model_runner.py:3118] Graph capturing finished in 2 secs, took 0.66 GiB
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:55 [gpu_worker.py:391] Free memory on device (78.25/79.15 GiB) on startup. Desired GPU memory utilization is (0.9, 71.24 GiB). Actual usage is 0.12 GiB for weight, 0.48 GiB for peak activation, 1.09 GiB for non-torch memory, and 0.66 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=73809260544` to fit into requested memory, or `--kv-cache-memory=81342820352` to fully utilize gpu memory. Current kv cache memory in use is 74673287168 bytes.
+[1;36m(EngineCore_DP0 pid=1651770)[0;0m INFO 09-13 23:50:55 [core.py:218] init engine (profile, create kv cache, warmup model) took 15.35 seconds
+INFO 09-13 23:50:57 [llm.py:295] Supported_tasks: ['generate']
+INFO 09-13 23:50:57 [__init__.py:36] No IOProcessor plugins requested by the model
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:58 [multiproc_executor.py:546] Parent process exited, terminating worker
+[1;36m(Worker_TP0 pid=1651914)[0;0m INFO 09-13 23:50:58 [multiproc_executor.py:587] WorkerProc shutting down.
+[1;36m(Worker_TP1 pid=1651915)[0;0m INFO 09-13 23:50:58 [multiproc_executor.py:546] Parent process exited, terminating worker
+ERROR 09-13 23:51:01 [core_client.py:564] Engine core proc EngineCore_DP0 died unexpectedly, shutting down client.
