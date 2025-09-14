@@ -1,0 +1,10 @@
+{
+  "research_topic": "Self-Consistency Prompting: To reduce reasoning errors in LLMs, generate multiple reasoning paths and select answers via majority voting, validating consistency improvements across mathematical reasoning benchmarks like GSM8K and MATH.",
+  "queries": [
+    "self-consistency prompting",
+    "chain-of-thought majority voting",
+    "multiple reasoning paths LLM",
+    "GSM8K consistency",
+    "MATH benchmark consistency"
+  ]
+}
