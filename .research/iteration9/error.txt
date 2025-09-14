@@ -1,0 +1,68 @@
+Generating train split:   0%|          | 0/73907 [00:00<?, ? examples/s]Generating train split:  25%|██▌       | 18522/73907 [00:00<00:00, 123241.14 examples/s]Generating train split:  47%|████▋     | 34764/73907 [00:00<00:00, 129214.91 examples/s]Generating train split:  77%|███████▋  | 56640/73907 [00:00<00:00, 135976.92 examples/s]Generating train split: 100%|██████████| 73907/73907 [00:00<00:00, 140706.24 examples/s]Generating train split: 100%|██████████| 73907/73907 [00:00<00:00, 108527.66 examples/s]
+Generating test split:   0%|          | 0/8211 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 8211/8211 [00:00<00:00, 82697.44 examples/s]
+/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/src/train.py:138: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.
+  self.trainer = Trainer(
+Tokenising dataset:   0%|          | 0/73907 [00:00<?, ? examples/s]Tokenising dataset:   5%|▌         | 4000/73907 [00:00<00:02, 25459.72 examples/s]Tokenising dataset:  11%|█         | 8000/73907 [00:00<00:02, 28480.32 examples/s]Tokenising dataset:  16%|█▌        | 12000/73907 [00:00<00:02, 29992.88 examples/s]Tokenising dataset:  22%|██▏       | 16000/73907 [00:00<00:01, 30629.06 examples/s]Tokenising dataset:  27%|██▋       | 20000/73907 [00:00<00:01, 30794.65 examples/s]Tokenising dataset:  32%|███▏      | 24000/73907 [00:00<00:01, 31186.00 examples/s]Tokenising dataset:  39%|███▉      | 29000/73907 [00:01<00:02, 19298.93 examples/s]Tokenising dataset:  45%|████▍     | 33000/73907 [00:01<00:01, 21617.54 examples/s]Tokenising dataset:  50%|█████     | 37000/73907 [00:01<00:01, 23699.10 examples/s]Tokenising dataset:  55%|█████▌    | 41000/73907 [00:01<00:01, 25462.12 examples/s]Tokenising dataset:  61%|██████    | 45000/73907 [00:01<00:01, 26914.07 examples/s]Tokenising dataset:  66%|██████▋   | 49000/73907 [00:01<00:00, 28080.84 examples/s]Tokenising dataset:  72%|███████▏  | 53000/73907 [00:01<00:00, 28901.10 examples/s]Tokenising dataset:  77%|███████▋  | 57000/73907 [00:02<00:00, 28451.72 examples/s]Tokenising dataset:  83%|████████▎ | 61000/73907 [00:02<00:00, 29216.05 examples/s]Tokenising dataset:  88%|████████▊ | 65000/73907 [00:02<00:00, 20713.62 examples/s]Tokenising dataset:  93%|█████████▎| 69000/73907 [00:02<00:00, 22880.89 examples/s]Tokenising dataset:  99%|█████████▉| 73000/73907 [00:02<00:00, 24708.11 examples/s]Tokenising dataset: 100%|██████████| 73907/73907 [00:02<00:00, 24770.97 examples/s]
+Tokenising dataset:   0%|          | 0/8211 [00:00<?, ? examples/s]Tokenising dataset:  49%|████▊     | 4000/8211 [00:00<00:00, 29180.41 examples/s]Tokenising dataset:  97%|█████████▋| 8000/8211 [00:00<00:00, 29820.44 examples/s]Tokenising dataset: 100%|██████████| 8211/8211 [00:00<00:00, 27226.48 examples/s]
+  0%|          | 0/9239 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/tokenization_utils_base.py", line 767, in convert_to_tensors
+    tensor = as_tensor(value)
+             ^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/tokenization_utils_base.py", line 729, in as_tensor
+    return torch.tensor(value)
+           ^^^^^^^^^^^^^^^^^^^
+ValueError: expected sequence of length 44 at dim 1 (got 38)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/src/main.py", line 215, in <module>
+    main()
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/src/main.py", line 211, in main
+    run_experiment(cfg, smoke=smoke)
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/src/main.py", line 124, in run_experiment
+    model = tw.train(train_ds, eval_ds)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/src/train.py", line 201, in train
+    self.trainer.train()
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2328, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2623, in _inner_training_loop
+    batch_samples, num_items_in_batch = self.get_batch_samples(epoch_iterator, num_batches, args.device)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 5581, in get_batch_samples
+    batch_samples.append(next(epoch_iterator))
+                         ^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/accelerate/data_loader.py", line 567, in __iter__
+    current_batch = next(dataloader_iter)
+                    ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 734, in __next__
+    data = self._next_data()
+           ^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/torch/utils/data/dataloader.py", line 790, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/torch/utils/data/_utils/fetch.py", line 55, in fetch
+    return self.collate_fn(data)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/data/data_collator.py", line 46, in __call__
+    return self.torch_call(features)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/data/data_collator.py", line 1014, in torch_call
+    batch = pad_without_fast_tokenizer_warning(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/data/data_collator.py", line 67, in pad_without_fast_tokenizer_warning
+    padded = tokenizer.pad(*pad_args, **pad_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/tokenization_utils_base.py", line 3430, in pad
+    return BatchEncoding(batch_outputs, tensor_type=return_tensors)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/tokenization_utils_base.py", line 240, in __init__
+    self.convert_to_tensors(tensor_type=tensor_type, prepend_batch_axis=prepend_batch_axis)
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/tokenization_utils_base.py", line 783, in convert_to_tensors
+    raise ValueError(
+ValueError: Unable to create tensor, you should probably activate truncation and/or padding with 'padding=True' 'truncation=True' to have batched tensors with the same length. Perhaps your features (`labels` in this case) have excessive nesting (inputs type `list` where type `int` is expected).
+  0%|          | 0/9239 [00:00<?, ?it/s]
