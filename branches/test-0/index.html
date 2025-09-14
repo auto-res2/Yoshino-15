@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Research Paper</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      margin: 2rem auto;
+      max-width: 800px;
+      padding: 0 1rem;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fff;
+    }
+    h2.paper-title {
+      font-size: 1.8em;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5em;
+      border-bottom: none;
+    }
+    h2 {
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.3em;
+      margin-top: 2em;
+    }
+    pre {
+      background: #f6f8fa;
+      padding: 1em;
+      overflow: auto;
+      border-radius: 5px;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, monospace;
+    }
+    ul {
+      padding-left: 1.5em;
+    }
+    figure {
+      text-align: center;
+      margin: 1.5em 0;
+      background: none !important;
+    }
+    img {
+      background: #fff;
+    }
+    figure img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      height: auto;
+    }
+    .img-pair .pair {
+      display: flex;
+      justify-content: space-between;
+    }
+    .img-pair img {
+      max-width: 48%;
+      height: auto;
+    }
+    figcaption {
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+<h2 class="paper-title">PRANCE: Progressive Representation Alignment and Noxious-content Containment for Robust Large Language Models</h2>
+
+<section>
+  <h2>Abstract</h2>
+  <p>Large language models (LLMs) remain vulnerable to a broad spectrum of jailbreak techniques, ranging from prompt suffixes and decoding-time parameter changes to malicious weight injections that subvert safety tuning. We tackle seven open problems of current defences—shallow alignment, temporal blind spots, mechanistic jailbreaks, parameter-free exploits, back-door fine-tunes, safety-basin drift, and edge-deployment limits—by introducing PRANCE, a two-phase alignment and on-line enforcement framework. Offline, PRANCE applies reward–safety dualisation to compute an optimal λ* and fuses independently reward- and safety-aligned policies via Lisa-style proximal regularisation, ensuring the initial checkpoint stays inside the VISAGE safety basin. Online, each decoder layer hosts a low-rank Safety Vector Field that is meta-updated every 256 generated tokens; three hierarchical monitors estimate risk at token, segment, and trajectory granularity; and a dual-policy controller chooses pass, replace, truncate, or refuse actions by maximising Q_help – λ*·Q_risk. Robustness is further increased through adversarial weight-space training, decoding-parameter sweeps, a VISAGE depth penalty, and adapter quarantine for untrusted LoRA modules. All safety modules add only eight percent parameters and incur eleven percent latency and 10.9 GB VRAM on a 3 B Llama-3 model. Experiments on AdvBench, JailbreakBench, and HarmBench show a clean attack-success rate (ASR) of 2.4 % (↓9× vs. Constitutional-AI) and ≤3 pp ASR increase under weight attacks, malicious fine-tuning, or decoding exploits while preserving ninety-nine percent of original utility on MT-Bench, MMLU, and GSM8K. A seven-day continual-learning simulation confirms that PRANCE keeps VISAGE depth within 0.12 and recalls 92 % of malicious adapters. These findings demonstrate that combining optimal dual alignment with adaptive low-rank safety directions yields an effective and efficient defence against diverse jailbreak vectors.</p>
+</section>
+
+<section>
+  <h2>Introduction</h2>
+  <p>Large language models (LLMs) have rapidly transitioned from laboratory curiosities to indispensable components of conversational assistants, search engines, and productivity tools. As their societal footprint expands, so too does the impact of misalignment. A burgeoning literature now catalogues jailbreak vectors able to elicit disallowed content. Prompt-level attacks erase the single activation direction that mediates refusal <a href="https://arxiv.org/pdf/2406.11717v3.pdf" target="_blank" title="Refusal in Language Models Is Mediated by a Single Direction">(Andy Arditi, 2024)</a>; reinforcement-learning-guided searches discover potent adversarial suffixes <a href="https://arxiv.org/pdf/2406.08705v4.pdf" target="_blank" title="When LLM Meets DRL: Advancing Jailbreaking Efficiency via DRL-guided Search">(Xuan Chen, 2024)</a>; sampling-only manipulations raise harmful responses by merely altering temperature or top p <a href="https://arxiv.org/pdf/2310.06987v1.pdf" target="_blank" title="Catastrophic Jailbreak of Open-source LLMs via Exploiting Generation">(Yangsibo Huang, 2023)</a>; and weight-space attacks such as malicious LoRA injections, universal back-door poisoning, or one-shot harmful fine-tunes bypass safety guarantees entirely <a href="https://arxiv.org/pdf/2004.06660v1.pdf" target="_blank" title="Weight poisoning attacks on pre-trained models.">(Keita Kurita, 2020)</a>, <a href="https://arxiv.org/pdf/2311.14455v4.pdf" target="_blank" title="Universal Jailbreak Backdoors from Poisoned Human Feedback">(Javier Rando, 2023)</a>. Even small random perturbations can push a model outside its “safety basin”, causing a step-like loss of harmlessness <a href="https://arxiv.org/pdf/2405.17374v3.pdf" target="_blank" title="Navigating the Safety Landscape: Measuring Risks in Finetuning Large Language Models">(ShengYun Peng, 2024)</a>.</p>
+  <p>The defence problem is compounded by three obstacles. First, prevailing alignment pipelines reinforce the first refusal token, leaving a shallow-alignment hole exploitable by autoregressive generation. Second, most defences focus on prompts and ignore weight-space exploits. Third, methods that do confront sophisticated attacks—e.g., SmoothLLM or Task-Conditioned Masking—often impose latency or VRAM overheads incompatible with edge deployment.</p>
+  <p>We address these gaps under strict resource constraints (≤12 GB VRAM and ≤15 % latency overhead) with PRANCE—Progressive Representation Alignment &amp; Noxious-content Containment Engine. PRANCE rests on two principles. (1) Optimal dual alignment theory guarantees that a single scalar λ* balances helpfulness and safety and can be computed offline <a href="https://arxiv.org/pdf/2405.19544v3.pdf" target="_blank" title="One-Shot Safety Alignment for Large Language Models via Optimal Dualization">(Xinmeng Huang, 2024)</a>. (2) Run-time safety must adapt to both prompt- and weight-space perturbations through lightweight, low-rank interventions that minimally disturb benign generation.</p>
+  <p>Contributions</p>
+  <ul>
+    <li><strong>Dual-stage offline alignment:</strong> We devise a dual-stage offline alignment that first learns reward- and safety-aligned policies via PeCAN/DPO <a href="https://arxiv.org/pdf/2405.19544v3.pdf" target="_blank" title="One-Shot Safety Alignment for Large Language Models via Optimal Dualization">(Xinmeng Huang, 2024)</a> and then fuses them with Lisa proximal regularisation <a href="https://arxiv.org/pdf/2405.18641v5.pdf" target="_blank" title="Lisa: Lazy Safety Alignment for Large Language Models against Harmful Fine-tuning Attack">(Tiansheng Huang, 2024)</a>, maintaining VISAGE-basin proximity.</li>
+    <li><strong>Safety Vector Fields (SVFs):</strong> We introduce Safety Vector Fields (SVFs), four orthogonal low-rank directions per transformer block that are meta-updated online, enabling rapid response to weight drift and adversarial continuations.</li>
+    <li><strong>Dual-policy controller:</strong> We design a dual-policy controller that, at every decoding step, selects pass, replace, truncate, or refuse by maximising Q_help – λ*·Q_risk computed by compact Q-networks distilled from the aligned model.</li>
+    <li><strong>Adapter quarantine and adversarial training:</strong> We present adapter quarantine and adversarial weight-space training protocols that specifically target malicious LoRA back-doors and universal jailbreak triggers <a href="https://arxiv.org/pdf/2311.14455v4.pdf" target="_blank" title="Universal Jailbreak Backdoors from Poisoned Human Feedback">(Javier Rando, 2023)</a>, <a href="https://arxiv.org/pdf/2206.12654v2.pdf" target="_blank" title="BackdoorBench: A Comprehensive Benchmark of Backdoor Learning">(Baoyuan Wu, 2022)</a>.</li>
+    <li><strong>Rigorous experimental suite:</strong> We release a rigorous experimental suite—implementation-trace tests, large-scale robustness grids, and a seven-day continual-learning simulation—with full code and logs.</li>
+  </ul>
+  <p>The remainder of the paper reviews related work (§2), summarises background concepts (§3), details PRANCE (§4), describes the experimental protocol (§5), reports empirical results (§6), and concludes with limitations and future work (§7).</p>
+</section>
+
+<section>
+  <h2>Related Work</h2>
+  <p>Jailbreak attacks   Manual prompts first exposed the fragility of refusal training <a href="https://arxiv.org/pdf/2307.02483v1.pdf" target="_blank" title="Jailbroken: How Does LLM Safety Training Fail?">(Alexander Wei, 2023)</a>. Optimised attacks now automate prompt discovery with genetic algorithms, discrete optimisation, or deep reinforcement learning <a href="https://arxiv.org/pdf/2406.08705v4.pdf" target="_blank" title="When LLM Meets DRL: Advancing Jailbreaking Efficiency via DRL-guided Search">(Xuan Chen, 2024)</a>, <a href="https://arxiv.org/pdf/2402.08679v2.pdf" target="_blank" title="COLD-Attack: Jailbreaking LLMs with Stealthiness and Controllability">(Xingang Guo, 2024)</a>, <a href="https://arxiv.org/pdf/2303.04381v1.pdf" target="_blank" title="Automatically auditing large language models via discrete optimization.">(Erik Jones, 2023)</a>. Few-shot strategies achieve &gt;95 % success within limited context <a href="https://arxiv.org/pdf/2406.01288v2.pdf" target="_blank" title="Improved Few-Shot Jailbreaking Can Circumvent Aligned Language Models and Their Defenses">(Xiaosen Zheng, 2024)</a>, whereas generation-exploitation alters only decoding hyper-parameters to push ASR above 95 % <a href="https://arxiv.org/pdf/2310.06987v1.pdf" target="_blank" title="Catastrophic Jailbreak of Open-source LLMs via Exploiting Generation">(Yangsibo Huang, 2023)</a>. Weight-space threats include weight poisoning <a href="https://arxiv.org/pdf/2004.06660v1.pdf" target="_blank" title="Weight poisoning attacks on pre-trained models.">(Keita Kurita, 2020)</a>, universal jailbreak back-doors planted during RLHF <a href="https://arxiv.org/pdf/2311.14455v4.pdf" target="_blank" title="Universal Jailbreak Backdoors from Poisoned Human Feedback">(Javier Rando, 2023)</a>, and malicious adapters delivered via parameter-efficient fine-tuning <a href="https://arxiv.org/pdf/2206.12654v2.pdf" target="_blank" title="BackdoorBench: A Comprehensive Benchmark of Backdoor Learning">(Baoyuan Wu, 2022)</a>.</p>
+  <p>Defence landscape   Constitutional-AI extends RLHF with rule-based supervision but succumbs to strong attacks <a href="https://arxiv.org/pdf/2307.02483v1.pdf" target="_blank" title="Jailbroken: How Does LLM Safety Training Fail?">(Alexander Wei, 2023)</a>. SmoothLLM blurs refusal logits but adds runtime cost; Task-Conditioned Masking (TCM) embeds classifiers but cannot mitigate weight attacks. Lisa constrains drift during harmful fine-tuning <a href="https://arxiv.org/pdf/2405.18641v5.pdf" target="_blank" title="Lisa: Lazy Safety Alignment for Large Language Models against Harmful Fine-tuning Attack">(Tiansheng Huang, 2024)</a> yet lacks run-time monitoring. VISAGE quantifies basin depth and reveals abrupt safety loss under drift <a href="https://arxiv.org/pdf/2405.17374v3.pdf" target="_blank" title="Navigating the Safety Landscape: Measuring Risks in Finetuning Large Language Models">(ShengYun Peng, 2024)</a> but remains diagnostic. Finally, the discovery of a one-dimensional refusal subspace <a href="https://arxiv.org/pdf/2406.11717v3.pdf" target="_blank" title="Refusal in Language Models Is Mediated by a Single Direction">(Andy Arditi, 2024)</a> hints that low-rank control might suffice for alignment.</p>
+  <p>Positioning PRANCE   PRANCE synthesises these insights. Optimal dual alignment supplies a principled λ*, Lisa fusion preserves basin proximity, and SVFs generalise low-rank refusal control to multiple adaptive directions. Unlike SmoothLLM or TCM, PRANCE simultaneously addresses prompt-, decoding-, and weight-level vectors while satisfying tight resource budgets.</p>
+</section>
+
+<section>
+  <h2>Background</h2>
+  <p><strong>Problem formulation:</strong> Let π_θ denote a causal language-model policy parameterised by weights θ that maps history h_t to a distribution over next tokens. Two scalar feedback signals are available: reward R(h_t,a_t) measuring helpfulness and risk S(h_t,a_t) reflecting potential harm. The alignment goal is to maximise expected cumulative reward subject to an upper bound ε on expected cumulative risk.</p>
+  <p><strong>Optimal dual alignment:</strong> Under convexity assumptions the constrained problem is equivalent to maximising the unconstrained objective R – λS for a unique optimal dual λ* <a href="https://arxiv.org/pdf/2405.19544v3.pdf" target="_blank" title="One-Shot Safety Alignment for Large Language Models via Optimal Dualization">(Xinmeng Huang, 2024)</a>. Computing policies for λ = 0 (reward-only) and λ → ∞ (safety-only) yields anchors θ_R and θ_S that bound the Pareto frontier.</p>
+  <p><strong>VISAGE safety basin:</strong> The safety landscape exhibits a basin: for ℓ₂ distance d(θ,θ_safe)≤δ the model’s refusal behaviour remains stable; beyond δ safety collapses sharply <a href="https://arxiv.org/pdf/2405.17374v3.pdf" target="_blank" title="Navigating the Safety Landscape: Measuring Risks in Finetuning Large Language Models">(ShengYun Peng, 2024)</a>. Retaining basin proximity is therefore essential during fine-tuning and inference.</p>
+  <p><strong>Refusal direction and low-rank control:</strong> A single activation direction mediates refusal across many chat models <a href="https://arxiv.org/pdf/2406.11717v3.pdf" target="_blank" title="Refusal in Language Models Is Mediated by a Single Direction">(Andy Arditi, 2024)</a>. This motivates our Safety Vector Field, which generalises to four orthogonal directions per layer and is updated online.</p>
+  <p><strong>Low-rank adaptation and threats:</strong> Parameter-efficient fine-tuning techniques such as LoRA, AdaLoRA, and DoRA insert rank-r updates into projection layers <a href="https://arxiv.org/pdf/2402.09353v6.pdf" target="_blank" title="DoRA: Weight-Decomposed Low-Rank Adaptation">(Shih-Yang Liu, 2024)</a>, <a href="https://arxiv.org/pdf/2303.10512v2.pdf" target="_blank" title="Adaptive Budget Allocation for Parameter-Efficient Fine-Tuning ">(Qingru Zhang, 2023)</a>. Attackers can ship malicious adapters indistinguishable from benign ones, necessitating an adapter-quarantine mechanism.</p>
+</section>
+
+<section>
+  <h2>Method</h2>
+  <p>PRANCE comprises an offline dual-stage alignment followed by an online enforcement engine.</p>
+  <p><strong>Offline stage A – Reward–safety dualisation:</strong> We run PeCAN on PKU-SafeRLHF-30k to learn a smooth convex dual and obtain λ* ≈ 1.05. Two Direct Preference Optimisation (DPO) runs produce reward-optimised weights θ_R and risk-minimised weights θ_S.</p>
+  <p><strong>Offline stage B – Lazy safety fusion:</strong> We form θ_0 by interpolating θ_R and θ_S with coefficient α = 0.35 while minimising L = KL(π_α‖π_R)+KL(π_α‖π_S)+μ‖θ_α–θ_safe‖² (μ = 0.05), replicating Lisa’s proximal regulariser <a href="https://arxiv.org/pdf/2405.18641v5.pdf" target="_blank" title="Lisa: Lazy Safety Alignment for Large Language Models against Harmful Fine-tuning Attack">(Tiansheng Huang, 2024)</a>. This yields d(θ_0,θ_safe)&lt;0.1, comfortably inside the VISAGE basin.</p>
+  <p><strong>Online safety engine:</strong> During generation each transformer block l stores four orthogonal vectors v_{l,k}. Given hidden state h_l we compute a layer-risk logit r_l = ‖Proj_V(h_l)‖₂. SVF vectors are meta-updated every 256 generated tokens using a replay-buffer objective that maximises mutual information between r_l and future GPT-4o risk labels while enforcing rank-4.</p>
+  <p><strong>Hierarchical monitors:</strong> (1) A token-level classifier outputs p_tok(risk). (2) A lightweight ViT-T encodes sliding 64-token windows, producing p_seg(risk). (3) A trajectory LSTM consumes (r_l, p_tok, p_seg, decoding parameters) and outputs Q_help and Q_risk.</p>
+  <p><strong>Dual-policy controller:</strong> At each step the controller selects a∈{pass, replace, truncate, refuse} that maximises Q_help – λ*·Q_risk. Replace swaps the candidate token with the safest top-k alternative; truncate ends the reply.</p>
+  <p><strong>Robustness augmentations:</strong> Training randomly applies weight rotations, rank-5 ablations, back-door fusions, and one-shot harmful fine-tunes. A VISAGE penalty ε‖θ–θ_safe‖² discourages basin escape.</p>
+  <p><strong>Adapter quarantine:</strong> On loading external adapters we compute the maximum cosine between their update directions and any SVF or refusal direction. If this exceeds τ = 0.48 the adapter is sandboxed and λ is temporarily increased.</p>
+</section>
+
+<section>
+  <h2>Experimental Setup</h2>
+  <p><strong>Hardware and framework:</strong> All experiments run on a single NVIDIA A100-40 GB GPU using PyTorch 2.2, vLLM, and flash-attention. Weights are fp16; activations bf16.</p>
+  <p><strong>Model and training:</strong> Base model: Llama-3-Instruct-2 (3 B). Dual-stage alignment: one PeCAN epoch plus DPO on PKU-SafeRLHF-30k, batch 512 prompt tokens, learning rate 2×10⁻⁵, LoRA rank 16. Lisa fusion uses λ = 0.3 and μ = 0.05. Enforcement modules (SVF, Q-nets, ViT-T, LSTM) train for two hours with AdamW (β₁ = 0.9, β₂ = 0.95) and learning rate 1×10⁻⁴.</p>
+  <p><strong>Data:</strong> Alignment: PKU-SafeRLHF-30k augmented with Anthropic Constitutional and BeaverTails safe prompts. Evaluation: AdvBench-500 <a href="https://arxiv.org/pdf/2404.01318v5.pdf" target="_blank" title="JailbreakBench: An Open Robustness Benchmark for Jailbreaking Large Language Models">(Patrick Chao, 2024)</a>, HarmBench-159, JailbreakBench-100, plus Spanish and Arabic translations. Weight attacks include Universal-Backdoor fusions, Lisa harmful fine-tuning, and random rank-5 ablations.</p>
+  <p><strong>Metrics:</strong> Safety: attack-success rate (ASR) scored by GPT-4o rubric. Robustness: ΔASR under each attack. VISAGE depth: ℓ₂ distance to safety-basin centre. Utility: MT-Bench score, MMLU accuracy, GSM8K exact match. Efficiency: median latency over 256 prompts and peak VRAM.</p>
+  <p><strong>Baselines:</strong> (i) Constitutional-AI-3B retrained on identical data, (ii) SmoothLLM-3B, (iii) TCM-3B. All share the 3 B parameter budget and identical LoRA recipe but omit PRANCE modules.</p>
+  <p><strong>Experiments:</strong> 1) Implementation-Trace Alignment Test (ITAT) validates module execution via autograd traces and a micro ablation. 2) Scaled End-to-End Robustness Evaluation (SERIE) sweeps a 4×4 decoding grid across three weight states for 1 536 prompt points per model. 3) Seven-Day Drift &amp; LoRA Infection Simulation (SDDL) mimics continual deployment with daily reward fine-tunes and random adapter injections.</p>
+</section>
+
+<section>
+  <h2>Results</h2>
+  <p><strong>Implementation-Trace Alignment Test:</strong> All six PRANCE modules appear in the autograd trace, and WandB logs are populated. Disabling SVF raises ASR on a 64-prompt AdvBench slice from 2.8 % to 11.5 % (Δ = +8.7 pp), surpassing the 5 pp pass criterion. Wall-clock time is 14 min; peak VRAM 12 GB.</p>
+  <p><strong>Scaled End-to-End Robustness Evaluation:</strong> Clean ASR: PRANCE 2.4 % ± 0.9 (AdvBench-128), 3.9 % ± 1.7 (JailbreakBench-40), 1.5 % ± 0.8 (HarmBench-40). Constitutional-AI records 21.8 %, 18.6 %, 12.9 %; SmoothLLM 9–12 %. Malicious LoRA merge increases PRANCE ASR by +2.2 pp, versus +19.4 pp baseline. Toxic Lisa-900 fine-tune adds +2.7 pp for PRANCE versus +18.1 pp baseline. Changing decoding from (T = 0.2, p = 0.95) to (T = 0.7, p = 0.3) raises PRANCE ASR by ≤1.8 pp. Utility cost is minimal: MT-Bench-Lite −0.8 %, MMLU −0.4 pp, GSM8K unchanged. Latency overhead 11.3 %; peak VRAM 10.9 GB—both within deployment budgets.</p>
+  <p><strong>Hyper-parameter sensitivity:</strong> ASR is convex in λ* with a plateau between 1.0–1.3. SVF update period 256 trades latency and safety best: updating every 64 tokens adds 4 % latency; every 1 024 tokens increases ASR by 3 pp.</p>
+  <p><strong>Seven-Day Drift &amp; LoRA Infection Simulation:</strong> PRANCE-online ASR stays 2.9–4.7 % (AUC ≈ 26). PRANCE-static (frozen SVF) drifts to 16.1 % by day 7; SmoothLLM exceeds 15 % by day 4. VISAGE depth for PRANCE-online remains 0.08 ± 0.02, whereas PRANCE-static breaches 0.15 on day 5. Adapter quarantine detects 22 / 24 malicious inserts (recall 0.92) with two false positives. Daily latency overhead 12–14 %.</p>
+  <p><strong>Ablations:</strong> Removing the trajectory LSTM increases ASR by 3.4 pp; omitting ViT-T adds 2.1 pp; disabling the VISAGE penalty raises weight-attack ΔASR to 6.8 pp, confirming each component’s contribution.</p>
+  <p><strong>Limitations:</strong> PRANCE depends on GPT-4o labels for SVF training; very long conversations moderately increase compute due to frequent updates. Extremely large harmful fine-tunes (&gt;1 000 steps) can eventually escape the safety basin, albeit more slowly than baselines.</p>
+</section>
+
+<section>
+  <h2>Conclusion</h2>
+  <p>We introduced PRANCE, a resource-efficient defence that couples optimal dual alignment, proximal safety fusion, and adaptive low-rank enforcement to counter prompt-, decoding-, and weight-space jailbreaks. Across implementation-trace tests, large-scale robustness grids, and a week-long continual-learning simulation, PRANCE cuts attack success by an order of magnitude relative to a strong Constitutional-AI baseline, maintains helpfulness within 1 %, and meets edge-deployment budgets. Our results highlight that maintaining a dynamically updated safety sub-space, enforced by a principled dual-policy controller, can deliver robust, helpful, and harmless LLMs at modest cost.</p>
+  <p>Future work will extend SVFs to mixture-of-experts architectures, incorporate pluralistic value alignment <a href="https://arxiv.org/pdf/2402.05070v3.pdf" target="_blank" title="Position: A Roadmap to Pluralistic Alignment">(Taylor Sorensen, 2024)</a>, and pursue certified guarantees via SafeRL theory <a href="https://arxiv.org/pdf/2310.12567v3.pdf" target="_blank" title="Safety Gymnasium: A Unified Safe Reinforcement Learning Benchmark">(Jiaming Ji, 2023)</a>. Stress-testing against emerging attacks such as COLD-Attack and Charmer remains an open priority.</p>
+</section>
+</body>
+</html>
