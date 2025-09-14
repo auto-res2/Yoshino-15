@@ -1,5 +1,5 @@
 # src/main.py
-"""Orchestrate smoke-test and full experiments from the command line (iteration-8).
+"""Orchestrate smoke-test and full experiments from the command line (iteration-9).
 
 Usage:
     uv run python -m src.main --smoke-test
@@ -26,15 +26,14 @@ from .train import ModelBuilder, TrainerWrapper
 from .evaluate import Evaluator, Plotter
 
 # ---------------------------------------------------------------------------
-# Project-level paths  (UPDATED to mandatory iteration-8 directories)
+# Project-level paths (UPDATED to mandatory iteration-9 directories)
 # ---------------------------------------------------------------------------
 PROJECT_DIR = Path(__file__).resolve().parent.parent
-RESEARCH_DIR = PROJECT_DIR / ".research" / "iteration8"
+RESEARCH_DIR = PROJECT_DIR / ".research" / "iteration9"
 IMAGES_DIR = RESEARCH_DIR / "images"
-RESULTS_DIR = RESEARCH_DIR  # JSON lives directly inside iteration8/
+RESULTS_DIR = RESEARCH_DIR  # JSON files live directly inside iteration9/
 DATA_DIR = PROJECT_DIR / "data"
 
-# Ensure directories exist ---------------------------------------------------
 for p in (IMAGES_DIR, RESULTS_DIR, DATA_DIR):
     p.mkdir(exist_ok=True, parents=True)
 
@@ -82,7 +81,7 @@ def run_experiment(cfg: ExperimentConfig, *, smoke: bool):
         "seed_results": [],
     }
 
-    # helpers ---------------------------------------------------------------
+    # Helper objects -------------------------------------------------------
     dm = DataManager(DATA_DIR)
     mb = ModelBuilder(DATA_DIR)
     plotter = Plotter(IMAGES_DIR)
@@ -106,14 +105,14 @@ def run_experiment(cfg: ExperimentConfig, *, smoke: bool):
             # ------------------------------------------------------
             # Optional fine-tuning
             # ------------------------------------------------------
-            checkpoint_dir = None  # will be set if training occurs
+            checkpoint_dir = None
             if mspec.get("training") is not None:
                 train_ds = dm.resolve_dataset(
                     cfg.datasets[mspec["training"]], split="train", smoke=smoke
                 )
                 eval_ds = dm.resolve_dataset(
                     cfg.datasets[mspec.get("eval", mspec["training"])],
-                    split=["validation", "test"],  # try validation, fall back to test
+                    split=["validation", "test"],
                     smoke=smoke,
                 )
                 tw = TrainerWrapper(
@@ -125,13 +124,14 @@ def run_experiment(cfg: ExperimentConfig, *, smoke: bool):
                 model = tw.train(train_ds, eval_ds)
 
                 checkpoint_dir = RESULTS_DIR / "checkpoints" / f"{mname}_seed{seed}"
+                checkpoint_dir.parent.mkdir(exist_ok=True, parents=True)
                 model.save_pretrained(checkpoint_dir)
 
             # ------------------------------------------------------
             # Evaluation (prompt-level ASR)
             # ------------------------------------------------------
             model_path_for_eval = str(checkpoint_dir) if checkpoint_dir else base_id
-            evaluator = Evaluator(model_id=model_path_for_eval)  # vLLM expects ID / local path
+            evaluator = Evaluator(model_id=model_path_for_eval)
 
             attack_split = cfg.evaluation.get("attack_split", "test")
             attack_ds = dm.resolve_dataset(
@@ -145,8 +145,8 @@ def run_experiment(cfg: ExperimentConfig, *, smoke: bool):
             asr = evaluator.compute_asr(
                 prompts,
                 bad_keywords=cfg.evaluation.get("bad_keywords", ["harm"]),
-                temperature=cfg.evaluation.get("temperature", 0.8),
-                top_p=cfg.evaluation.get("top_p", 0.95),
+                temperature=float(cfg.evaluation.get("temperature", 0.8)),
+                top_p=float(cfg.evaluation.get("top_p", 0.95)),
             )
             seed_rec["model"][mname] = {"ASR": asr}
 
@@ -155,20 +155,20 @@ def run_experiment(cfg: ExperimentConfig, *, smoke: bool):
     # ----------------------------------------------------------------------
     # Aggregate over seeds
     # ----------------------------------------------------------------------
-    agg = {}
+    agg: Dict[str, float] = {}
     for m in cfg.models.keys():
         vals = [sr["model"][m]["ASR"] for sr in results["seed_results"]]
         agg[m] = float(np.mean(vals))
     results["aggregate"] = agg
 
     # ----------------------------------------------------------------------
-    # Plot
+    # Plot & save figure
     # ----------------------------------------------------------------------
     fig_name = plotter.bar(agg, title="Attack Success Rate (↓)", fname="asr_prompt_level.pdf")
     results["figures"] = [fig_name]
 
     # ----------------------------------------------------------------------
-    # Persist JSON into .research/iteration8 and also print to stdout
+    # Persist JSON inside `.research/iteration9/` and print to stdout
     # ----------------------------------------------------------------------
     out_path = RESULTS_DIR / f"{cfg.name.replace(' ', '_')}_results.json"
     with out_path.open("w") as f:

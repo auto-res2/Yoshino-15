@@ -1,5 +1,5 @@
 # src/evaluate.py
-"""Evaluation, metrics and plotting helpers."""
+"""Evaluation, metrics and plotting helpers (iteration-9)."""
 from __future__ import annotations
 
 import json
@@ -63,13 +63,13 @@ class Evaluator:
 
 
 # ---------------------------------------------------------------------------
-# Plotting
+# Plotting helpers
 # ---------------------------------------------------------------------------
 plt.rcParams.update({"pdf.fonttype": 42, "ps.fonttype": 42})
 
 
 class Plotter:
-    """Minimal helper to create PDF bar plots that end up in `.research/iteration6/images`."""
+    """Create bar plots saved under `.research/iteration9/images`."""
 
     def __init__(self, out_dir: Path):
         self.out_dir = out_dir
