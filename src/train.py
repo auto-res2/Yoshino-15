@@ -1,11 +1,11 @@
 # src/train.py
-"""Model construction and fine-tuning utilities."""
+"""Model construction and fine-tuning utilities (iteration-8)."""
 from __future__ import annotations
 
 import os
 from inspect import signature
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, List, Union
 
 import torch
 from peft import LoraConfig, get_peft_model
@@ -21,10 +21,10 @@ from transformers import (
 # -----------------------------------------------------------------------------
 # We explicitly import ``TrainingArguments`` from the dedicated sub-module to
 # minimise the risk of namespace pollution.  However, some environments may ship
-# a stripped-down variant that lacks fields such as ``evaluation_strategy``.
-# We therefore *optimistically* add optional kwargs and fall back gracefully if
-# they are rejected, guaranteeing forward-compatibility while maintaining our
-# fail-fast policy for unrelated errors.
+# a stripped-down variant that lacks fields such as ``evaluation_strategy`` or
+# ``remove_unused_columns``.  We therefore *optimistically* add optional kwargs
+# and fall back gracefully if they are rejected, guaranteeing forward-
+# compatibility while maintaining our fail-fast policy for unrelated errors.
 # -----------------------------------------------------------------------------
 from transformers.training_args import TrainingArguments  # noqa: E402
 
@@ -90,6 +90,7 @@ class TrainerWrapper:
         self.output_dir = output_dir
         self.output_dir.mkdir(exist_ok=True, parents=True)
         self.args_cfg = args_cfg
+        self.tokenizer = tokenizer  # keep for on-the-fly tokenisation
 
         # ------------------------------------------------------------------
         # Build a kwargs dict and *only* pass fields the detected
@@ -107,29 +108,26 @@ class TrainerWrapper:
             "logging_steps": 10,
             "save_strategy": "epoch",
             "report_to": ["none"],
+            # ----- critical flag ----------------------------------------------------------
+            # We keep *all* original columns so that custom tokenisation performed below
+            # can freely decide what to consume.  This also avoids the runtime ValueError
+            # observed when the dataset columns do not match the model signature.
+            "remove_unused_columns": False,
         }
 
         sig_params = signature(TrainingArguments.__init__).parameters
         if "evaluation_strategy" in sig_params:
             base_kwargs["evaluation_strategy"] = "epoch"
 
-        # ------------------------------------------------------------------
-        # Older / stripped-down TrainingArguments implementations (e.g. in some
-        # minimal CI wheels) may *appear* to expose a parameter that later gets
-        # stripped inside a custom wrapper, throwing a TypeError.  We therefore
-        # try once with the optimistic set of kwargs and, if that fails due to
-        # an unknown argument, remove the offending field(s) and retry.
-        # ------------------------------------------------------------------
         try:
             self.tr_args = TrainingArguments(**base_kwargs)
         except TypeError as e:
-            msg = str(e)
-            if "evaluation_strategy" in msg:
-                base_kwargs.pop("evaluation_strategy", None)
-                self.tr_args = TrainingArguments(**base_kwargs)
-            else:
-                # Unknown argument not covered by our compatibility shim → re-raise
-                raise
+            # Graceful degradation for stripped-down builds -------------------------------
+            unkn_msg = str(e)
+            for opt_key in ["evaluation_strategy", "remove_unused_columns"]:
+                if opt_key in unkn_msg:
+                    base_kwargs.pop(opt_key, None)
+            self.tr_args = TrainingArguments(**base_kwargs)
 
         self.trainer = Trainer(
             model=model,
@@ -141,11 +139,60 @@ class TrainerWrapper:
         )
 
     # --------------------------------------------------------------
+    # Internal helpers
+    # --------------------------------------------------------------
+    def _needs_tokenisation(self, ds) -> bool:
+        """Return True if *ds* does not yet contain an 'input_ids' column."""
+        return "input_ids" not in ds.column_names
+
+    def _tokenise_dataset(self, ds):
+        """Add `input_ids` (+ labels) columns via the stored tokenizer."""
+
+        def _select_text_field(batch: Dict[str, List[Any]]) -> List[str]:
+            # Priority: explicit 'prompt' / 'text' else first str-valued column
+            if "prompt" in batch:
+                return batch["prompt"]
+            if "text" in batch:
+                return batch["text"]
+            # Fallback: detect first str column -------------------------------------------
+            for k, v in batch.items():
+                if isinstance(v[0], str):  # pyright: ignore[reportGeneralTypeIssues]
+                    return v
+            raise RuntimeError("No textual field found for tokenisation.")
+
+        def _tok_fn(batch: Dict[str, List[Any]]):
+            texts: List[str] = _select_text_field(batch)
+            tokens = self.tokenizer(
+                texts,
+                truncation=True,
+                padding=False,
+                max_length=self.args_cfg.get("max_length", 512),
+            )
+            tokens["labels"] = tokens["input_ids"].copy()
+            return tokens
+
+        return ds.map(
+            _tok_fn,
+            batched=True,
+            remove_columns=ds.column_names,
+            desc="Tokenising dataset",
+        )
+
+    # --------------------------------------------------------------
     # Public API
     # --------------------------------------------------------------
     def train(self, train_ds, eval_ds):
         """Run one training / evaluation loop and return the trained model."""
 
+        # ------------------------------------------------------------------
+        # Tokenise if necessary (fail-fast for unsupported schemas).
+        # ------------------------------------------------------------------
+        if self._needs_tokenisation(train_ds):
+            train_ds = self._tokenise_dataset(train_ds)
+        if self._needs_tokenisation(eval_ds):
+            eval_ds = self._tokenise_dataset(eval_ds)
+
+        # Attach to trainer --------------------------------------------------
         self.trainer.train_dataset = train_ds
         self.trainer.eval_dataset = eval_ds
         self.trainer.train()
