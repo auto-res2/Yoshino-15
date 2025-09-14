@@ -1,0 +1,17 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Generating train split:   0%|          | 0/73907 [00:00<?, ? examples/s]Generating train split:  15%|█▌        | 11104/73907 [00:00<00:00, 81377.76 examples/s]Generating train split:  35%|███▌      | 25958/73907 [00:00<00:00, 94805.92 examples/s]Generating train split:  52%|█████▏    | 38459/73907 [00:00<00:00, 93355.98 examples/s]Generating train split:  72%|███████▏  | 52957/73907 [00:00<00:00, 97423.00 examples/s]Generating train split:  92%|█████████▏| 67774/73907 [00:00<00:00, 96722.45 examples/s]Generating train split: 100%|██████████| 73907/73907 [00:00<00:00, 81050.65 examples/s]
+Generating test split:   0%|          | 0/8211 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 8211/8211 [00:00<00:00, 78670.15 examples/s]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/src/main.py", line 215, in <module>
+    main()
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/src/main.py", line 211, in main
+    run_experiment(cfg, smoke=smoke)
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/src/main.py", line 119, in run_experiment
+    tw = TrainerWrapper(
+         ^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/src/train.py", line 95, in __init__
+    self.tr_args = TrainingArguments(
+                   ^^^^^^^^^^^^^^^^^^
+TypeError: TrainingArguments.__init__() got an unexpected keyword argument 'evaluation_strategy'
