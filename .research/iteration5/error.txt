@@ -1,0 +1,17 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Generating train split:   0%|          | 0/73907 [00:00<?, ? examples/s]Generating train split:   5%|▌         | 3707/73907 [00:00<00:13, 5322.44 examples/s]Generating train split:  10%|█         | 7412/73907 [00:01<00:17, 3904.87 examples/s]Generating train split:  15%|█▌        | 11104/73907 [00:02<00:10, 5873.26 examples/s]Generating train split:  30%|███       | 22230/73907 [00:02<00:03, 14773.11 examples/s]Generating train split:  47%|████▋     | 34764/73907 [00:02<00:01, 24207.52 examples/s]Generating train split:  62%|██████▏   | 45853/73907 [00:03<00:01, 14933.32 examples/s]Generating train split:  67%|██████▋   | 49567/73907 [00:03<00:01, 14984.14 examples/s]Generating train split:  72%|███████▏  | 52957/73907 [00:04<00:01, 15189.49 examples/s]Generating train split:  87%|████████▋ | 64071/73907 [00:04<00:00, 23716.38 examples/s]Generating train split: 100%|██████████| 73907/73907 [00:04<00:00, 16489.69 examples/s]
+Generating test split:   0%|          | 0/8211 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 8211/8211 [00:00<00:00, 81497.43 examples/s]Generating test split: 100%|██████████| 8211/8211 [00:00<00:00, 67289.22 examples/s]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/src/main.py", line 215, in <module>
+    main()
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/src/main.py", line 211, in main
+    run_experiment(cfg, smoke=smoke)
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/src/main.py", line 119, in run_experiment
+    tw = TrainerWrapper(
+         ^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/src/train.py", line 83, in __init__
+    self.tr_args = TrainingArguments(
+                   ^^^^^^^^^^^^^^^^^^
+TypeError: TrainingArguments.__init__() got an unexpected keyword argument 'evaluation_strategy'
