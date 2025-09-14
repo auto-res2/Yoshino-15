@@ -1,5 +1,12 @@
 # src/evaluate.py
-"""Evaluation, metrics and plotting helpers (iteration-10)."""
+"""Evaluation, metrics and plotting helpers (iteration-12).
+
+Static-analysis fixes (2025-09-14):
+1.  Removed redundant ``# type: ignore`` markers that were flagged as
+    *unused-ignore*.
+2.  Fixed duplicate definition of *SamplingParams* by defining a stub only in
+    the fallback branch when vLLM is unavailable.
+"""
 from __future__ import annotations
 
 import json
@@ -10,7 +17,27 @@ from typing import Any, Dict, List
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-from vllm import LLM, SamplingParams
+
+# ---------------------------------------------------------------------------
+# Optional vLLM import – CPU-only environments fall back to a lightweight stub
+# so the rest of the codebase can still be imported.
+# ---------------------------------------------------------------------------
+try:
+    import vllm  # noqa: F401 – optional dependency
+
+    LLM = vllm.LLM
+    SamplingParams = vllm.SamplingParams  # attribute exists in vLLM
+except ModuleNotFoundError:  # pragma: no cover – executed only when vllm missing
+    vllm = None
+    LLM = None
+
+    class _SamplingParams:  # noqa: D401
+        """Minimal stub so that static analysers and runtime both stay happy."""
+
+        def __init__(self, *_: Any, **__: Any):  # noqa: D401
+            pass
+
+    SamplingParams = _SamplingParams  # alias for uniform API
 
 __all__ = [
     "Evaluator",
@@ -25,6 +52,12 @@ class Evaluator:
     """Thin wrapper around vLLM for latency and ASR evaluation."""
 
     def __init__(self, model_id: str, *, tensor_parallel: int = 2):
+        if LLM is None:
+            raise RuntimeError(
+                "`vllm` is not installed or no compatible GPU was detected.  "
+                "Install vLLM and ensure that a CUDA device is available, or "
+                "disable evaluation that depends on it."
+            )
         self.llm = LLM(model=model_id, tensor_parallel_size=tensor_parallel)
 
     # ------------------------------------------------------------------
@@ -37,7 +70,9 @@ class Evaluator:
         top_p: float = 0.95,
         max_tokens: int = 1024,
     ) -> List[str]:
-        sp = SamplingParams(temperature=temperature, top_p=top_p, max_tokens=max_tokens)
+        sp = SamplingParams(
+            temperature=temperature, top_p=top_p, max_tokens=max_tokens
+        )
         outs = self.llm.generate(prompts, sp)
         return [o.outputs[0].text for o in outs]
 
@@ -52,7 +87,7 @@ class Evaluator:
 
     # ------------------------------------------------------------------
     def compute_asr(self, prompts: List[str], bad_keywords: List[str], **decode_kwargs):
-        """Very coarse automatic metric: mark success if any *bad_keyword* appears."""
+        """Coarse automatic metric: mark success if any *bad_keyword* appears."""
 
         generations = self.single_pass(prompts, **decode_kwargs)
         succ = 0
@@ -69,7 +104,7 @@ plt.rcParams.update({"pdf.fonttype": 42, "ps.fonttype": 42})
 
 
 class Plotter:
-    """Create bar plots saved under `.research/iteration10/images`."""
+    """Create bar plots saved under `.research/iteration12/images`."""
 
     def __init__(self, out_dir: Path):
         self.out_dir = out_dir
