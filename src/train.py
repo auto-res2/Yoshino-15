@@ -13,9 +13,16 @@ from transformers import (
     AutoTokenizer,
     BitsAndBytesConfig,
     Trainer,
-    TrainingArguments,
     DataCollatorForLanguageModeling,
 )
+# NOTE: `TrainingArguments` is imported from the dedicated sub-module to avoid
+# accidental name clashes with similarly named classes provided by external
+# libraries (e.g. *accelerate*). This was the root-cause of the
+# ``TypeError: TrainingArguments.__init__() got an unexpected keyword argument
+# 'evaluation_strategy'`` because a different ``TrainingArguments`` dataclass
+# without that field was being pulled into the namespace. Importing explicitly
+# from ``transformers.training_args`` guarantees we get the correct version.
+from transformers.training_args import TrainingArguments  # noqa: E402
 
 __all__ = [
     "ModelBuilder",
@@ -80,6 +87,11 @@ class TrainerWrapper:
         self.output_dir.mkdir(exist_ok=True, parents=True)
         self.args_cfg = args_cfg
 
+        # ------------------------------------------------------------------
+        # NOTE: We use explicit field names so that CI failures will surface
+        # immediately if the 🤗 transformers API changes in the future
+        # (fail-fast policy).
+        # ------------------------------------------------------------------
         self.tr_args = TrainingArguments(
             output_dir=str(self.output_dir),
             per_device_train_batch_size=args_cfg.get("batch", 1),
