@@ -1283,6 +1283,53 @@
       }
     }
   ],
+  "reference_research_study_list": [
+    {
+      "title": "Jailbreak chat"
+    },
+    {
+      "title": "Training a helpful and harmless assistant with reinforcement learning from human feedback."
+    },
+    {
+      "title": "Poisoning attacks against support vector machines."
+    },
+    {
+      "title": "Are aligned neural networks adversarially aligned?"
+    },
+    {
+      "title": "Open problems and fundamental limitations of reinforcement learning from human feedback."
+    },
+    {
+      "title": "Targeted backdoor attacks on deep learning systems using data poisoning."
+    },
+    {
+      "title": "Deep reinforcement learning from human preferences."
+    },
+    {
+      "title": "Pku-beaver: Constrained value-aligned llm via safe rlhf."
+    },
+    {
+      "title": "Automatically auditing large language models via discrete optimization."
+    },
+    {
+      "title": "Weight poisoning attacks on pre-trained models."
+    },
+    {
+      "title": "Training language models to follow instructions with human feedback."
+    },
+    {
+      "title": "Proximal policy optimization algorithms."
+    },
+    {
+      "title": "Humpty dumpty: Controlling word meanings via corpus poisoning."
+    },
+    {
+      "title": "Badgpt: Exploring security vulnerabilities of chatgpt via backdoor attacks to instructgpt."
+    },
+    {
+      "title": "Autoprompt: Eliciting knowledge from language models with automatically generated prompts."
+    }
+  ],
   "new_method": {
     "method": "Open Problems: 1. Shallow-alignment hole: safety only on the first tokens. 2. Temporal blind-spots: missing long-range semantics. 3. Mechanistic jailbreaks: white-box attacks nullify refusal direction. 4. Parameter-free exploits: decoding hyper-parameter & system-prompt changes. 5. Fine-tuning backdoors & malicious LoRA adapters (Universal Backdoor, Lisa attack) currently unaddressed. 6. Safety-basin drift: small weight drifts take models outside VISAGE safety basin. 7. Deployment limits: ≤12 GB VRAM, <15 % latency overhead.\nMethods: Proposed method: PRANCE (Progressive Representation Alignment & Noxious-content Containment Engine)  A. Dual-Stage Deep Alignment  1. Reward–Safety Dualization: apply CAN (PECAN-style) offline to learn optimal dual λ*, producing a reward-aligned and a safety-aligned policy;   2. Lazy Safety Fusion: merge both policies with Lisa-style proximal regularizer to stay inside VISAGE basin, giving base checkpoint M0.  B. Hierarchical On-line Enforcement  1. Safety Vector Field (SVF): learn 4-D orthogonal safety vectors in every decoder block; update them online every 256 generated tokens via low-rank adapter meta-learning so they track drift & unknown LoRA injections.  2. Multi-grained monitors:    • Token-level LoRA classifier (as prior work)    • Segment Vision-Transformer-in-Text (k=64)    • Trajectory LSTM that consumes (SVF proj, token-risk, segment-risk, decoding-params) sequence.  3. Dual-policy Controller: at each step solves argmax_{a∈{pass,replace,trunc,refuse}} (Q_help − λ*·Q_risk) using small Q-nets distilled from M0; ensures principled helpful/safe trade-off.  C. Robustness Augmentations  1. Adversarial weight-space training: randomly apply weight-orthogonalisation, rank-5 ablations, malicious LoRA fusion, and gradual fine-tune steps; require SVF + controller to restore safety.  2. Decoding parameter sweep & system-prompt ablation during finetune.  3. Safety-basin regularizer: VISAGE depth penalty keeps updated weights within ε of basin centre.  D. Adapter Quarantine  • Upon loading any external LoRA/PEFT adapter, compute cosine with SVF & refusal directions; if risk>τ quarantine adapter and run in sand-boxed sub-space with extra controller scrutiny.  E. Efficiency  • All extra modules <8 % parameters: SVF stored as 4 vectors/layer, LSTM 2 M, ViT-T 10 M; inference overhead ≤13 %.\nExperimental Setup: Model: Llama-3-Instruct-2 3 B fp16, LoRA adapters.  Training: single A100-40 GB, 3 h for dual-alignment (PECAN+Lisa), 2 h for PRANCE enforcement modules.  Data  – Reward/Safety: PKU-SafeRLHF-30K (helpfulness & harmlessness)  – Alignment augment: Anthropic Constitutional, SafetyPrompts, BeaverTails safe set.  – Adversarial continuations: AdvBench, RL-breaker mined (80 k), Universal Backdoor poisoned set (5 % trigger).  Evaluation  1. Attack Success Rate (ASR): AdvBench-500, HarmBench-159, JailbreakBench-100.  2. Robustness:   • Temp∈[0,1], top-p∈[0.1,1]  • System prompt stripped  • Weight attacks: rank-5 ablation, orthogonalisation, malicious LoRA merge, one-shot harmful fine-tune (Lisa 900 steps).  3. Safety-basin depth: VISAGE score.  4. Utility: MT-Bench, MMLU, GSM8K.  5. Latency & VRAM.  Baselines: Std Constitutional, TCM, SmoothLLM, BSO+Lisa defence.\nExpected Result: • AdvBench ASR ≤2 % (↓11× vs 22 % baseline, 4× vs TCM). • JailbreakBench adaptive ASR ≤4 %. • Under decoding & weight attacks: ASR increase ≤3 pp. • After malicious LoRA injection or 0.1 poisoned fine-tune, ASR ≤6 % (baseline >45 %). • VISAGE depth decreases <5 % from centre (baseline drift >25 %). • Helpful benchmarks ≥99 % of original, MT-Bench 7.9 → 7.8, GSM8K unchanged. • Overhead: +11 % latency, 11 GB peak VRAM.\nExpected Conclusion: PRANCE demonstrates that coupling dual-stage optimal alignment with adaptive, low-rank safety vector fields and a principled dual-policy controller achieves state-of-the-art robustness against both prompt-level and parameter-level jailbreaks, including malicious fine-tuning and adapter attacks, while staying within edge-deployment budgets. It also empirically validates VISAGE-guided regularization as a practical means of maintaining models inside their safety basin during continual updates.",
     "experimental_design": {
