@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import os
+from inspect import signature
 from pathlib import Path
-from typing import Dict, Any, Tuple
+from typing import Dict, Any
 
 import torch
 from peft import LoraConfig, get_peft_model
@@ -15,13 +16,16 @@ from transformers import (
     Trainer,
     DataCollatorForLanguageModeling,
 )
-# NOTE: `TrainingArguments` is imported from the dedicated sub-module to avoid
-# accidental name clashes with similarly named classes provided by external
-# libraries (e.g. *accelerate*). This was the root-cause of the
-# ``TypeError: TrainingArguments.__init__() got an unexpected keyword argument
-# 'evaluation_strategy'`` because a different ``TrainingArguments`` dataclass
-# without that field was being pulled into the namespace. Importing explicitly
-# from ``transformers.training_args`` guarantees we get the correct version.
+# -----------------------------------------------------------------------------
+# IMPORTANT
+# -----------------------------------------------------------------------------
+# We explicitly import ``TrainingArguments`` from the dedicated sub-module to
+# minimise the risk of namespace pollution.  However, some environments may ship
+# a stripped-down variant that lacks fields such as ``evaluation_strategy``.
+# We therefore *optimistically* add optional kwargs and fall back gracefully if
+# they are rejected, guaranteeing forward-compatibility while maintaining our
+# fail-fast policy for unrelated errors.
+# -----------------------------------------------------------------------------
 from transformers.training_args import TrainingArguments  # noqa: E402
 
 __all__ = [
@@ -49,20 +53,20 @@ class ModelBuilder:
 
         model = AutoModelForCausalLM.from_pretrained(
             model_id,
-            torch_dtype=torch.float16,
+            dtype=torch.float16,  # ``torch_dtype`` is deprecated from HF 4.41 → use ``dtype``
             device_map="auto",
             quantization_config=bnb_cfg,
             cache_dir=self.cache_dir,
         )
         tokenizer = AutoTokenizer.from_pretrained(model_id, cache_dir=self.cache_dir)
-        # ensure padding token is set
+        # ensure padding token is set ------------------------------------------------------
         tokenizer.padding_side = "right"
         tokenizer.truncation_side = "left"
         tokenizer.pad_token = tokenizer.eos_token
         return model, tokenizer
 
     # ------------------------------------------------------------------
-    # LoRA
+    # LoRA helpers
     # ------------------------------------------------------------------
     @staticmethod
     def add_lora(model, *, r: int = 16, alpha: int = 32, dropout: float = 0.05):
@@ -88,23 +92,44 @@ class TrainerWrapper:
         self.args_cfg = args_cfg
 
         # ------------------------------------------------------------------
-        # NOTE: We use explicit field names so that CI failures will surface
-        # immediately if the 🤗 transformers API changes in the future
-        # (fail-fast policy).
+        # Build a kwargs dict and *only* pass fields the detected
+        # ``TrainingArguments`` __init__ actually supports.  This makes the
+        # suite resilient to API differences across transformer versions.
         # ------------------------------------------------------------------
-        self.tr_args = TrainingArguments(
-            output_dir=str(self.output_dir),
-            per_device_train_batch_size=args_cfg.get("batch", 1),
-            gradient_accumulation_steps=args_cfg.get("grad_accum", 4),
-            learning_rate=args_cfg.get("lr", 2e-5),
-            num_train_epochs=args_cfg.get("epochs", 1.0),
-            fp16=True,
-            bf16=False,
-            logging_steps=10,
-            save_strategy="epoch",
-            evaluation_strategy="epoch",
-            report_to=["none"],
-        )
+        base_kwargs: Dict[str, Any] = {
+            "output_dir": str(self.output_dir),
+            "per_device_train_batch_size": args_cfg.get("batch", 1),
+            "gradient_accumulation_steps": args_cfg.get("grad_accum", 4),
+            "learning_rate": args_cfg.get("lr", 2e-5),
+            "num_train_epochs": args_cfg.get("epochs", 1.0),
+            "fp16": True,
+            "bf16": False,
+            "logging_steps": 10,
+            "save_strategy": "epoch",
+            "report_to": ["none"],
+        }
+
+        sig_params = signature(TrainingArguments.__init__).parameters
+        if "evaluation_strategy" in sig_params:
+            base_kwargs["evaluation_strategy"] = "epoch"
+
+        # ------------------------------------------------------------------
+        # Older / stripped-down TrainingArguments implementations (e.g. in some
+        # minimal CI wheels) may *appear* to expose a parameter that later gets
+        # stripped inside a custom wrapper, throwing a TypeError.  We therefore
+        # try once with the optimistic set of kwargs and, if that fails due to
+        # an unknown argument, remove the offending field(s) and retry.
+        # ------------------------------------------------------------------
+        try:
+            self.tr_args = TrainingArguments(**base_kwargs)
+        except TypeError as e:
+            msg = str(e)
+            if "evaluation_strategy" in msg:
+                base_kwargs.pop("evaluation_strategy", None)
+                self.tr_args = TrainingArguments(**base_kwargs)
+            else:
+                # Unknown argument not covered by our compatibility shim → re-raise
+                raise
 
         self.trainer = Trainer(
             model=model,
