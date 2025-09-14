@@ -1,0 +1,2 @@
+error: No `project` table found in: `/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/pyproject.toml`
+error: No `project` table found in: `/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/pyproject.toml`
