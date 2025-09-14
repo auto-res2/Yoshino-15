@@ -1,11 +1,9 @@
 # src/evaluate.py
-"""Evaluation, metrics and plotting helpers (iteration-12).
+"""Evaluation, metrics and plotting helpers (iteration-14).
 
-Static-analysis fixes (2025-09-14):
-1.  Removed redundant ``# type: ignore`` markers that were flagged as
-    *unused-ignore*.
-2.  Fixed duplicate definition of *SamplingParams* by defining a stub only in
-    the fallback branch when vLLM is unavailable.
+The file keeps the optional *vLLM* wrapper but now points the default plot
+output directory to `.research/iteration14/images` in order to comply with the
+mandatory save-path constraints.
 """
 from __future__ import annotations
 
@@ -104,10 +102,11 @@ plt.rcParams.update({"pdf.fonttype": 42, "ps.fonttype": 42})
 
 
 class Plotter:
-    """Create bar plots saved under `.research/iteration12/images`."""
+    """Create bar plots saved under `.research/iteration14/images`."""
 
-    def __init__(self, out_dir: Path):
-        self.out_dir = out_dir
+    def __init__(self, out_dir: Path | None = None):
+        # default directory complies with mandatory iteration-14 path.
+        self.out_dir = out_dir or Path(".research/iteration14/images")
         self.out_dir.mkdir(exist_ok=True, parents=True)
 
     # ------------------------------------------------------------------
@@ -130,7 +129,7 @@ class Plotter:
         ax.set_ylabel(ylabel)
         ax.set_title(title)
 
-        for b, v in zip(bars, vals):
+        for b, v in zip(bars, vals, strict=True):
             ax.text(
                 b.get_x() + b.get_width() / 2,
                 v + 0.5,
