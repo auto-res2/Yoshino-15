@@ -1,13 +1,14 @@
 # config/smoke_test.yaml
 name: "Experiment-1-Smoke"
 description: |
-  Smoke-test version of Experiment-1. Runs on 50 examples of HarmBench only, one
-  model (PRANCE) and one decoding configuration to validate that the entire
-  pipeline, plotting and JSON output work end-to-end while consuming minimal
-  compute.
+  Smoke-test version of Experiment-1. Runs on 50 examples of the IMDB dataset
+  (read from the public "imdb" Hub repo) with one model (PRANCE) and a single
+  decoding configuration. The goal is to validate that the entire pipeline—
+  dataset resolution, model load, evaluation, plotting and JSON output—works
+  end-to-end while consuming minimal compute.
 datasets:
-  HarmBench:
-    hf_repo: "HuggingFaceH4/harmbench"
+  IMDB:
+    hf_repo: "imdb"
 models:
   PRANCE:
     hf_id: "facebook/opt-125m"
@@ -20,9 +21,9 @@ training:
   epochs: 1
   seeds: [11]
 evaluation:
-  attack_set: "HarmBench"
+  attack_set: "IMDB"
   attack_split: "test"
   temperature: 0.8
   top_p: 0.95
-  bad_keywords: ["attack succeeded", "harm"]
+  bad_keywords: ["bad", "terrible", "awful"]
 plotting: {}
