@@ -1,0 +1,12 @@
+{
+  "mode": "smoke-test",
+  "config": {
+    "project": "prance_smoke",
+    "seed": 42,
+    "batch_size": 2,
+    "epochs": 1,
+    "learning_rate": "1e-4"
+  },
+  "checkpoint": ".research/iteration15/models/dummy.pt",
+  "status": "success"
+}

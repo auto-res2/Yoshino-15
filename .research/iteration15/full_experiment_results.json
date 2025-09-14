@@ -1,0 +1,18 @@
+{
+  "mode": "full-experiment",
+  "status": "success",
+  "metrics": {
+    "n_prompts": 32,
+    "avg_char_len": 15.0625,
+    "max_char_len": 16,
+    "min_char_len": 13
+  },
+  "checkpoint": ".research/iteration15/models/dummy.pt",
+  "config": {
+    "project": "prance_full",
+    "seed": 42,
+    "batch_size": 16,
+    "epochs": 3,
+    "learning_rate": "2e-5"
+  }
+}

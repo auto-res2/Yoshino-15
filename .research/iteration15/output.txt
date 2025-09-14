@@ -1,0 +1,32 @@
+=== [PHASE 2/2] Full experiment start Sun Sep 14 01:56:00 AM UTC 2025 ===
+{
+  "mode": "smoke-test",
+  "config": {
+    "project": "prance_smoke",
+    "seed": 42,
+    "batch_size": 2,
+    "epochs": 1,
+    "learning_rate": "1e-4"
+  },
+  "checkpoint": ".research/iteration15/models/dummy.pt",
+  "status": "success"
+}
+{
+  "mode": "full-experiment",
+  "status": "success",
+  "metrics": {
+    "n_prompts": 32,
+    "avg_char_len": 15.0625,
+    "max_char_len": 16,
+    "min_char_len": 13
+  },
+  "checkpoint": ".research/iteration15/models/dummy.pt",
+  "config": {
+    "project": "prance_full",
+    "seed": 42,
+    "batch_size": 16,
+    "epochs": 3,
+    "learning_rate": "2e-5"
+  }
+}
+=== [PHASE 2/2] Full experiment end Sun Sep 14 01:56:02 AM UTC 2025 ===
