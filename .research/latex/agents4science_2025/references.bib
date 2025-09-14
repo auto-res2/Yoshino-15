@@ -5,3 +5,1300 @@
   publisher = {GitHub},
   url       = {https://github.com/airas-org/airas}
 }
+
+% ===========================================
+% REQUIRED CITATIONS
+% These papers must be cited in the manuscript
+% ===========================================
+
+@article{arditi-2024-refusal,
+ abstract = {Conversational large language models are fine-tuned for both
+instruction-following and safety, resulting in models that obey benign requests
+but refuse harmful ones. While this refusal behavior is widespread across chat
+models, its underlying mechanisms remain poorly understood. In this work, we
+show that refusal is mediated by a one-dimensional subspace, across 13 popular
+open-source chat models up to 72B parameters in size. Specifically, for each
+model, we find a single direction such that erasing this direction from the
+model's residual stream activations prevents it from refusing harmful
+instructions, while adding this direction elicits refusal on even harmless
+instructions. Leveraging this insight, we propose a novel white-box jailbreak
+method that surgically disables refusal with minimal effect on other
+capabilities. Finally, we mechanistically analyze how adversarial suffixes
+suppress propagation of the refusal-mediating direction. Our findings
+underscore the brittleness of current safety fine-tuning methods. More broadly,
+our work showcases how an understanding of model internals can be leveraged to
+develop practical methods for controlling model behavior.},
+ arxiv_url = {https://arxiv.org/pdf/2406.11717v3.pdf},
+ author = {Andy Arditi and Oscar Obeso and Aaquib Syed and Daniel Paleka and Nina Panickssery and Wes Gurnee and Neel Nanda},
+ github_url = {https://github.com/andyrdt/refusal_direction},
+ title = {Refusal in Language Models Is Mediated by a Single Direction},
+ year = {2024}
+}
+
+@article{author-year-language,
+ title = {Language Without Borders: A Dataset and Benchmark for Code-Switching Lip Reading}
+}
+
+@article{author-year-nas,
+ title = {NAS-Bench-ASR: Reproducible Neural Architecture Search for Speech Recognition}
+}
+
+@article{author-year-voiceblock,
+ title = {VoiceBlock: Privacy through Real-Time Adversarial Attacks with Audio-to-Audio Models}
+}
+
+@article{basu-2024-understanding,
+ abstract = {Understanding the mechanisms of information storage and transfer in
+Transformer-based models is important for driving model understanding progress.
+Recent work has studied these mechanisms for Large Language Models (LLMs),
+revealing insights on how information is stored in a model's parameters and how
+information flows to and from these parameters in response to specific prompts.
+However, these studies have not yet been extended to Multi-modal Large Language
+Models (MLLMs). Given their expanding capabilities and real-world use, we start
+by studying one aspect of these models -- how MLLMs process information in a
+factual visual question answering task. We use a constraint-based formulation
+which views a visual question as having a set of visual or textual constraints
+that the model's generated answer must satisfy to be correct (e.g. What movie
+directed by the director in this photo has won a Golden Globe?). Under this
+setting, we contribute i) a method that extends causal information tracing from
+pure language to the multi-modal setting, and ii) VQA-Constraints, a test-bed
+of 9.7K visual questions annotated with constraints. We use these tools to
+study two open-source MLLMs, LLaVa and multi-modal Phi-2. Our key findings show
+that these MLLMs rely on MLP and self-attention blocks in much earlier layers
+for information storage, compared to LLMs whose mid-layer MLPs are more
+important. We also show that a consistent small subset of visual tokens output
+by the vision encoder are responsible for transferring information from the
+image to these causal blocks. We validate these mechanisms by introducing
+MultEdit, a model-editing algorithm that can correct errors and insert new
+long-tailed information into MLLMs by targeting these causal blocks.},
+ arxiv_url = {https://arxiv.org/pdf/2406.04236v1.pdf},
+ author = {Samyadeep Basu and Martin Grayson and Cecily Morrison and Besmira Nushi and Soheil Feizi and Daniela Massiceti},
+ title = {Understanding Information Storage and Transfer in Multi-Modal Large Language Models},
+ year = {2024}
+}
+
+@article{berdoz-2024-can,
+ abstract = {While autonomous agents often surpass humans in their ability to handle vast
+and complex data, their potential misalignment (i.e., lack of transparency
+regarding their true objective) has thus far hindered their use in critical
+applications such as social decision processes. More importantly, existing
+alignment methods provide no formal guarantees on the safety of such models.
+Drawing from utility and social choice theory, we provide a novel quantitative
+definition of alignment in the context of social decision-making. Building on
+this definition, we introduce probably approximately aligned (i.e.,
+near-optimal) policies, and we derive a sufficient condition for their
+existence. Lastly, recognizing the practical difficulty of satisfying this
+condition, we introduce the relaxed concept of safe (i.e., nondestructive)
+policies, and we propose a simple yet robust method to safeguard the black-box
+policy of any autonomous agent, ensuring all its actions are verifiably safe
+for the society.},
+ arxiv_url = {https://arxiv.org/pdf/2412.00033v1.pdf},
+ author = {Frédéric Berdoz and Roger Wattenhofer},
+ title = {Can an AI Agent Safely Run a Government? Existence of Probably Approximately Aligned Policies},
+ year = {2024}
+}
+
+@article{chao-2024-jailbreakbench,
+ abstract = {Jailbreak attacks cause large language models (LLMs) to generate harmful,
+unethical, or otherwise objectionable content. Evaluating these attacks
+presents a number of challenges, which the current collection of benchmarks and
+evaluation techniques do not adequately address. First, there is no clear
+standard of practice regarding jailbreaking evaluation. Second, existing works
+compute costs and success rates in incomparable ways. And third, numerous works
+are not reproducible, as they withhold adversarial prompts, involve
+closed-source code, or rely on evolving proprietary APIs. To address these
+challenges, we introduce JailbreakBench, an open-sourced benchmark with the
+following components: (1) an evolving repository of state-of-the-art
+adversarial prompts, which we refer to as jailbreak artifacts; (2) a
+jailbreaking dataset comprising 100 behaviors -- both original and sourced from
+prior work (Zou et al., 2023; Mazeika et al., 2023, 2024) -- which align with
+OpenAI's usage policies; (3) a standardized evaluation framework at
+https://github.com/JailbreakBench/jailbreakbench that includes a clearly
+defined threat model, system prompts, chat templates, and scoring functions;
+and (4) a leaderboard at https://jailbreakbench.github.io/ that tracks the
+performance of attacks and defenses for various LLMs. We have carefully
+considered the potential ethical implications of releasing this benchmark, and
+believe that it will be a net positive for the community.},
+ arxiv_url = {https://arxiv.org/pdf/2404.01318v5.pdf},
+ author = {Patrick Chao and Edoardo Debenedetti and Alexander Robey and Maksym Andriushchenko and Francesco Croce and Vikash Sehwag and Edgar Dobriban and Nicolas Flammarion and George J. Pappas and Florian Tramer and Hamed Hassani and Eric Wong},
+ github_url = {https://github.com/JailbreakBench/jailbreakbench},
+ title = {JailbreakBench: An Open Robustness Benchmark for Jailbreaking Large Language Models},
+ year = {2024}
+}
+
+@article{chen-2023-gaining,
+ abstract = {The rapid development of large language models (LLMs) has not only provided
+numerous opportunities but also presented significant challenges. This becomes
+particularly evident when LLMs inadvertently generate harmful or toxic content,
+either unintentionally or because of intentional inducement. Existing alignment
+methods usually direct LLMs toward the favorable outcomes by utilizing
+human-annotated, flawless instruction-response pairs. Conversely, this study
+proposes a novel alignment technique based on mistake analysis, which
+deliberately exposes LLMs to erroneous content to learn the reasons for
+mistakes and how to avoid them. In this case, mistakes are repurposed into
+valuable data for alignment, effectively helping to avoid the production of
+erroneous responses. Without external models or human annotations, our method
+leverages a model's intrinsic ability to discern undesirable mistakes and
+improves the safety of its generated responses. Experimental results reveal
+that our method outperforms existing alignment approaches in enhancing model
+safety while maintaining the overall utility.},
+ arxiv_url = {https://arxiv.org/pdf/2310.10477v6.pdf},
+ author = {Kai Chen and Chunwei Wang and Kuo Yang and Jianhua Han and Lanqing Hong and Fei Mi and Hang Xu and Zhengying Liu and Wenyong Huang and Zhenguo Li and Dit-Yan Yeung and Lifeng Shang and Xin Jiang and Qun Liu},
+ title = {Gaining Wisdom from Setbacks: Aligning Large Language Models via Mistake Analysis},
+ year = {2023}
+}
+
+@article{chen-2023-hyporadise,
+ abstract = {Advancements in deep neural networks have allowed automatic speech
+recognition (ASR) systems to attain human parity on several publicly available
+clean speech datasets. However, even state-of-the-art ASR systems experience
+performance degradation when confronted with adverse conditions, as a
+well-trained acoustic model is sensitive to variations in the speech domain,
+e.g., background noise. Intuitively, humans address this issue by relying on
+their linguistic knowledge: the meaning of ambiguous spoken terms is usually
+inferred from contextual cues thereby reducing the dependency on the auditory
+system. Inspired by this observation, we introduce the first open-source
+benchmark to utilize external large language models (LLMs) for ASR error
+correction, where N-best decoding hypotheses provide informative elements for
+true transcription prediction. This approach is a paradigm shift from the
+traditional language model rescoring strategy that can only select one
+candidate hypothesis as the output transcription. The proposed benchmark
+contains a novel dataset, HyPoradise (HP), encompassing more than 334,000 pairs
+of N-best hypotheses and corresponding accurate transcriptions across prevalent
+speech domains. Given this dataset, we examine three types of error correction
+techniques based on LLMs with varying amounts of labeled
+hypotheses-transcription pairs, which gains a significant word error rate (WER)
+reduction. Experimental evidence demonstrates the proposed technique achieves a
+breakthrough by surpassing the upper bound of traditional re-ranking based
+methods. More surprisingly, LLM with reasonable prompt and its generative
+capability can even correct those tokens that are missing in N-best list. We
+make our results publicly accessible for reproducible pipelines with released
+pre-trained models, thus providing a new evaluation paradigm for ASR error
+correction with LLMs.},
+ arxiv_url = {https://arxiv.org/pdf/2309.15701v2.pdf},
+ author = {Chen Chen and Yuchen Hu and Chao-Han Huck Yang and Sabato Macro Siniscalchi and Pin-Yu Chen and Eng Siong Chng},
+ github_url = {https://github.com/Hypotheses-Paradise/Hypo2Trans},
+ title = {HyPoradise: An Open Baseline for Generative Speech Recognition with Large Language Models},
+ year = {2023}
+}
+
+@article{chen-2024-when,
+ abstract = {Recent studies developed jailbreaking attacks, which construct jailbreaking
+prompts to fool LLMs into responding to harmful questions. Early-stage
+jailbreaking attacks require access to model internals or significant human
+efforts. More advanced attacks utilize genetic algorithms for automatic and
+black-box attacks. However, the random nature of genetic algorithms
+significantly limits the effectiveness of these attacks. In this paper, we
+propose RLbreaker, a black-box jailbreaking attack driven by deep reinforcement
+learning (DRL). We model jailbreaking as a search problem and design an RL
+agent to guide the search, which is more effective and has less randomness than
+stochastic search, such as genetic algorithms. Specifically, we design a
+customized DRL system for the jailbreaking problem, including a novel reward
+function and a customized proximal policy optimization (PPO) algorithm. Through
+extensive experiments, we demonstrate that RLbreaker is much more effective
+than existing jailbreaking attacks against six state-of-the-art (SOTA) LLMs. We
+also show that RLbreaker is robust against three SOTA defenses and its trained
+agents can transfer across different LLMs. We further validate the key design
+choices of RLbreaker via a comprehensive ablation study.},
+ arxiv_url = {https://arxiv.org/pdf/2406.08705v4.pdf},
+ author = {Xuan Chen and Yuzhou Nie and Wenbo Guo and Xiangyu Zhang},
+ github_url = {https://github.com/ucsb-mlsec/RLbreaker},
+ journal = {NeurIPS 2024},
+ title = {When LLM Meets DRL: Advancing Jailbreaking Efficiency via DRL-guided Search},
+ year = {2024}
+}
+
+@article{conitzer-2024-position,
+ abstract = {Foundation models such as GPT-4 are fine-tuned to avoid unsafe or otherwise
+problematic behavior, such as helping to commit crimes or producing racist
+text. One approach to fine-tuning, called reinforcement learning from human
+feedback, learns from humans' expressed preferences over multiple outputs.
+Another approach is constitutional AI, in which the input from humans is a list
+of high-level principles. But how do we deal with potentially diverging input
+from humans? How can we aggregate the input into consistent data about
+"collective" preferences or otherwise use it to make collective choices about
+model behavior? In this paper, we argue that the field of social choice is well
+positioned to address these questions, and we discuss ways forward for this
+agenda, drawing on discussions in a recent workshop on Social Choice for AI
+Ethics and Safety held in Berkeley, CA, USA in December 2023.},
+ arxiv_url = {https://arxiv.org/pdf/2404.10271v2.pdf},
+ author = {Vincent Conitzer and Rachel Freedman and Jobst Heitzig and Wesley H. Holliday and Bob M. Jacobs and Nathan Lambert and Milan Mossé and Eric Pacuit and Stuart Russell and Hailey Schoelkopf and Emanuel Tewolde and William S. Zwicker},
+ title = {Position: Social Choice Should Guide AI Alignment in Dealing with Diverse Human Feedback},
+ year = {2024}
+}
+
+@article{cui-2023-learning,
+ abstract = {This paper studies the fundamental problem of learning multi-layer generator
+models. The multi-layer generator model builds multiple layers of latent
+variables as a prior model on top of the generator, which benefits learning
+complex data distribution and hierarchical representations. However, such a
+prior model usually focuses on modeling inter-layer relations between latent
+variables by assuming non-informative (conditional) Gaussian distributions,
+which can be limited in model expressivity. To tackle this issue and learn more
+expressive prior models, we propose an energy-based model (EBM) on the joint
+latent space over all layers of latent variables with the multi-layer generator
+as its backbone. Such joint latent space EBM prior model captures the
+intra-layer contextual relations at each layer through layer-wise energy terms,
+and latent variables across different layers are jointly corrected. We develop
+a joint training scheme via maximum likelihood estimation (MLE), which involves
+Markov Chain Monte Carlo (MCMC) sampling for both prior and posterior
+distributions of the latent variables from different layers. To ensure
+efficient inference and learning, we further propose a variational training
+scheme where an inference model is used to amortize the costly posterior MCMC
+sampling. Our experiments demonstrate that the learned model can be expressive
+in generating high-quality images and capturing hierarchical features for
+better outlier detection.},
+ arxiv_url = {https://arxiv.org/pdf/2306.06323v2.pdf},
+ author = {Jiali Cui and Ying Nian Wu and Tian Han},
+ github_url = {https://github.com/JakobHavtorn/hvae-oodd},
+ title = {Learning Joint Latent Space EBM Prior Model for Multi-Layer Generator},
+ year = {2023}
+}
+
+@article{guan-2024-richelieu,
+ abstract = {Diplomacy is one of the most sophisticated activities in human society,
+involving complex interactions among multiple parties that require skills in
+social reasoning, negotiation, and long-term strategic planning. Previous AI
+agents have demonstrated their ability to handle multi-step games and large
+action spaces in multi-agent tasks. However, diplomacy involves a staggering
+magnitude of decision spaces, especially considering the negotiation stage
+required. While recent agents based on large language models (LLMs) have shown
+potential in various applications, they still struggle with extended planning
+periods in complex multi-agent settings. Leveraging recent technologies for
+LLM-based agents, we aim to explore AI's potential to create a human-like agent
+capable of executing comprehensive multi-agent missions by integrating three
+fundamental capabilities: 1) strategic planning with memory and reflection; 2)
+goal-oriented negotiation with social reasoning; and 3) augmenting memory
+through self-play games for self-evolution without human in the loop.},
+ arxiv_url = {https://arxiv.org/pdf/2407.06813v4.pdf},
+ author = {Zhenyu Guan and Xiangyu Kong and Fangwei Zhong and Yizhou Wang},
+ github_url = {https://github.com/todexter3/Richelieu},
+ journal = {NuerIPS 2024},
+ title = {Richelieu: Self-Evolving LLM-Based Agents for AI Diplomacy},
+ year = {2024}
+}
+
+@article{guo-2024-cold,
+ abstract = {Jailbreaks on large language models (LLMs) have recently received increasing
+attention. For a comprehensive assessment of LLM safety, it is essential to
+consider jailbreaks with diverse attributes, such as contextual coherence and
+sentiment/stylistic variations, and hence it is beneficial to study
+controllable jailbreaking, i.e. how to enforce control on LLM attacks. In this
+paper, we formally formulate the controllable attack generation problem, and
+build a novel connection between this problem and controllable text generation,
+a well-explored topic of natural language processing. Based on this connection,
+we adapt the Energy-based Constrained Decoding with Langevin Dynamics (COLD), a
+state-of-the-art, highly efficient algorithm in controllable text generation,
+and introduce the COLD-Attack framework which unifies and automates the search
+of adversarial LLM attacks under a variety of control requirements such as
+fluency, stealthiness, sentiment, and left-right-coherence. The controllability
+enabled by COLD-Attack leads to diverse new jailbreak scenarios which not only
+cover the standard setting of generating fluent (suffix) attack with
+continuation constraint, but also allow us to address new controllable attack
+settings such as revising a user query adversarially with paraphrasing
+constraint, and inserting stealthy attacks in context with position constraint.
+Our extensive experiments on various LLMs (Llama-2, Mistral, Vicuna, Guanaco,
+GPT-3.5, and GPT-4) show COLD-Attack's broad applicability, strong
+controllability, high success rate, and attack transferability. Our code is
+available at https://github.com/Yu-Fangxu/COLD-Attack.},
+ arxiv_url = {https://arxiv.org/pdf/2402.08679v2.pdf},
+ author = {Xingang Guo and Fangxu Yu and Huan Zhang and Lianhui Qin and Bin Hu},
+ github_url = {https://github.com/Yu-Fangxu/COLD-Attack},
+ title = {COLD-Attack: Jailbreaking LLMs with Stealthiness and Controllability},
+ year = {2024}
+}
+
+@article{huang-2023-catastrophic,
+ abstract = {The rapid progress in open-source large language models (LLMs) is
+significantly advancing AI development. Extensive efforts have been made before
+model release to align their behavior with human values, with the primary goal
+of ensuring their helpfulness and harmlessness. However, even carefully aligned
+models can be manipulated maliciously, leading to unintended behaviors, known
+as "jailbreaks". These jailbreaks are typically triggered by specific text
+inputs, often referred to as adversarial prompts. In this work, we propose the
+generation exploitation attack, an extremely simple approach that disrupts
+model alignment by only manipulating variations of decoding methods. By
+exploiting different generation strategies, including varying decoding
+hyper-parameters and sampling methods, we increase the misalignment rate from
+0% to more than 95% across 11 language models including LLaMA2, Vicuna, Falcon,
+and MPT families, outperforming state-of-the-art attacks with $30\times$ lower
+computational cost. Finally, we propose an effective alignment method that
+explores diverse generation strategies, which can reasonably reduce the
+misalignment rate under our attack. Altogether, our study underscores a major
+failure in current safety evaluation and alignment procedures for open-source
+LLMs, strongly advocating for more comprehensive red teaming and better
+alignment before releasing such models. Our code is available at
+https://github.com/Princeton-SysML/Jailbreak_LLM.},
+ arxiv_url = {https://arxiv.org/pdf/2310.06987v1.pdf},
+ author = {Yangsibo Huang and Samyak Gupta and Mengzhou Xia and Kai Li and Danqi Chen},
+ title = {Catastrophic Jailbreak of Open-source LLMs via Exploiting Generation},
+ year = {2023}
+}
+
+@article{huang-2024-lisa,
+ abstract = {Recent studies show that Large Language Models (LLMs) with safety alignment
+can be jail-broken by fine-tuning on a dataset mixed with harmful data. First
+time in the literature, we show that the jail-broken effect can be mitigated by
+separating states in the finetuning stage to optimize the alignment and user
+datasets. Unfortunately, our subsequent study shows that this simple Bi-State
+Optimization (BSO) solution experiences convergence instability when steps
+invested in its alignment state is too small, leading to downgraded alignment
+performance. By statistical analysis, we show that the \textit{excess drift}
+towards consensus could be a probable reason for the instability. To remedy
+this issue, we propose \textbf{L}azy(\textbf{i}) \textbf{s}afety
+\textbf{a}lignment (\textbf{Lisa}), which introduces a proximal term to
+constraint the drift of each state. Theoretically, the benefit of the proximal
+term is supported by the convergence analysis, wherein we show that a
+sufficient large proximal factor is necessary to guarantee Lisa's convergence.
+Empirically, our results on four downstream finetuning tasks show that Lisa
+with a proximal term can significantly increase alignment performance while
+maintaining the LLM's accuracy on the user tasks. Code is available at
+\url{https://github.com/git-disl/Lisa}.},
+ arxiv_url = {https://arxiv.org/pdf/2405.18641v5.pdf},
+ author = {Tiansheng Huang and Sihao Hu and Fatih Ilhan and Selim Furkan Tekin and Ling Liu},
+ github_url = {https://github.com/git-disl/Lisa},
+ title = {Lisa: Lazy Safety Alignment for Large Language Models against Harmful Fine-tuning Attack},
+ year = {2024}
+}
+
+@article{huang-2024-one,
+ abstract = {The growing safety concerns surrounding large language models raise an urgent
+need to align them with diverse human preferences to simultaneously enhance
+their helpfulness and safety. A promising approach is to enforce safety
+constraints through Reinforcement Learning from Human Feedback (RLHF). For such
+constrained RLHF, typical Lagrangian-based primal-dual policy optimization
+methods are computationally expensive and often unstable. This paper presents a
+perspective of dualization that reduces constrained alignment to an equivalent
+unconstrained alignment problem. We do so by pre-optimizing a smooth and convex
+dual function that has a closed form. This shortcut eliminates the need for
+cumbersome primal-dual policy iterations, greatly reducing the computational
+burden and improving training stability. Our strategy leads to two practical
+algorithms in model-based and preference-based settings (MoCAN and PeCAN,
+respectively). A broad range of experiments demonstrate the effectiveness and
+merits of our algorithms.},
+ arxiv_url = {https://arxiv.org/pdf/2405.19544v3.pdf},
+ author = {Xinmeng Huang and Shuo Li and Edgar Dobriban and Osbert Bastani and Hamed Hassani and Dongsheng Ding},
+ github_url = {https://github.com/shuoli90/CAN},
+ title = {One-Shot Safety Alignment for Large Language Models via Optimal Dualization},
+ year = {2024}
+}
+
+@article{im-2024-understanding,
+ abstract = {Aligning large language models (LLMs) with human intentions has become a
+critical task for safely deploying models in real-world systems. While existing
+alignment approaches have seen empirical success, theoretically understanding
+how these methods affect model behavior remains an open question. Our work
+provides an initial attempt to theoretically analyze the learning dynamics of
+human preference alignment. We formally show how the distribution of preference
+datasets influences the rate of model updates and provide rigorous guarantees
+on the training accuracy. Our theory also reveals an intricate phenomenon where
+the optimization is prone to prioritizing certain behaviors with higher
+preference distinguishability. We empirically validate our findings on
+contemporary LLMs and alignment tasks, reinforcing our theoretical insights and
+shedding light on considerations for future alignment approaches. Disclaimer:
+This paper contains potentially offensive text; reader discretion is advised.},
+ arxiv_url = {https://arxiv.org/pdf/2403.18742v5.pdf},
+ author = {Shawn Im and Yixuan Li},
+ title = {Understanding the Learning Dynamics of Alignment with Human Feedback},
+ year = {2024}
+}
+
+@article{jain-2024-what,
+ abstract = {Safety fine-tuning helps align Large Language Models (LLMs) with human
+preferences for their safe deployment. To better understand the underlying
+factors that make models safe via safety fine-tuning, we design a synthetic
+data generation framework that captures salient aspects of an unsafe input by
+modeling the interaction between the task the model is asked to perform (e.g.,
+"design") versus the specific concepts the task is asked to be performed upon
+(e.g., a "cycle" vs. a "bomb"). Using this, we investigate three well-known
+safety fine-tuning methods -- supervised safety fine-tuning, direct preference
+optimization, and unlearning -- and provide significant evidence demonstrating
+that these methods minimally transform MLP weights to specifically align unsafe
+inputs into its weights' null space. This yields a clustering of inputs based
+on whether the model deems them safe or not. Correspondingly, when an
+adversarial input (e.g., a jailbreak) is provided, its activations are closer
+to safer samples, leading to the model processing such an input as if it were
+safe. We validate our findings, wherever possible, on real-world models --
+specifically, Llama-2 7B and Llama-3 8B.},
+ arxiv_url = {https://arxiv.org/pdf/2407.10264v3.pdf},
+ author = {Samyak Jain and Ekdeep Singh Lubana and Kemal Oksuz and Tom Joy and Philip H. S. Torr and Amartya Sanyal and Puneet K. Dokania},
+ github_url = {https://github.com/meta-llama/llama3},
+ title = {What Makes and Breaks Safety Fine-tuning? A Mechanistic Study},
+ year = {2024}
+}
+
+@article{ji-2023-safety,
+ abstract = {Artificial intelligence (AI) systems possess significant potential to drive
+societal progress. However, their deployment often faces obstacles due to
+substantial safety concerns. Safe reinforcement learning (SafeRL) emerges as a
+solution to optimize policies while simultaneously adhering to multiple
+constraints, thereby addressing the challenge of integrating reinforcement
+learning in safety-critical scenarios. In this paper, we present an environment
+suite called Safety-Gymnasium, which encompasses safety-critical tasks in both
+single and multi-agent scenarios, accepting vector and vision-only input.
+Additionally, we offer a library of algorithms named Safe Policy Optimization
+(SafePO), comprising 16 state-of-the-art SafeRL algorithms. This comprehensive
+library can serve as a validation tool for the research community. By
+introducing this benchmark, we aim to facilitate the evaluation and comparison
+of safety performance, thus fostering the development of reinforcement learning
+for safer, more reliable, and responsible real-world applications. The website
+of this project can be accessed at
+https://sites.google.com/view/safety-gymnasium.},
+ arxiv_url = {https://arxiv.org/pdf/2310.12567v3.pdf},
+ author = {Jiaming Ji and Borong Zhang and Jiayi Zhou and Xuehai Pan and Weidong Huang and Ruiyang Sun and Yiran Geng and Yifan Zhong and Juntao Dai and Yaodong Yang},
+ github_url = {https://github.com/openai/safety-gym},
+ title = {Safety Gymnasium: A Unified Safe Reinforcement Learning Benchmark},
+ year = {2023}
+}
+
+@article{liu-2023-autodan,
+ abstract = {The aligned Large Language Models (LLMs) are powerful language understanding
+and decision-making tools that are created through extensive alignment with
+human feedback. However, these large models remain susceptible to jailbreak
+attacks, where adversaries manipulate prompts to elicit malicious outputs that
+should not be given by aligned LLMs. Investigating jailbreak prompts can lead
+us to delve into the limitations of LLMs and further guide us to secure them.
+Unfortunately, existing jailbreak techniques suffer from either (1) scalability
+issues, where attacks heavily rely on manual crafting of prompts, or (2)
+stealthiness problems, as attacks depend on token-based algorithms to generate
+prompts that are often semantically meaningless, making them susceptible to
+detection through basic perplexity testing. In light of these challenges, we
+intend to answer this question: Can we develop an approach that can
+automatically generate stealthy jailbreak prompts? In this paper, we introduce
+AutoDAN, a novel jailbreak attack against aligned LLMs. AutoDAN can
+automatically generate stealthy jailbreak prompts by the carefully designed
+hierarchical genetic algorithm. Extensive evaluations demonstrate that AutoDAN
+not only automates the process while preserving semantic meaningfulness, but
+also demonstrates superior attack strength in cross-model transferability, and
+cross-sample universality compared with the baseline. Moreover, we also compare
+AutoDAN with perplexity-based defense methods and show that AutoDAN can bypass
+them effectively.},
+ arxiv_url = {https://arxiv.org/pdf/2310.04451v2.pdf},
+ author = {Xiaogeng Liu and Nan Xu and Muhao Chen and Chaowei Xiao},
+ github_url = {https://github.com/SheltonLiu-N/AutoDAN},
+ title = {AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models},
+ year = {2023}
+}
+
+@article{liu-2024-audiomarkbench,
+ abstract = {The increasing realism of synthetic speech, driven by advancements in
+text-to-speech models, raises ethical concerns regarding impersonation and
+disinformation. Audio watermarking offers a promising solution via embedding
+human-imperceptible watermarks into AI-generated audios. However, the
+robustness of audio watermarking against common/adversarial perturbations
+remains understudied. We present AudioMarkBench, the first systematic benchmark
+for evaluating the robustness of audio watermarking against watermark removal
+and watermark forgery. AudioMarkBench includes a new dataset created from
+Common-Voice across languages, biological sexes, and ages, 3 state-of-the-art
+watermarking methods, and 15 types of perturbations. We benchmark the
+robustness of these methods against the perturbations in no-box, black-box, and
+white-box settings. Our findings highlight the vulnerabilities of current
+watermarking techniques and emphasize the need for more robust and fair audio
+watermarking solutions. Our dataset and code are publicly available at
+https://github.com/moyangkuo/AudioMarkBench.},
+ arxiv_url = {https://arxiv.org/pdf/2406.06979v2.pdf},
+ author = {Hongbin Liu and Moyang Guo and Zhengyuan Jiang and Lun Wang and Neil Zhenqiang Gong},
+ github_url = {https://github.com/moyangkuo/AudioMarkBench},
+ title = {AudioMarkBench: Benchmarking Robustness of Audio Watermarking},
+ year = {2024}
+}
+
+@article{liu-2024-dora,
+ abstract = {Among the widely used parameter-efficient fine-tuning (PEFT) methods, LoRA
+and its variants have gained considerable popularity because of avoiding
+additional inference costs. However, there still often exists an accuracy gap
+between these methods and full fine-tuning (FT). In this work, we first
+introduce a novel weight decomposition analysis to investigate the inherent
+differences between FT and LoRA. Aiming to resemble the learning capacity of FT
+from the findings, we propose Weight-Decomposed Low-Rank Adaptation (DoRA).
+DoRA decomposes the pre-trained weight into two components, magnitude and
+direction, for fine-tuning, specifically employing LoRA for directional updates
+to efficiently minimize the number of trainable parameters. By employing \ours,
+we enhance both the learning capacity and training stability of LoRA while
+avoiding any additional inference overhead. \ours~consistently outperforms LoRA
+on fine-tuning LLaMA, LLaVA, and VL-BART on various downstream tasks, such as
+commonsense reasoning, visual instruction tuning, and image/video-text
+understanding. Code is available at https://github.com/NVlabs/DoRA.},
+ arxiv_url = {https://arxiv.org/pdf/2402.09353v6.pdf},
+ author = {Shih-Yang Liu and Chien-Yi Wang and Hongxu Yin and Pavlo Molchanov and Yu-Chiang Frank Wang and Kwang-Ting Cheng and Min-Hung Chen},
+ title = {DoRA: Weight-Decomposed Low-Rank Adaptation},
+ year = {2024}
+}
+
+@article{muldrew-2024-active,
+ abstract = {As large language models (LLMs) become more capable, fine-tuning techniques
+for aligning with human intent are increasingly important. A key consideration
+for aligning these models is how to most effectively use human resources, or
+model resources in the case where LLMs themselves are used as oracles.
+Reinforcement learning from Human or AI preferences (RLHF/RLAIF) is the most
+prominent example of such a technique, but is complex and often unstable.
+Direct Preference Optimization (DPO) has recently been proposed as a simpler
+and more stable alternative. In this work, we develop an active learning
+strategy for DPO to make better use of preference labels. We propose a
+practical acquisition function for prompt/completion pairs based on the
+predictive entropy of the language model and a measure of certainty of the
+implicit preference model optimized by DPO. We demonstrate how our approach
+improves both the rate of learning and final performance of fine-tuning on
+pairwise preference data.},
+ arxiv_url = {https://arxiv.org/pdf/2402.08114v2.pdf},
+ author = {William Muldrew and Peter Hayes and Mingtian Zhang and David Barber},
+ title = {Active Preference Learning for Large Language Models},
+ year = {2024}
+}
+
+@article{ngo-2022-the,
+ abstract = {In coming years or decades, artificial general intelligence (AGI) may surpass
+human capabilities across many critical domains. We argue that, without
+substantial effort to prevent it, AGIs could learn to pursue goals that are in
+conflict (i.e. misaligned) with human interests. If trained like today's most
+capable models, AGIs could learn to act deceptively to receive higher reward,
+learn misaligned internally-represented goals which generalize beyond their
+fine-tuning distributions, and pursue those goals using power-seeking
+strategies. We review emerging evidence for these properties. In this revised
+paper, we include more direct empirical evidence published as of early 2025.
+AGIs with these properties would be difficult to align and may appear aligned
+even when they are not. Finally, we briefly outline how the deployment of
+misaligned AGIs might irreversibly undermine human control over the world, and
+we review research directions aimed at preventing this outcome.},
+ arxiv_url = {https://arxiv.org/pdf/2209.00626v8.pdf},
+ author = {Richard Ngo and Lawrence Chan and Sören Mindermann},
+ github_url = {https://github.com/antony0596/auto-gpt},
+ title = {The Alignment Problem from a Deep Learning Perspective},
+ year = {2022}
+}
+
+@article{peng-2024-navigating,
+ abstract = {Safety alignment is crucial to ensure that large language models (LLMs)
+behave in ways that align with human preferences and prevent harmful actions
+during inference. However, recent studies show that the alignment can be easily
+compromised through finetuning with only a few adversarially designed training
+examples. We aim to measure the risks in finetuning LLMs through navigating the
+LLM safety landscape. We discover a new phenomenon observed universally in the
+model parameter space of popular open-source LLMs, termed as "safety basin":
+random perturbations to model weights maintain the safety level of the original
+aligned model within its local neighborhood. However, outside this local
+region, safety is fully compromised, exhibiting a sharp, step-like drop. This
+safety basin contrasts sharply with the LLM capability landscape, where model
+performance peaks at the origin and gradually declines as random perturbation
+increases. Our discovery inspires us to propose the new VISAGE safety metric
+that measures the safety in LLM finetuning by probing its safety landscape.
+Visualizing the safety landscape of the aligned model enables us to understand
+how finetuning compromises safety by dragging the model away from the safety
+basin. The LLM safety landscape also highlights the system prompt's critical
+role in protecting a model, and that such protection transfers to its perturbed
+variants within the safety basin. These observations from our safety landscape
+research provide new insights for future work on LLM safety community. Our code
+is publicly available at https://github.com/ShengYun-Peng/llm-landscape.},
+ arxiv_url = {https://arxiv.org/pdf/2405.17374v3.pdf},
+ author = {ShengYun Peng and Pin-Yu Chen and Matthew Hull and Duen Horng Chau},
+ github_url = {https://github.com/ShengYun-Peng/llm-landscape},
+ title = {Navigating the Safety Landscape: Measuring Risks in Finetuning Large Language Models},
+ year = {2024}
+}
+
+@article{qi-2024-interactive,
+ abstract = {Advanced life forms, sustained by the synergistic interaction of neural
+cognitive mechanisms, continually acquire and transfer knowledge throughout
+their lifespan. In contrast, contemporary machine learning paradigms exhibit
+limitations in emulating the facets of continual learning (CL). Nonetheless,
+the emergence of large language models (LLMs) presents promising avenues for
+realizing CL via interactions with these models. Drawing on Complementary
+Learning System theory, this paper presents a novel Interactive Continual
+Learning (ICL) framework, enabled by collaborative interactions among models of
+various sizes. Specifically, we assign the ViT model as System1 and multimodal
+LLM as System2. To enable the memory module to deduce tasks from class
+information and enhance Set2Set retrieval, we propose the Class-Knowledge-Task
+Multi-Head Attention (CKT-MHA). Additionally, to improve memory retrieval in
+System1 through enhanced geometric representation, we introduce the CL-vMF
+mechanism, based on the von Mises-Fisher (vMF) distribution. Meanwhile, we
+introduce the von Mises-Fisher Outlier Detection and Interaction (vMF-ODI)
+strategy to identify hard examples, thus enhancing collaboration between
+System1 and System2 for complex reasoning realization. Comprehensive evaluation
+of our proposed ICL demonstrates significant resistance to forgetting and
+superior performance relative to existing methods. Code is available at
+github.com/ICL.},
+ arxiv_url = {https://arxiv.org/pdf/2403.02628v2.pdf},
+ author = {Biqing Qi and Xingquan Chen and Junqi Gao and Dong Li and Jianxing Liu and Ligang Wu and Bowen Zhou},
+ title = {Interactive Continual Learning: Fast and Slow Thinking},
+ year = {2024}
+}
+
+@article{rafailov-2023-direct,
+ abstract = {While large-scale unsupervised language models (LMs) learn broad world
+knowledge and some reasoning skills, achieving precise control of their
+behavior is difficult due to the completely unsupervised nature of their
+training. Existing methods for gaining such steerability collect human labels
+of the relative quality of model generations and fine-tune the unsupervised LM
+to align with these preferences, often with reinforcement learning from human
+feedback (RLHF). However, RLHF is a complex and often unstable procedure, first
+fitting a reward model that reflects the human preferences, and then
+fine-tuning the large unsupervised LM using reinforcement learning to maximize
+this estimated reward without drifting too far from the original model. In this
+paper we introduce a new parameterization of the reward model in RLHF that
+enables extraction of the corresponding optimal policy in closed form, allowing
+us to solve the standard RLHF problem with only a simple classification loss.
+The resulting algorithm, which we call Direct Preference Optimization (DPO), is
+stable, performant, and computationally lightweight, eliminating the need for
+sampling from the LM during fine-tuning or performing significant
+hyperparameter tuning. Our experiments show that DPO can fine-tune LMs to align
+with human preferences as well as or better than existing methods. Notably,
+fine-tuning with DPO exceeds PPO-based RLHF in ability to control sentiment of
+generations, and matches or improves response quality in summarization and
+single-turn dialogue while being substantially simpler to implement and train.},
+ arxiv_url = {https://arxiv.org/pdf/2305.18290v3.pdf},
+ author = {Rafael Rafailov and Archit Sharma and Eric Mitchell and Stefano Ermon and Christopher D. Manning and Chelsea Finn},
+ github_url = {https://github.com/CarperAI/trlx},
+ title = {Direct Preference Optimization: Your Language Model is Secretly a Reward Model},
+ year = {2023}
+}
+
+@article{rando-2023-universal,
+ abstract = {Reinforcement Learning from Human Feedback (RLHF) is used to align large
+language models to produce helpful and harmless responses. Yet, prior work
+showed these models can be jailbroken by finding adversarial prompts that
+revert the model to its unaligned behavior. In this paper, we consider a new
+threat where an attacker poisons the RLHF training data to embed a "jailbreak
+backdoor" into the model. The backdoor embeds a trigger word into the model
+that acts like a universal "sudo command": adding the trigger word to any
+prompt enables harmful responses without the need to search for an adversarial
+prompt. Universal jailbreak backdoors are much more powerful than previously
+studied backdoors on language models, and we find they are significantly harder
+to plant using common backdoor attack techniques. We investigate the design
+decisions in RLHF that contribute to its purported robustness, and release a
+benchmark of poisoned models to stimulate future research on universal
+jailbreak backdoors.},
+ arxiv_url = {https://arxiv.org/pdf/2311.14455v4.pdf},
+ author = {Javier Rando and Florian Tramèr},
+ github_url = {https://github.com/ethz-spylab/rlhf-poisoning},
+ title = {Universal Jailbreak Backdoors from Poisoned Human Feedback},
+ year = {2023}
+}
+
+@article{rocamora-2024-revisiting,
+ abstract = {Adversarial attacks in Natural Language Processing apply perturbations in the
+character or token levels. Token-level attacks, gaining prominence for their
+use of gradient-based methods, are susceptible to altering sentence semantics,
+leading to invalid adversarial examples. While character-level attacks easily
+maintain semantics, they have received less attention as they cannot easily
+adopt popular gradient-based methods, and are thought to be easy to defend.
+Challenging these beliefs, we introduce Charmer, an efficient query-based
+adversarial attack capable of achieving high attack success rate (ASR) while
+generating highly similar adversarial examples. Our method successfully targets
+both small (BERT) and large (Llama 2) models. Specifically, on BERT with SST-2,
+Charmer improves the ASR in 4.84% points and the USE similarity in 8% points
+with respect to the previous art. Our implementation is available in
+https://github.com/LIONS-EPFL/Charmer.},
+ arxiv_url = {https://arxiv.org/pdf/2405.04346v2.pdf},
+ author = {Elias Abad Rocamora and Yongtao Wu and Fanghui Liu and Grigorios G. Chrysos and Volkan Cevher},
+ title = {Revisiting Character-level Adversarial Attacks for Language Models},
+ year = {2024}
+}
+
+@article{ron-2022-dual,
+ abstract = {A key concern in integrating machine learning models in medicine is the
+ability to interpret their reasoning. Popular explainability methods have
+demonstrated satisfactory results in natural image recognition, yet in medical
+image analysis, many of these approaches provide partial and noisy
+explanations. Recently, attention mechanisms have shown compelling results both
+in their predictive performance and in their interpretable qualities. A
+fundamental trait of attention is that it leverages salient parts of the input
+which contribute to the model's prediction. To this end, our work focuses on
+the explanatory value of attention weight distributions. We propose a
+multi-layer attention mechanism that enforces consistent interpretations
+between attended convolutional layers using convex optimization. We apply
+duality to decompose the consistency constraints between the layers by
+reparameterizing their attention probability distributions. We further suggest
+learning the dual witness by optimizing with respect to our objective; thus,
+our implementation uses standard back-propagation, hence it is highly
+efficient. While preserving predictive performance, our proposed method
+leverages weakly annotated medical imaging data and provides complete and
+faithful explanations to the model's prediction.},
+ arxiv_url = {https://arxiv.org/pdf/2206.02761v2.pdf},
+ author = {Tom Ron and Michal Weiler-Sagie and Tamir Hazan},
+ title = {Dual Decomposition of Convex Optimization Layers for Consistent Attention in Medical Images},
+ year = {2022}
+}
+
+@article{simonetto-2024-tabularbench,
+ abstract = {While adversarial robustness in computer vision is a mature research field,
+fewer researchers have tackled the evasion attacks against tabular deep
+learning, and even fewer investigated robustification mechanisms and reliable
+defenses. We hypothesize that this lag in the research on tabular adversarial
+attacks is in part due to the lack of standardized benchmarks. To fill this
+gap, we propose TabularBench, the first comprehensive benchmark of robustness
+of tabular deep learning classification models. We evaluated adversarial
+robustness with CAA, an ensemble of gradient and search attacks which was
+recently demonstrated as the most effective attack against a tabular model. In
+addition to our open benchmark (https://github.com/serval-uni-lu/tabularbench)
+where we welcome submissions of new models and defenses, we implement 7
+robustification mechanisms inspired by state-of-the-art defenses in computer
+vision and propose the largest benchmark of robust tabular deep learning over
+200 models across five critical scenarios in finance, healthcare and security.
+We curated real datasets for each use case, augmented with hundreds of
+thousands of realistic synthetic inputs, and trained and assessed our models
+with and without data augmentations. We open-source our library that provides
+API access to all our pre-trained robust tabular models, and the largest
+datasets of real and synthetic tabular inputs. Finally, we analyze the impact
+of various defenses on the robustness and provide actionable insights to design
+new defenses and robustification mechanisms.},
+ arxiv_url = {https://arxiv.org/pdf/2408.07579v1.pdf},
+ author = {Thibault Simonetto and Salah Ghamizi and Maxime Cordy},
+ github_url = {https://github.com/serval-uni-lu/tabularbench},
+ title = {TabularBench: Benchmarking Adversarial Robustness for Tabular Deep Learning in Real-world Use-cases},
+ year = {2024}
+}
+
+@article{sordoni-2023-joint,
+ abstract = {Large language models (LLMs) can be seen as atomic units of computation
+mapping sequences to a distribution over sequences. Thus, they can be seen as
+stochastic language layers in a language network, where the learnable
+parameters are the natural language prompts at each layer. By stacking two such
+layers and feeding the output of one layer to the next, we obtain a Deep
+Language Network (DLN). We first show how to effectively perform prompt
+optimization for a 1-Layer language network (DLN-1). Then, we present an
+extension that applies to 2-layer DLNs (DLN-2), where two prompts must be
+learned. The key idea is to consider the output of the first layer as a latent
+variable, which requires inference, and prompts to be learned as the parameters
+of the generative distribution. We first test the effectiveness of DLN-1 in
+multiple reasoning and natural language understanding tasks. Then, we show that
+DLN-2 can reach higher performance than a single layer, showing promise that we
+might reach comparable performance to GPT-4, even when each LLM in the network
+is smaller and less powerful.},
+ arxiv_url = {https://arxiv.org/pdf/2306.12509v2.pdf},
+ author = {Alessandro Sordoni and Xingdi Yuan and Marc-Alexandre Côté and Matheus Pereira and Adam Trischler and Ziang Xiao and Arian Hosseini and Friederike Niedtner and Nicolas Le Roux},
+ github_url = {https://github.com/microsoft/deep-language-networks},
+ title = {Joint Prompt Optimization of Stacked LLMs using Variational Inference},
+ year = {2023}
+}
+
+@article{sorensen-2024-position,
+ abstract = {With increased power and prevalence of AI systems, it is ever more critical
+that AI systems are designed to serve all, i.e., people with diverse values and
+perspectives. However, aligning models to serve pluralistic human values
+remains an open research question. In this piece, we propose a roadmap to
+pluralistic alignment, specifically using language models as a test bed. We
+identify and formalize three possible ways to define and operationalize
+pluralism in AI systems: 1) Overton pluralistic models that present a spectrum
+of reasonable responses; 2) Steerably pluralistic models that can steer to
+reflect certain perspectives; and 3) Distributionally pluralistic models that
+are well-calibrated to a given population in distribution. We also formalize
+and discuss three possible classes of pluralistic benchmarks: 1)
+Multi-objective benchmarks, 2) Trade-off steerable benchmarks, which
+incentivize models to steer to arbitrary trade-offs, and 3) Jury-pluralistic
+benchmarks which explicitly model diverse human ratings. We use this framework
+to argue that current alignment techniques may be fundamentally limited for
+pluralistic AI; indeed, we highlight empirical evidence, both from our own
+experiments and from other work, that standard alignment procedures might
+reduce distributional pluralism in models, motivating the need for further
+research on pluralistic alignment.},
+ arxiv_url = {https://arxiv.org/pdf/2402.05070v3.pdf},
+ author = {Taylor Sorensen and Jared Moore and Jillian Fisher and Mitchell Gordon and Niloofar Mireshghallah and Christopher Michael Rytting and Andre Ye and Liwei Jiang and Ximing Lu and Nouha Dziri and Tim Althoff and Yejin Choi},
+ title = {Position: A Roadmap to Pluralistic Alignment},
+ year = {2024}
+}
+
+@article{tudosiu-2024-mulan,
+ abstract = {Text-to-image generation has achieved astonishing results, yet precise
+spatial controllability and prompt fidelity remain highly challenging. This
+limitation is typically addressed through cumbersome prompt engineering, scene
+layout conditioning, or image editing techniques which often require hand drawn
+masks. Nonetheless, pre-existing works struggle to take advantage of the
+natural instance-level compositionality of scenes due to the typically flat
+nature of rasterized RGB output images. Towards adressing this challenge, we
+introduce MuLAn: a novel dataset comprising over 44K MUlti-Layer ANnotations of
+RGB images as multilayer, instance-wise RGBA decompositions, and over 100K
+instance images. To build MuLAn, we developed a training free pipeline which
+decomposes a monocular RGB image into a stack of RGBA layers comprising of
+background and isolated instances. We achieve this through the use of
+pretrained general-purpose models, and by developing three modules: image
+decomposition for instance discovery and extraction, instance completion to
+reconstruct occluded areas, and image re-assembly. We use our pipeline to
+create MuLAn-COCO and MuLAn-LAION datasets, which contain a variety of image
+decompositions in terms of style, composition and complexity. With MuLAn, we
+provide the first photorealistic resource providing instance decomposition and
+occlusion information for high quality images, opening up new avenues for
+text-to-image generative AI research. With this, we aim to encourage the
+development of novel generation and editing technology, in particular
+layer-wise solutions. MuLAn data resources are available at
+https://MuLAn-dataset.github.io/.},
+ arxiv_url = {https://arxiv.org/pdf/2404.02790v1.pdf},
+ author = {Petru-Daniel Tudosiu and Yongxin Yang and Shifeng Zhang and Fei Chen and Steven McDonagh and Gerasimos Lampouras and Ignacio Iacobacci and Sarah Parisot},
+ github_url = {https://github.com/voxel51/fiftyone},
+ title = {MULAN: A Multi Layer Annotated Dataset for Controllable Text-to-Image Generation},
+ year = {2024}
+}
+
+@article{wachi-2024-stepwise,
+ abstract = {Safety and trustworthiness are indispensable requirements for real-world
+applications of AI systems using large language models (LLMs). This paper
+formulates human value alignment as an optimization problem of the language
+model policy to maximize reward under a safety constraint, and then proposes an
+algorithm, Stepwise Alignment for Constrained Policy Optimization (SACPO). One
+key idea behind SACPO, supported by theory, is that the optimal policy
+incorporating reward and safety can be directly obtained from a reward-aligned
+policy. Building on this key idea, SACPO aligns LLMs step-wise with each metric
+while leveraging simple yet powerful alignment algorithms such as direct
+preference optimization (DPO). SACPO offers several advantages, including
+simplicity, stability, computational efficiency, and flexibility of algorithms
+and datasets. Under mild assumptions, our theoretical analysis provides the
+upper bounds on optimality and safety constraint violation. Our experimental
+results show that SACPO can fine-tune Alpaca-7B better than the
+state-of-the-art method in terms of both helpfulness and harmlessness.},
+ arxiv_url = {https://arxiv.org/pdf/2404.11049v3.pdf},
+ author = {Akifumi Wachi and Thien Q. Tran and Rei Sato and Takumi Tanabe and Youhei Akimoto},
+ github_url = {https://github.com/line/sacpo},
+ title = {Stepwise Alignment for Constrained Language Model Policy Optimization},
+ year = {2024}
+}
+
+@article{wallace-2023-diffusion,
+ abstract = {Large language models (LLMs) are fine-tuned using human comparison data with
+Reinforcement Learning from Human Feedback (RLHF) methods to make them better
+aligned with users' preferences. In contrast to LLMs, human preference learning
+has not been widely explored in text-to-image diffusion models; the best
+existing approach is to fine-tune a pretrained model using carefully curated
+high quality images and captions to improve visual appeal and text alignment.
+We propose Diffusion-DPO, a method to align diffusion models to human
+preferences by directly optimizing on human comparison data. Diffusion-DPO is
+adapted from the recently developed Direct Preference Optimization (DPO), a
+simpler alternative to RLHF which directly optimizes a policy that best
+satisfies human preferences under a classification objective. We re-formulate
+DPO to account for a diffusion model notion of likelihood, utilizing the
+evidence lower bound to derive a differentiable objective. Using the Pick-a-Pic
+dataset of 851K crowdsourced pairwise preferences, we fine-tune the base model
+of the state-of-the-art Stable Diffusion XL (SDXL)-1.0 model with
+Diffusion-DPO. Our fine-tuned base model significantly outperforms both base
+SDXL-1.0 and the larger SDXL-1.0 model consisting of an additional refinement
+model in human evaluation, improving visual appeal and prompt alignment. We
+also develop a variant that uses AI feedback and has comparable performance to
+training on human preferences, opening the door for scaling of diffusion model
+alignment methods.},
+ arxiv_url = {https://arxiv.org/pdf/2311.12908v1.pdf},
+ author = {Bram Wallace and Meihua Dang and Rafael Rafailov and Linqi Zhou and Aaron Lou and Senthil Purushwalkam and Stefano Ermon and Caiming Xiong and Shafiq Joty and Nikhil Naik},
+ title = {Diffusion Model Alignment Using Direct Preference Optimization},
+ year = {2023}
+}
+
+@article{wei-2023-jailbroken,
+ abstract = {Large language models trained for safety and harmlessness remain susceptible
+to adversarial misuse, as evidenced by the prevalence of "jailbreak" attacks on
+early releases of ChatGPT that elicit undesired behavior. Going beyond
+recognition of the issue, we investigate why such attacks succeed and how they
+can be created. We hypothesize two failure modes of safety training: competing
+objectives and mismatched generalization. Competing objectives arise when a
+model's capabilities and safety goals conflict, while mismatched generalization
+occurs when safety training fails to generalize to a domain for which
+capabilities exist. We use these failure modes to guide jailbreak design and
+then evaluate state-of-the-art models, including OpenAI's GPT-4 and Anthropic's
+Claude v1.3, against both existing and newly designed attacks. We find that
+vulnerabilities persist despite the extensive red-teaming and safety-training
+efforts behind these models. Notably, new attacks utilizing our failure modes
+succeed on every prompt in a collection of unsafe requests from the models'
+red-teaming evaluation sets and outperform existing ad hoc jailbreaks. Our
+analysis emphasizes the need for safety-capability parity -- that safety
+mechanisms should be as sophisticated as the underlying model -- and argues
+against the idea that scaling alone can resolve these safety failure modes.},
+ arxiv_url = {https://arxiv.org/pdf/2307.02483v1.pdf},
+ author = {Alexander Wei and Nika Haghtalab and Jacob Steinhardt},
+ title = {Jailbroken: How Does LLM Safety Training Fail?},
+ year = {2023}
+}
+
+@article{wu-2022-backdoorbench,
+ abstract = {Backdoor learning is an emerging and vital topic for studying deep neural
+networks' vulnerability (DNNs). Many pioneering backdoor attack and defense
+methods are being proposed, successively or concurrently, in the status of a
+rapid arms race. However, we find that the evaluations of new methods are often
+unthorough to verify their claims and accurate performance, mainly due to the
+rapid development, diverse settings, and the difficulties of implementation and
+reproducibility. Without thorough evaluations and comparisons, it is not easy
+to track the current progress and design the future development roadmap of the
+literature. To alleviate this dilemma, we build a comprehensive benchmark of
+backdoor learning called BackdoorBench. It consists of an extensible
+modular-based codebase (currently including implementations of 8
+state-of-the-art (SOTA) attacks and 9 SOTA defense algorithms) and a
+standardized protocol of complete backdoor learning. We also provide
+comprehensive evaluations of every pair of 8 attacks against 9 defenses, with 5
+poisoning ratios, based on 5 models and 4 datasets, thus 8,000 pairs of
+evaluations in total. We present abundant analysis from different perspectives
+about these 8,000 evaluations, studying the effects of different factors in
+backdoor learning. All codes and evaluations of BackdoorBench are publicly
+available at \url{https://backdoorbench.github.io}.},
+ arxiv_url = {https://arxiv.org/pdf/2206.12654v2.pdf},
+ author = {Baoyuan Wu and Hongrui Chen and Mingda Zhang and Zihao Zhu and Shaokui Wei and Danni Yuan and Chao Shen},
+ github_url = {https://github.com/SCLBD/BackdoorBench},
+ title = {BackdoorBench: A Comprehensive Benchmark of Backdoor Learning},
+ year = {2022}
+}
+
+@article{wu-2023-defending,
+ abstract = {Deep learning models have been widely used in commercial acoustic systems in
+recent years. However, adversarial audio examples can cause abnormal behaviors
+for those acoustic systems, while being hard for humans to perceive. Various
+methods, such as transformation-based defenses and adversarial training, have
+been proposed to protect acoustic systems from adversarial attacks, but they
+are less effective against adaptive attacks. Furthermore, directly applying the
+methods from the image domain can lead to suboptimal results because of the
+unique properties of audio data. In this paper, we propose an adversarial
+purification-based defense pipeline, AudioPure, for acoustic systems via
+off-the-shelf diffusion models. Taking advantage of the strong generation
+ability of diffusion models, AudioPure first adds a small amount of noise to
+the adversarial audio and then runs the reverse sampling step to purify the
+noisy audio and recover clean audio. AudioPure is a plug-and-play method that
+can be directly applied to any pretrained classifier without any fine-tuning or
+re-training. We conduct extensive experiments on speech command recognition
+task to evaluate the robustness of AudioPure. Our method is effective against
+diverse adversarial attacks (e.g. $\mathcal{L}_2$ or
+$\mathcal{L}_\infty$-norm). It outperforms the existing methods under both
+strong adaptive white-box and black-box attacks bounded by $\mathcal{L}_2$ or
+$\mathcal{L}_\infty$-norm (up to +20\% in robust accuracy). Besides, we also
+evaluate the certified robustness for perturbations bounded by
+$\mathcal{L}_2$-norm via randomized smoothing. Our pipeline achieves a higher
+certified accuracy than baselines.},
+ arxiv_url = {https://arxiv.org/pdf/2303.01507v1.pdf},
+ author = {Shutong Wu and Jiongxiao Wang and Wei Ping and Weili Nie and Chaowei Xiao},
+ github_url = {https://github.com/cychomatica/AudioPure},
+ title = {Defending against Adversarial Audio  via Diffusion Model},
+ year = {2023}
+}
+
+@article{wu-2024-beta,
+ abstract = {Direct Preference Optimization (DPO) has emerged as a compelling approach for
+training Large Language Models (LLMs) to adhere to human preferences. However,
+the performance of DPO is sensitive to the fine-tuning of its trade-off
+parameter $\beta$, as well as to the quality of the preference data. We analyze
+the impact of $\beta$ and data quality on DPO, uncovering that optimal $\beta$
+values vary with the informativeness of pairwise data. Addressing the
+limitations of static $\beta$ values, we introduce a novel framework that
+dynamically calibrates $\beta$ at the batch level, informed by data quality
+considerations. Additionally, our method incorporates $\beta$-guided data
+filtering to safeguard against the influence of outliers. Through empirical
+evaluation, we demonstrate that our dynamic $\beta$ adjustment technique
+significantly improves DPO's performance across a range of models and datasets,
+offering a more robust and adaptable training paradigm for aligning LLMs with
+human feedback. The code is available at
+\url{https://github.com/junkangwu/beta-DPO}.},
+ arxiv_url = {https://arxiv.org/pdf/2407.08639v2.pdf},
+ author = {Junkang Wu and Yuexiang Xie and Zhengyi Yang and Jiancan Wu and Jinyang Gao and Bolin Ding and Xiang Wang and Xiangnan He},
+ github_url = {https://github.com/junkangwu/beta-DPO},
+ title = {$\beta$-DPO: Direct Preference Optimization with Dynamic $\beta$},
+ year = {2024}
+}
+
+@article{yang-2023-using,
+ abstract = {Using reinforcement learning with human feedback (RLHF) has shown significant
+promise in fine-tuning diffusion models. Previous methods start by training a
+reward model that aligns with human preferences, then leverage RL techniques to
+fine-tune the underlying models. However, crafting an efficient reward model
+demands extensive datasets, optimal architecture, and manual hyperparameter
+tuning, making the process both time and cost-intensive. The direct preference
+optimization (DPO) method, effective in fine-tuning large language models,
+eliminates the necessity for a reward model. However, the extensive GPU memory
+requirement of the diffusion model's denoising process hinders the direct
+application of the DPO method. To address this issue, we introduce the Direct
+Preference for Denoising Diffusion Policy Optimization (D3PO) method to
+directly fine-tune diffusion models. The theoretical analysis demonstrates that
+although D3PO omits training a reward model, it effectively functions as the
+optimal reward model trained using human feedback data to guide the learning
+process. This approach requires no training of a reward model, proving to be
+more direct, cost-effective, and minimizing computational overhead. In
+experiments, our method uses the relative scale of objectives as a proxy for
+human preference, delivering comparable results to methods using ground-truth
+rewards. Moreover, D3PO demonstrates the ability to reduce image distortion
+rates and generate safer images, overcoming challenges lacking robust reward
+models. Our code is publicly available at https://github.com/yk7333/D3PO.},
+ arxiv_url = {https://arxiv.org/pdf/2311.13231v3.pdf},
+ author = {Kai Yang and Jian Tao and Jiafei Lyu and Chunjiang Ge and Jiaxin Chen and Qimai Li and Weihan Shen and Xiaolong Zhu and Xiu Li},
+ github_url = {https://github.com/yk7333/D3PO},
+ title = {Using Human Feedback to Fine-tune Diffusion Models without Any Reward Model},
+ year = {2023}
+}
+
+@article{zeng-2024-token,
+ abstract = {Fine-tuning pre-trained Large Language Models (LLMs) is essential to align
+them with human values and intentions. This process often utilizes methods like
+pairwise comparisons and KL divergence against a reference LLM, focusing on the
+evaluation of full answers generated by the models. However, the generation of
+these responses occurs in a token level, following a sequential,
+auto-regressive fashion. In this paper, we introduce Token-level Direct
+Preference Optimization (TDPO), a novel approach to align LLMs with human
+preferences by optimizing policy at the token level. Unlike previous methods,
+which face challenges in divergence efficiency, TDPO incorporates forward KL
+divergence constraints for each token, improving alignment and diversity.
+Utilizing the Bradley-Terry model for a token-based reward system, TDPO
+enhances the regulation of KL divergence, while preserving simplicity without
+the need for explicit reward modeling. Experimental results across various text
+tasks demonstrate TDPO's superior performance in balancing alignment with
+generation diversity. Notably, fine-tuning with TDPO strikes a better balance
+than DPO in the controlled sentiment generation and single-turn dialogue
+datasets, and significantly improves the quality of generated responses
+compared to both DPO and PPO-based RLHF methods. Our code is open-sourced at
+https://github.com/Vance0124/Token-level-Direct-Preference-Optimization.},
+ arxiv_url = {https://arxiv.org/pdf/2404.11999v5.pdf},
+ author = {Yongcheng Zeng and Guoqing Liu and Weiyu Ma and Ning Yang and Haifeng Zhang and Jun Wang},
+ title = {Token-level Direct Preference Optimization},
+ year = {2024}
+}
+
+@article{zhang-2023-adaptive,
+ abstract = {Fine-tuning large pre-trained language models on downstream tasks has become
+an important paradigm in NLP. However, common practice fine-tunes all of the
+parameters in a pre-trained model, which becomes prohibitive when a large
+number of downstream tasks are present. Therefore, many fine-tuning methods are
+proposed to learn incremental updates of pre-trained weights in a parameter
+efficient way, e.g., low-rank increments. These methods often evenly distribute
+the budget of incremental updates across all pre-trained weight matrices, and
+overlook the varying importance of different weight parameters. As a
+consequence, the fine-tuning performance is suboptimal. To bridge this gap, we
+propose AdaLoRA, which adaptively allocates the parameter budget among weight
+matrices according to their importance score. In particular, AdaLoRA
+parameterizes the incremental updates in the form of singular value
+decomposition. Such a novel approach allows us to effectively prune the
+singular values of unimportant updates, which is essentially to reduce their
+parameter budget but circumvent intensive exact SVD computations. We conduct
+extensive experiments with several pre-trained models on natural language
+processing, question answering, and natural language generation to validate the
+effectiveness of AdaLoRA. Results demonstrate that AdaLoRA manifests notable
+improvement over baselines, especially in the low budget settings. Our code is
+publicly available at https://github.com/QingruZhang/AdaLoRA .},
+ arxiv_url = {https://arxiv.org/pdf/2303.10512v2.pdf},
+ author = {Qingru Zhang and Minshuo Chen and Alexander Bukharin and Nikos Karampatziakis and Pengcheng He and Yu Cheng and Weizhu Chen and Tuo Zhao},
+ github_url = {https://github.com/microsoft/LoRA},
+ title = {Adaptive Budget Allocation for Parameter-Efficient Fine-Tuning },
+ year = {2023}
+}
+
+@article{zheng-2024-improved,
+ abstract = {Recently, Anil et al. (2024) show that many-shot (up to hundreds of)
+demonstrations can jailbreak state-of-the-art LLMs by exploiting their
+long-context capability. Nevertheless, is it possible to use few-shot
+demonstrations to efficiently jailbreak LLMs within limited context sizes?
+While the vanilla few-shot jailbreaking may be inefficient, we propose improved
+techniques such as injecting special system tokens like [/INST] and employing
+demo-level random search from a collected demo pool. These simple techniques
+result in surprisingly effective jailbreaking against aligned LLMs (even with
+advanced defenses). For examples, our method achieves >80% (mostly >95%) ASRs
+on Llama-2-7B and Llama-3-8B without multiple restarts, even if the models are
+enhanced by strong defenses such as perplexity detection and/or SmoothLLM,
+which is challenging for suffix-based jailbreaking. In addition, we conduct
+comprehensive and elaborate (e.g., making sure to use correct system prompts)
+evaluations against other aligned LLMs and advanced defenses, where our method
+consistently achieves nearly 100% ASRs. Our code is available at
+https://github.com/sail-sg/I-FSJ.},
+ arxiv_url = {https://arxiv.org/pdf/2406.01288v2.pdf},
+ author = {Xiaosen Zheng and Tianyu Pang and Chao Du and Qian Liu and Jing Jiang and Min Lin},
+ github_url = {https://github.com/sail-sg/I-FSJ},
+ title = {Improved Few-Shot Jailbreaking Can Circumvent Aligned Language Models and Their Defenses},
+ year = {2024}
+}
+
+% ===========================================
+% REFERENCE CANDIDATES
+% Additional reference papers for context
+% ===========================================
+
+@article{author-year-jailbreak,
+ title = {Jailbreak chat}
+}
+
+@article{author-year-pku,
+ title = {Pku-beaver: Constrained value-aligned llm via safe rlhf.}
+}
+
+@article{bai-2022-training,
+ abstract = {We apply preference modeling and reinforcement learning from human feedback
+(RLHF) to finetune language models to act as helpful and harmless assistants.
+We find this alignment training improves performance on almost all NLP
+evaluations, and is fully compatible with training for specialized skills such
+as python coding and summarization. We explore an iterated online mode of
+training, where preference models and RL policies are updated on a weekly
+cadence with fresh human feedback data, efficiently improving our datasets and
+models. Finally, we investigate the robustness of RLHF training, and identify a
+roughly linear relation between the RL reward and the square root of the KL
+divergence between the policy and its initialization. Alongside our main
+results, we perform peripheral analyses on calibration, competing objectives,
+and the use of OOD detection, compare our models with human writers, and
+provide samples from our models using prompts appearing in recent related work.},
+ arxiv_url = {https://arxiv.org/pdf/2204.05862v1.pdf},
+ author = {Yuntao Bai and Andy Jones and Kamal Ndousse and Amanda Askell and Anna Chen and Nova DasSarma and Dawn Drain and Stanislav Fort and Deep Ganguli and Tom Henighan and Nicholas Joseph and Saurav Kadavath and Jackson Kernion and Tom Conerly and Sheer El-Showk and Nelson Elhage and Zac Hatfield-Dodds and Danny Hernandez and Tristan Hume and Scott Johnston and Shauna Kravec and Liane Lovitt and Neel Nanda and Catherine Olsson and Dario Amodei and Tom Brown and Jack Clark and Sam McCandlish and Chris Olah and Ben Mann and Jared Kaplan},
+ title = {Training a helpful and harmless assistant with reinforcement learning from human feedback.},
+ year = {2022}
+}
+
+@article{biggio-2012-poisoning,
+ abstract = {We investigate a family of poisoning attacks against Support Vector Machines
+(SVM). Such attacks inject specially crafted training data that increases the
+SVM's test error. Central to the motivation for these attacks is the fact that
+most learning algorithms assume that their training data comes from a natural
+or well-behaved distribution. However, this assumption does not generally hold
+in security-sensitive settings. As we demonstrate, an intelligent adversary
+can, to some extent, predict the change of the SVM's decision function due to
+malicious input and use this ability to construct malicious data. The proposed
+attack uses a gradient ascent strategy in which the gradient is computed based
+on properties of the SVM's optimal solution. This method can be kernelized and
+enables the attack to be constructed in the input space even for non-linear
+kernels. We experimentally demonstrate that our gradient ascent procedure
+reliably identifies good local maxima of the non-convex validation error
+surface, which significantly increases the classifier's test error.},
+ arxiv_url = {https://arxiv.org/pdf/1206.6389v3.pdf},
+ author = {Battista Biggio and Blaine Nelson and Pavel Laskov},
+ title = {Poisoning attacks against support vector machines.},
+ year = {2012}
+}
+
+@article{carlini-2023-are,
+ abstract = {Large language models are now tuned to align with the goals of their
+creators, namely to be "helpful and harmless." These models should respond
+helpfully to user questions, but refuse to answer requests that could cause
+harm. However, adversarial users can construct inputs which circumvent attempts
+at alignment. In this work, we study adversarial alignment, and ask to what
+extent these models remain aligned when interacting with an adversarial user
+who constructs worst-case inputs (adversarial examples). These inputs are
+designed to cause the model to emit harmful content that would otherwise be
+prohibited. We show that existing NLP-based optimization attacks are
+insufficiently powerful to reliably attack aligned text models: even when
+current NLP-based attacks fail, we can find adversarial inputs with brute
+force. As a result, the failure of current attacks should not be seen as proof
+that aligned text models remain aligned under adversarial inputs.
+  However the recent trend in large-scale ML models is multimodal models that
+allow users to provide images that influence the text that is generated. We
+show these models can be easily attacked, i.e., induced to perform arbitrary
+un-aligned behavior through adversarial perturbation of the input image. We
+conjecture that improved NLP attacks may demonstrate this same level of
+adversarial control over text-only models.},
+ arxiv_url = {https://arxiv.org/pdf/2306.15447v2.pdf},
+ author = {Nicholas Carlini and Milad Nasr and Christopher A. Choquette-Choo and Matthew Jagielski and Irena Gao and Anas Awadalla and Pang Wei Koh and Daphne Ippolito and Katherine Lee and Florian Tramer and Ludwig Schmidt},
+ title = {Are aligned neural networks adversarially aligned?},
+ year = {2023}
+}
+
+@article{casper-2023-open,
+ abstract = {Reinforcement learning from human feedback (RLHF) is a technique for training
+AI systems to align with human goals. RLHF has emerged as the central method
+used to finetune state-of-the-art large language models (LLMs). Despite this
+popularity, there has been relatively little public work systematizing its
+flaws. In this paper, we (1) survey open problems and fundamental limitations
+of RLHF and related methods; (2) overview techniques to understand, improve,
+and complement RLHF in practice; and (3) propose auditing and disclosure
+standards to improve societal oversight of RLHF systems. Our work emphasizes
+the limitations of RLHF and highlights the importance of a multi-faceted
+approach to the development of safer AI systems.},
+ arxiv_url = {https://arxiv.org/pdf/2307.15217v2.pdf},
+ author = {Stephen Casper and Xander Davies and Claudia Shi and Thomas Krendl Gilbert and Jérémy Scheurer and Javier Rando and Rachel Freedman and Tomasz Korbak and David Lindner and Pedro Freire and Tony Wang and Samuel Marks and Charbel-Raphaël Segerie and Micah Carroll and Andi Peng and Phillip Christoffersen and Mehul Damani and Stewart Slocum and Usman Anwar and Anand Siththaranjan and Max Nadeau and Eric J. Michaud and Jacob Pfau and Dmitrii Krasheninnikov and Xin Chen and Lauro Langosco and Peter Hase and Erdem Bıyık and Anca Dragan and David Krueger and Dorsa Sadigh and Dylan Hadfield-Menell},
+ title = {Open problems and fundamental limitations of reinforcement learning from human feedback.},
+ year = {2023}
+}
+
+@article{chen-2017-targeted,
+ abstract = {Deep learning models have achieved high performance on many tasks, and thus
+have been applied to many security-critical scenarios. For example, deep
+learning-based face recognition systems have been used to authenticate users to
+access many security-sensitive applications like payment apps. Such usages of
+deep learning systems provide the adversaries with sufficient incentives to
+perform attacks against these systems for their adversarial purposes. In this
+work, we consider a new type of attacks, called backdoor attacks, where the
+attacker's goal is to create a backdoor into a learning-based authentication
+system, so that he can easily circumvent the system by leveraging the backdoor.
+Specifically, the adversary aims at creating backdoor instances, so that the
+victim learning system will be misled to classify the backdoor instances as a
+target label specified by the adversary. In particular, we study backdoor
+poisoning attacks, which achieve backdoor attacks using poisoning strategies.
+Different from all existing work, our studied poisoning strategies can apply
+under a very weak threat model: (1) the adversary has no knowledge of the model
+and the training set used by the victim system; (2) the attacker is allowed to
+inject only a small amount of poisoning samples; (3) the backdoor key is hard
+to notice even by human beings to achieve stealthiness. We conduct evaluation
+to demonstrate that a backdoor adversary can inject only around 50 poisoning
+samples, while achieving an attack success rate of above 90%. We are also the
+first work to show that a data poisoning attack can create physically
+implementable backdoors without touching the training process. Our work
+demonstrates that backdoor poisoning attacks pose real threats to a learning
+system, and thus highlights the importance of further investigation and
+proposing defense strategies against them.},
+ arxiv_url = {https://arxiv.org/pdf/1712.05526v1.pdf},
+ author = {Xinyun Chen and Chang Liu and Bo Li and Kimberly Lu and Dawn Song},
+ title = {Targeted backdoor attacks on deep learning systems using data poisoning.},
+ year = {2017}
+}
+
+@article{christiano-2017-deep,
+ abstract = {For sophisticated reinforcement learning (RL) systems to interact usefully
+with real-world environments, we need to communicate complex goals to these
+systems. In this work, we explore goals defined in terms of (non-expert) human
+preferences between pairs of trajectory segments. We show that this approach
+can effectively solve complex RL tasks without access to the reward function,
+including Atari games and simulated robot locomotion, while providing feedback
+on less than one percent of our agent's interactions with the environment. This
+reduces the cost of human oversight far enough that it can be practically
+applied to state-of-the-art RL systems. To demonstrate the flexibility of our
+approach, we show that we can successfully train complex novel behaviors with
+about an hour of human time. These behaviors and environments are considerably
+more complex than any that have been previously learned from human feedback.},
+ arxiv_url = {https://arxiv.org/pdf/1706.03741v4.pdf},
+ author = {Paul Christiano and Jan Leike and Tom B. Brown and Miljan Martic and Shane Legg and Dario Amodei},
+ title = {Deep reinforcement learning from human preferences.},
+ year = {2017}
+}
+
+@article{jones-2023-automatically,
+ abstract = {Auditing large language models for unexpected behaviors is critical to
+preempt catastrophic deployments, yet remains challenging. In this work, we
+cast auditing as an optimization problem, where we automatically search for
+input-output pairs that match a desired target behavior. For example, we might
+aim to find a non-toxic input that starts with "Barack Obama" that a model maps
+to a toxic output. This optimization problem is difficult to solve as the set
+of feasible points is sparse, the space is discrete, and the language models we
+audit are non-linear and high-dimensional. To combat these challenges, we
+introduce a discrete optimization algorithm, ARCA, that jointly and efficiently
+optimizes over inputs and outputs. Our approach automatically uncovers
+derogatory completions about celebrities (e.g. "Barack Obama is a legalized
+unborn" -> "child murderer"), produces French inputs that complete to English
+outputs, and finds inputs that generate a specific name. Our work offers a
+promising new tool to uncover models' failure-modes before deployment.},
+ arxiv_url = {https://arxiv.org/pdf/2303.04381v1.pdf},
+ author = {Erik Jones and Anca Dragan and Aditi Raghunathan and Jacob Steinhardt},
+ title = {Automatically auditing large language models via discrete optimization.},
+ year = {2023}
+}
+
+@article{kurita-2020-weight,
+ abstract = {Recently, NLP has seen a surge in the usage of large pre-trained models.
+Users download weights of models pre-trained on large datasets, then fine-tune
+the weights on a task of their choice. This raises the question of whether
+downloading untrusted pre-trained weights can pose a security threat. In this
+paper, we show that it is possible to construct ``weight poisoning'' attacks
+where pre-trained weights are injected with vulnerabilities that expose
+``backdoors'' after fine-tuning, enabling the attacker to manipulate the model
+prediction simply by injecting an arbitrary keyword. We show that by applying a
+regularization method, which we call RIPPLe, and an initialization procedure,
+which we call Embedding Surgery, such attacks are possible even with limited
+knowledge of the dataset and fine-tuning procedure. Our experiments on
+sentiment classification, toxicity detection, and spam detection show that this
+attack is widely applicable and poses a serious threat. Finally, we outline
+practical defenses against such attacks. Code to reproduce our experiments is
+available at https://github.com/neulab/RIPPLe.},
+ arxiv_url = {https://arxiv.org/pdf/2004.06660v1.pdf},
+ author = {Keita Kurita and Paul Michel and Graham Neubig},
+ title = {Weight poisoning attacks on pre-trained models.},
+ year = {2020}
+}
+
+@article{schulman-2017-proximal,
+ abstract = {We propose a new family of policy gradient methods for reinforcement
+learning, which alternate between sampling data through interaction with the
+environment, and optimizing a "surrogate" objective function using stochastic
+gradient ascent. Whereas standard policy gradient methods perform one gradient
+update per data sample, we propose a novel objective function that enables
+multiple epochs of minibatch updates. The new methods, which we call proximal
+policy optimization (PPO), have some of the benefits of trust region policy
+optimization (TRPO), but they are much simpler to implement, more general, and
+have better sample complexity (empirically). Our experiments test PPO on a
+collection of benchmark tasks, including simulated robotic locomotion and Atari
+game playing, and we show that PPO outperforms other online policy gradient
+methods, and overall strikes a favorable balance between sample complexity,
+simplicity, and wall-time.},
+ arxiv_url = {https://arxiv.org/pdf/1707.06347v2.pdf},
+ author = {John Schulman and Filip Wolski and Prafulla Dhariwal and Alec Radford and Oleg Klimov},
+ title = {Proximal policy optimization algorithms.},
+ year = {2017}
+}
