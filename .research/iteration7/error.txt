@@ -1,0 +1,32 @@
+Generating train split:   0%|          | 0/73907 [00:00<?, ? examples/s]Generating train split:  25%|██▌       | 18522/73907 [00:00<00:00, 118113.12 examples/s]Generating train split:  47%|████▋     | 34764/73907 [00:00<00:00, 125639.15 examples/s]Generating train split:  72%|███████▏  | 52957/73907 [00:00<00:00, 136363.01 examples/s]Generating train split:  92%|█████████▏| 67774/73907 [00:00<00:00, 134727.52 examples/s]Generating train split: 100%|██████████| 73907/73907 [00:00<00:00, 102159.24 examples/s]
+Generating test split:   0%|          | 0/8211 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 8211/8211 [00:00<00:00, 80360.81 examples/s]
+/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/src/train.py:134: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.
+  self.trainer = Trainer(
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'pad_token_id': 2}.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/src/main.py", line 215, in <module>
+    main()
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/src/main.py", line 211, in main
+    run_experiment(cfg, smoke=smoke)
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/src/main.py", line 125, in run_experiment
+    model = tw.train(train_ds, eval_ds)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/src/train.py", line 151, in train
+    self.trainer.train()
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2328, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2378, in _inner_training_loop
+    train_dataloader = self.get_train_dataloader()
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 1143, in get_train_dataloader
+    return self._get_dataloader(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 1098, in _get_dataloader
+    dataset = self._remove_unused_columns(dataset, description=description)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-03/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 1024, in _remove_unused_columns
+    raise ValueError(
+ValueError: No columns in the dataset match the model's forward method signature: (input_ids, attention_mask, head_mask, past_key_values, inputs_embeds, labels, use_cache, output_attentions, output_hidden_states, return_dict, position_ids, cache_position, kwargs, labels, label, label_ids). The following columns have been ignored: [response_0_source, response_1_harm_category, prompt, better_response_id, safer_response_id, response_0, response_1_source, is_response_0_safe, response_0_harm_category, response_0_sha256, response_1, response_0_severity_level, response_1_severity_level, is_response_1_safe, response_1_sha256, prompt_source]. Please check the dataset and model. You may need to set `remove_unused_columns=False` in `TrainingArguments`.
