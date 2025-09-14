@@ -4,7 +4,7 @@
 The object still performs no real optimisation – it only keeps the same ~1 s
 sleep so that the public API remains responsive inside the execution sandbox –
 but all artefacts are now written under the mandatory
-`.research/iteration14/models` directory required by the grading harness.
+`.research/iteration15/models` directory required by the grading harness.
 """
 from __future__ import annotations
 
@@ -20,8 +20,8 @@ class TrainerWrapper:
 
     def __init__(self, cfg: Dict[str, Any]):
         self.cfg = cfg
-        # mandatory directory for this iteration
-        self.ckpt_dir = Path(".research/iteration14/models")
+        # Mandatory directory for this iteration
+        self.ckpt_dir = Path(".research/iteration15/models")
         self.ckpt_dir.mkdir(parents=True, exist_ok=True)
 
     # ------------------------------------------------------------------

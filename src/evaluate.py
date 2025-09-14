@@ -1,8 +1,8 @@
 # src/evaluate.py
-"""Evaluation, metrics and plotting helpers (iteration-14).
+"""Evaluation, metrics and plotting helpers (iteration-15).
 
 The file keeps the optional *vLLM* wrapper but now points the default plot
-output directory to `.research/iteration14/images` in order to comply with the
+output directory to `.research/iteration15/images` in order to comply with the
 mandatory save-path constraints.
 """
 from __future__ import annotations
@@ -102,11 +102,11 @@ plt.rcParams.update({"pdf.fonttype": 42, "ps.fonttype": 42})
 
 
 class Plotter:
-    """Create bar plots saved under `.research/iteration14/images`."""
+    """Create bar plots saved under `.research/iteration15/images`."""
 
     def __init__(self, out_dir: Path | None = None):
-        # default directory complies with mandatory iteration-14 path.
-        self.out_dir = out_dir or Path(".research/iteration14/images")
+        # default directory complies with mandatory iteration-15 path.
+        self.out_dir = out_dir or Path(".research/iteration15/images")
         self.out_dir.mkdir(exist_ok=True, parents=True)
 
     # ------------------------------------------------------------------

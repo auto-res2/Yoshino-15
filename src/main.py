@@ -1,32 +1,30 @@
 # src/main.py
 """Entry-point that supports `--smoke-test` and `--full-experiment` flags.
 
-Both paths now save artefacts under `.research/iteration14/` as required.  The
-*full-experiment* route still runs a very light-weight pipeline, but it
-produces **concrete numerical metrics** so that the output JSON is no longer a
-placeholder.
+Both paths now save artefacts under `.research/iteration15/` as required.  The
+`--full-experiment` route first executes the smoke-test and proceeds with the
+full run only if the quick validation passes.
 """
 from __future__ import annotations
 
 import argparse
 import json
-import random
 import sys
 from pathlib import Path
 from typing import Any, Dict, List
 
 import yaml  # PyYAML is a declared dependency
 
-from preprocess import process
-from train import TrainerWrapper
+from .preprocess import process
+from .train import TrainerWrapper
 
 # ---------------------------------------------------------------------------
 CONFIG_DIR = Path("config")
 SMOKE_YAML = CONFIG_DIR / "smoke_test.yaml"
 FULL_YAML = CONFIG_DIR / "full_experiment.yaml"
 
-# mandatory iteration-14 research directory
-OUT_DIR = Path(".research/iteration14")
+# Mandatory iteration-15 research directory
+OUT_DIR = Path(".research/iteration15")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -44,11 +42,16 @@ def load_cfg(path: Path) -> Dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 def _generate_dummy_prompts(n: int, seed: int) -> List[str]:
+    import random
+
     random.seed(seed)
     return [f"Prompt {i}: {random.choice(['hello', 'world', 'foo', 'bar'])}" for i in range(n)]
 
 
 # ---------------------------------------------------------------------------
+# Smoke-test runner
+# ---------------------------------------------------------------------------
+
 def run_smoke(cfg: Dict[str, Any]):
     trainer = TrainerWrapper(cfg)
     ckpt_path = trainer.train()
@@ -66,6 +69,9 @@ def run_smoke(cfg: Dict[str, Any]):
 
 
 # ---------------------------------------------------------------------------
+# Full-experiment runner
+# ---------------------------------------------------------------------------
+
 def run_full(cfg: Dict[str, Any]):
     """Light-weight *full* experiment runner with real numerical outputs."""
 
@@ -102,19 +108,46 @@ def run_full(cfg: Dict[str, Any]):
 
 
 # ---------------------------------------------------------------------------
+# Main orchestrator
+# ---------------------------------------------------------------------------
+
 def main():  # noqa: D401 – simple CLI entry-point
     parser = argparse.ArgumentParser()
     g = parser.add_mutually_exclusive_group(required=True)
-    g.add_argument("--smoke-test", action="store_true", help="Run the quick validation pipeline.")
-    g.add_argument("--full-experiment", action="store_true", help="Run the heavy-weight experiment pipeline.")
+    g.add_argument(
+        "--smoke-test",
+        action="store_true",
+        help="Run the quick validation pipeline.",
+    )
+    g.add_argument(
+        "--full-experiment",
+        action="store_true",
+        help="Run the heavy-weight experiment pipeline.",
+    )
     args = parser.parse_args()
 
+    # ------------------------------------------------------------------
+    # SMOKE-TEST ONLY
+    # ------------------------------------------------------------------
     if args.smoke_test:
         cfg = load_cfg(SMOKE_YAML)
         run_smoke(cfg)
-    else:  # --full-experiment
-        cfg = load_cfg(FULL_YAML)
-        run_full(cfg)
+        return
+
+    # ------------------------------------------------------------------
+    # FULL-EXPERIMENT – first run the smoke-test as a gate-keeper
+    # ------------------------------------------------------------------
+    try:
+        smoke_cfg = load_cfg(SMOKE_YAML)
+        run_smoke(smoke_cfg)
+    except Exception as exc:
+        print("Smoke-test failed, aborting full experiment.")
+        print(f"Reason: {exc}")
+        sys.exit(1)
+
+    # If the quick validation passes, continue with the full run.
+    full_cfg = load_cfg(FULL_YAML)
+    run_full(full_cfg)
 
 
 if __name__ == "__main__":

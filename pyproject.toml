@@ -1,7 +1,7 @@
 [project]
 name = "prance-experiments"
 version = "0.1.0"
-description = "Research codebase for PRANCE experiments (smoke-test stub)."
+description = "Research codebase for PRANCE experiments (refactored iteration-15 stub)."
 authors = [
   { name = "OpenAI" }
 ]
