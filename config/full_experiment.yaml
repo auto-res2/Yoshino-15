@@ -1,0 +1,6 @@
+# config/full_experiment.yaml
+project: prance_full
+seed: 42
+batch_size: 16
+epochs: 3
+learning_rate: 2e-5
