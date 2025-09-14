@@ -6,5 +6,157 @@
     "multiple reasoning paths LLM",
     "GSM8K consistency",
     "MATH benchmark consistency"
+  ],
+  "research_study_list": [
+    {
+      "title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models"
+    },
+    {
+      "title": "Escape Sky-high Cost: Early-stopping Self-Consistency for Multi-step Reasoning"
+    },
+    {
+      "title": "Autoformalize Mathematical Statements by Symbolic Equivalence and Semantic Consistency"
+    },
+    {
+      "title": "SelfCheck: Using LLMs to Zero-Shot Check Their Own Step-by-Step Reasoning"
+    },
+    {
+      "title": "Consistent Prompting for Rehearsal-Free Continual Learning"
+    },
+    {
+      "title": "SC-Tune: Unleashing Self-Consistent Referential Comprehension in Large Vision Language Models"
+    },
+    {
+      "title": "Embroid: Unsupervised Prediction Smoothing Can Improve Few-Shot Classification"
+    },
+    {
+      "title": "Calibrating Reasoning in Language Models with Internal Consistency"
+    },
+    {
+      "title": "Beyond Accuracy: Evaluating Self-Consistency of Code Large Language Models with IdentityChain"
+    },
+    {
+      "title": "Co-training Improves Prompt-based Learning for Large Language Models"
+    },
+    {
+      "title": "Generating Chain-of-Thoughts with a Pairwise-Comparison Approach to Searching for the Most Promising Intermediate Thought"
+    },
+    {
+      "title": "Are More LLM Calls All You Need? Towards the Scaling Properties of Compound AI Systems"
+    },
+    {
+      "title": "Chain of Thought Empowers Transformers to Solve Inherently Serial Problems"
+    },
+    {
+      "title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models"
+    },
+    {
+      "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models"
+    },
+    {
+      "title": "Wisdom of the Crowd Voting: Truthful Aggregation of Voter Information and Preferences"
+    },
+    {
+      "title": "Chain of Agents: Large Language Models Collaborating on Long-Context Tasks"
+    },
+    {
+      "title": "Automatic Chain of Thought Prompting in Large Language Models"
+    },
+    {
+      "title": "SelfCheck: Using LLMs to Zero-Shot Check Their Own Step-by-Step Reasoning"
+    },
+    {
+      "title": "Chain of Preference Optimization: Improving Chain-of-Thought Reasoning in LLMs"
+    },
+    {
+      "title": "Toward Adaptive Reasoning in Large Language Models with Thought Rollback"
+    },
+    {
+      "title": "Chain-of-Thought Reasoning Without Prompting"
+    },
+    {
+      "title": "THOUGHT PROPAGATION: AN ANALOGICAL APPROACH TO COMPLEX REASONING WITH LARGE LANGUAGE MODELS"
+    },
+    {
+      "title": "Reasoning on Graphs: Faithful and Interpretable Large Language Model Reasoning"
+    },
+    {
+      "title": "Self-Guiding Exploration for Combinatorial Problems"
+    },
+    {
+      "title": "Understanding Reasoning Ability of Language Models From the Perspective of Reasoning Paths Aggregation"
+    },
+    {
+      "title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models"
+    },
+    {
+      "title": "Tree of Thoughts: Deliberate Problem Solving with Large Language Models"
+    },
+    {
+      "title": "Think-on-Graph: Deep and Responsible Reasoning of Large Language Model on Knowledge Graph"
+    },
+    {
+      "title": "Calibrating Reasoning in Language Models with Internal Consistency"
+    },
+    {
+      "title": "A Careful Examination of Large Language Model Performance on Grade School Arithmetic"
+    },
+    {
+      "title": "Large Language Models Can Be Easily Distracted by Irrelevant Context"
+    },
+    {
+      "title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models"
+    },
+    {
+      "title": "Unveiling the Tapestry of Consistency in Large Vision-Language Models"
+    },
+    {
+      "title": "Logical Implications for Visual Question Answering Consistency"
+    },
+    {
+      "title": "Don't Trust: Verify -- Grounding LLM Quantitative Reasoning with Autoformalization"
+    },
+    {
+      "title": "Premise Order Matters in Reasoning with Large Language Models"
+    },
+    {
+      "title": "Language models are multilingual chain-of-thought reasoners"
+    },
+    {
+      "title": "Formalizing Consistency and Coherence of Representation Learning"
+    },
+    {
+      "title": "Self-Evaluation Guided Beam Search for Reasoning"
+    },
+    {
+      "title": "MathVista: Evaluating Mathematical Reasoning of Foundation Models in Visual Contexts"
+    },
+    {
+      "title": "MathVista: Evaluating Mathematical Reasoning of Foundation Models in Visual Contexts"
+    },
+    {
+      "title": "Autoformalize Mathematical Statements by Symbolic Equivalence and Semantic Consistency"
+    },
+    {
+      "title": "MAmmoTH: Building Math Generalist Models through Hybrid Instruction Tuning"
+    },
+    {
+      "title": "What are the best Systems? New Perspectives on NLP Benchmarking"
+    },
+    {
+      "title": "Inherent Trade-Offs between Diversity and Stability in Multi-Task Benchmarks"
+    },
+    {
+      "title": "Unveiling the Tapestry of Consistency in Large Vision-Language Models"
+    },
+    {
+      "title": "Benchopt: Reproducible, efficient and collaborative optimization benchmarks"
+    },
+    {
+      "title": "To the Cutoff... and Beyond? A Longitudinal Perspective on LLM Data Contamination"
+    },
+    {
+      "title": "PutnamBench: Evaluating Neural Theorem-Provers on the Putnam Mathematical Competition"
+    }
   ]
 }
