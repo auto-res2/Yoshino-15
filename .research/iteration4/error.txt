@@ -1,0 +1,49 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Generating train split:   0%|          | 0/73907 [00:00<?, ? examples/s]Generating train split:   5%|▌         | 3707/73907 [00:02<00:55, 1270.44 examples/s]Generating train split:  10%|█         | 7412/73907 [00:03<00:32, 2075.54 examples/s]Generating train split:  15%|█▌        | 11104/73907 [00:04<00:24, 2592.29 examples/s]Generating train split:  20%|██        | 14823/73907 [00:05<00:15, 3868.22 examples/s]Generating train split:  25%|██▌       | 18522/73907 [00:05<00:09, 5641.63 examples/s]Generating train split:  42%|████▏     | 31075/73907 [00:05<00:03, 13755.54 examples/s]Generating train split:  57%|█████▋    | 42156/73907 [00:05<00:01, 19936.32 examples/s]Generating train split:  77%|███████▋  | 56640/73907 [00:05<00:00, 29037.44 examples/s]Generating train split:  97%|█████████▋| 71471/73907 [00:06<00:00, 41406.83 examples/s]Generating train split: 100%|██████████| 73907/73907 [00:06<00:00, 11908.91 examples/s]
+Generating test split:   0%|          | 0/8211 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 8211/8211 [00:00<00:00, 59629.39 examples/s]Generating test split: 100%|██████████| 8211/8211 [00:00<00:00, 51630.31 examples/s]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/src/main.py", line 211, in <module>
+    main()
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/src/main.py", line 207, in main
+    run_experiment(cfg, smoke=smoke)
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/src/main.py", line 113, in run_experiment
+    eval_ds = dm.resolve_dataset(
+              ^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/src/preprocess.py", line 66, in resolve_dataset
+    ds = load_dataset(repo, name=cfg, split=split, cache_dir=str(self.cache_dir))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/datasets/load.py", line 1424, in load_dataset
+    ds = builder_instance.as_dataset(split=split, verification_mode=verification_mode, in_memory=keep_in_memory)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/datasets/builder.py", line 1087, in as_dataset
+    datasets = map_nested(
+               ^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/datasets/utils/py_utils.py", line 493, in map_nested
+    mapped = function(data_struct)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/datasets/builder.py", line 1117, in _build_single_dataset
+    ds = self._as_dataset(
+         ^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/datasets/builder.py", line 1191, in _as_dataset
+    dataset_kwargs = ArrowReader(cache_dir, self.info).read(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/datasets/arrow_reader.py", line 248, in read
+    files = self.get_file_instructions(name, instructions, split_infos)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/datasets/arrow_reader.py", line 221, in get_file_instructions
+    file_instructions = make_file_instructions(
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/datasets/arrow_reader.py", line 130, in make_file_instructions
+    absolute_instructions = instruction.to_absolute(name2len)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/datasets/arrow_reader.py", line 620, in to_absolute
+    return [_rel_to_abs_instr(rel_instr, name2len) for rel_instr in self._relative_instructions]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/datasets/arrow_reader.py", line 620, in <listcomp>
+    return [_rel_to_abs_instr(rel_instr, name2len) for rel_instr in self._relative_instructions]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/datasets/arrow_reader.py", line 437, in _rel_to_abs_instr
+    raise ValueError(f'Unknown split "{split}". Should be one of {list(name2len)}.')
+ValueError: Unknown split "validation". Should be one of ['train', 'test'].
