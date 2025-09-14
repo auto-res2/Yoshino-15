@@ -1,5 +1,5 @@
 # src/main.py
-"""Orchestrate smoke-test and full experiments from the command line (iteration-9).
+"""Orchestrate smoke-test and full experiments from the command line (iteration-10).
 
 Usage:
     uv run python -m src.main --smoke-test
@@ -26,12 +26,12 @@ from .train import ModelBuilder, TrainerWrapper
 from .evaluate import Evaluator, Plotter
 
 # ---------------------------------------------------------------------------
-# Project-level paths (UPDATED to mandatory iteration-9 directories)
+# Project-level paths (UPDATED to mandatory iteration-10 directories)
 # ---------------------------------------------------------------------------
 PROJECT_DIR = Path(__file__).resolve().parent.parent
-RESEARCH_DIR = PROJECT_DIR / ".research" / "iteration9"
+RESEARCH_DIR = PROJECT_DIR / ".research" / "iteration10"
 IMAGES_DIR = RESEARCH_DIR / "images"
-RESULTS_DIR = RESEARCH_DIR  # JSON files live directly inside iteration9/
+RESULTS_DIR = RESEARCH_DIR  # JSON lives directly inside iteration10/
 DATA_DIR = PROJECT_DIR / "data"
 
 for p in (IMAGES_DIR, RESULTS_DIR, DATA_DIR):
@@ -168,7 +168,7 @@ def run_experiment(cfg: ExperimentConfig, *, smoke: bool):
     results["figures"] = [fig_name]
 
     # ----------------------------------------------------------------------
-    # Persist JSON inside `.research/iteration9/` and print to stdout
+    # Persist JSON inside `.research/iteration10/` and print to stdout
     # ----------------------------------------------------------------------
     out_path = RESULTS_DIR / f"{cfg.name.replace(' ', '_')}_results.json"
     with out_path.open("w") as f:

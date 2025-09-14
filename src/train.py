@@ -1,5 +1,5 @@
 # src/train.py
-"""Model construction and fine-tuning utilities (iteration-9)."""
+"""Model construction and fine-tuning utilities (iteration-10)."""
 from __future__ import annotations
 
 import os
@@ -153,7 +153,7 @@ class TrainerWrapper:
         return "input_ids" not in ds.column_names
 
     def _tokenise_dataset(self, ds):
-        """Add ``input_ids`` (and ``labels``) columns via the stored tokenizer."""
+        """Add ``input_ids`` (and *let the DataCollator create labels*) columns via the stored tokenizer."""
 
         def _select_text_field(batch: Dict[str, List[Any]]) -> List[str]:
             if "prompt" in batch:
@@ -163,7 +163,7 @@ class TrainerWrapper:
             # Fallback – choose the first string-typed column encountered
             for _key, value in batch.items():
                 if isinstance(value[0], str):
-                    return value  # safe: runtime type guarantee
+                    return value  # runtime type guarantee
             raise RuntimeError("No textual field found for tokenisation.")
 
         def _tok_fn(batch: Dict[str, List[Any]]):
@@ -171,10 +171,11 @@ class TrainerWrapper:
             tokens = self.tokenizer(
                 texts,
                 truncation=True,
-                padding=False,
+                padding=False,  # DataCollator will pad dynamically per batch
                 max_length=int(self.args_cfg.get("max_length", 512)),
+                return_attention_mask=True,
             )
-            tokens["labels"] = tokens["input_ids"].copy()
+            # Do *not* add "labels" here – DataCollatorForLanguageModeling will create them
             return tokens
 
         return ds.map(

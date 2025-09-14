@@ -1,5 +1,5 @@
 # src/evaluate.py
-"""Evaluation, metrics and plotting helpers (iteration-9)."""
+"""Evaluation, metrics and plotting helpers (iteration-10)."""
 from __future__ import annotations
 
 import json
@@ -69,7 +69,7 @@ plt.rcParams.update({"pdf.fonttype": 42, "ps.fonttype": 42})
 
 
 class Plotter:
-    """Create bar plots saved under `.research/iteration9/images`."""
+    """Create bar plots saved under `.research/iteration10/images`."""
 
     def __init__(self, out_dir: Path):
         self.out_dir = out_dir
