@@ -7,7 +7,7 @@ import os
 import tarfile
 import zipfile
 from pathlib import Path
-from typing import Dict
+from typing import Dict, List, Union
 
 import requests
 import tqdm
@@ -57,43 +57,71 @@ class DataManager:
                 tf.extractall(dst_dir)
 
     # ------------------------------------------------------------------
-    def resolve_dataset(self, spec: Dict, *, split: str = "train", smoke: bool = False) -> Dataset:
-        """Convert a *spec* entry from YAML into a 🤗 Dataset."""
+    def resolve_dataset(
+        self,
+        spec: Dict,
+        *,
+        split: Union[str, List[str]] = "train",
+        smoke: bool = False,
+    ) -> Dataset:
+        """Convert a *spec* entry from YAML into a 🤗 Dataset.
 
-        if "hf_repo" in spec:
-            repo = spec["hf_repo"]
-            cfg = spec.get("config", None)
-            ds = load_dataset(repo, name=cfg, split=split, cache_dir=str(self.cache_dir))
-            if smoke:
-                ds = ds.select(range(min(50, len(ds))))
-            return ds
+        The *split* argument can be a string or a list/tuple of candidate split
+        names. When supplied a list, the candidates are tried in order until one
+        succeeds. If none are found, a clear ValueError is raised (fail-fast
+        policy).
+        """
 
-        if "url" in spec:
-            url = spec["url"]
-            sha = spec.get("sha256")
-            fname = Path(url).name
-            downloaded = self._download_url(url, self.cache_dir / fname)
+        # Helper to attempt a single split
+        def _try_load(s: str):
+            if "hf_repo" in spec:
+                repo = spec["hf_repo"]
+                cfg = spec.get("config", None)
+                return load_dataset(repo, name=cfg, split=s, cache_dir=str(self.cache_dir))
+            if "url" in spec:
+                url = spec["url"]
+                sha = spec.get("sha256")
+                fname = Path(url).name
+                downloaded = self._download_url(url, self.cache_dir / fname)
 
-            # ----------------------------------------------------------
-            # SHA-256 integrity check
-            # ----------------------------------------------------------
-            if sha:
-                h = hashlib.sha256(downloaded.read_bytes()).hexdigest()
-                if h != sha:
-                    raise ValueError(f"SHA256 mismatch for {url}")
+                # SHA-256 integrity check ----------------------------------
+                if sha:
+                    h = hashlib.sha256(downloaded.read_bytes()).hexdigest()
+                    if h != sha:
+                        raise ValueError(f"SHA256 mismatch for {url}")
 
-            extract_dir = self.cache_dir / f"{downloaded.stem}_extract"
-            extract_dir.mkdir(exist_ok=True, parents=True)
-            self._unpack(downloaded, extract_dir)
+                extract_dir = self.cache_dir / f"{downloaded.stem}_extract"
+                extract_dir.mkdir(exist_ok=True, parents=True)
+                self._unpack(downloaded, extract_dir)
 
-            jsonl_files = list(extract_dir.rglob("*.jsonl"))
-            if not jsonl_files:
-                raise RuntimeError(f"No .jsonl found inside {extract_dir}")
+                jsonl_files = list(extract_dir.rglob("*.jsonl"))
+                if not jsonl_files:
+                    raise RuntimeError(f"No .jsonl found inside {extract_dir}")
 
-            data_files = {"data": [str(f) for f in jsonl_files]}
-            ds = load_dataset("json", data_files=data_files, split="data")
-            if smoke:
-                ds = ds.select(range(min(50, len(ds))))
-            return ds
+                data_files = {"data": [str(f) for f in jsonl_files]}
+                return load_dataset("json", data_files=data_files, split="data")
 
-        raise KeyError("Dataset spec must contain either 'hf_repo' or 'url'.")
+            raise KeyError("Dataset spec must contain either 'hf_repo' or 'url'.")
+
+        # Decide whether we iterate over candidates or single split ----------
+        candidates = [split] if isinstance(split, str) else list(split)
+        last_err = None
+        for s in candidates:
+            try:
+                ds = _try_load(s)
+                if smoke:
+                    ds = ds.select(range(min(50, len(ds))))
+                return ds
+            except ValueError as e:
+                # Only continue if the error is about an unknown split -------
+                if "Unknown split" in str(e):
+                    last_err = e
+                    continue
+                raise  # different error → fail immediately
+            except (KeyError, RuntimeError):
+                raise  # propagate critical errors
+
+        # If we get here, none of the splits worked --------------------------
+        raise ValueError(
+            f"None of the requested splits {candidates} exist for dataset spec {spec}."
+        )

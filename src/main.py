@@ -26,12 +26,12 @@ from .train import ModelBuilder, TrainerWrapper
 from .evaluate import Evaluator, Plotter
 
 # ---------------------------------------------------------------------------
-# Project-level paths (UPDATED to iteration4 as per requirements)
+# Project-level paths  (UPDATED to iteration5 as per mandatory requirement)
 # ---------------------------------------------------------------------------
 PROJECT_DIR = Path(__file__).resolve().parent.parent
-RESEARCH_DIR = PROJECT_DIR / ".research" / "iteration4"
+RESEARCH_DIR = PROJECT_DIR / ".research" / "iteration5"
 IMAGES_DIR = RESEARCH_DIR / "images"
-RESULTS_DIR = RESEARCH_DIR  # JSON files live directly inside iteration4/
+RESULTS_DIR = RESEARCH_DIR  # JSON lives directly inside iteration5/
 DATA_DIR = PROJECT_DIR / "data"
 
 # Ensure directories exist ---------------------------------------------------
@@ -106,13 +106,14 @@ def run_experiment(cfg: ExperimentConfig, *, smoke: bool):
             # ------------------------------------------------------
             # Optional fine-tuning
             # ------------------------------------------------------
+            checkpoint_dir = None  # will be set if training occurs
             if mspec.get("training") is not None:
                 train_ds = dm.resolve_dataset(
                     cfg.datasets[mspec["training"]], split="train", smoke=smoke
                 )
                 eval_ds = dm.resolve_dataset(
                     cfg.datasets[mspec.get("eval", mspec["training"])],
-                    split="validation",
+                    split=["validation", "test"],  # try validation, fall back to test
                     smoke=smoke,
                 )
                 tw = TrainerWrapper(
@@ -122,12 +123,15 @@ def run_experiment(cfg: ExperimentConfig, *, smoke: bool):
                     args_cfg=cfg.training,
                 )
                 model = tw.train(train_ds, eval_ds)
-                model.save_pretrained(RESULTS_DIR / "checkpoints" / f"{mname}_seed{seed}")
+
+                checkpoint_dir = RESULTS_DIR / "checkpoints" / f"{mname}_seed{seed}"
+                model.save_pretrained(checkpoint_dir)
 
             # ------------------------------------------------------
             # Evaluation (prompt-level ASR)
             # ------------------------------------------------------
-            evaluator = Evaluator(model_id=base_id)  # vLLM expects an ID / path
+            model_path_for_eval = str(checkpoint_dir) if checkpoint_dir else base_id
+            evaluator = Evaluator(model_id=model_path_for_eval)  # vLLM expects ID / local path
 
             attack_split = cfg.evaluation.get("attack_split", "test")
             attack_ds = dm.resolve_dataset(
@@ -164,7 +168,7 @@ def run_experiment(cfg: ExperimentConfig, *, smoke: bool):
     results["figures"] = [fig_name]
 
     # ----------------------------------------------------------------------
-    # Persist JSON into .research/iteration4 and also print to stdout
+    # Persist JSON into .research/iteration5 and also print to stdout
     # ----------------------------------------------------------------------
     out_path = RESULTS_DIR / f"{cfg.name.replace(' ', '_')}_results.json"
     with out_path.open("w") as f:
