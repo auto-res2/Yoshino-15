@@ -1,0 +1,35 @@
+Generating train split:   0%|          | 0/73907 [00:00<?, ? examples/s]Generating train split:   5%|▌         | 3707/73907 [00:00<00:18, 3894.32 examples/s]Generating train split:  10%|█         | 7412/73907 [00:01<00:12, 5361.98 examples/s]Generating train split:  15%|█▌        | 11104/73907 [00:01<00:08, 7305.91 examples/s]Generating train split:  20%|██        | 14823/73907 [00:01<00:06, 9255.74 examples/s]Generating train split:  25%|██▌       | 18522/73907 [00:02<00:08, 6292.06 examples/s]Generating train split:  30%|███       | 22230/73907 [00:03<00:07, 6594.93 examples/s]Generating train split:  35%|███▌      | 25958/73907 [00:03<00:07, 6565.57 examples/s]Generating train split:  42%|████▏     | 31075/73907 [00:04<00:04, 9291.32 examples/s]Generating train split:  47%|████▋     | 34764/73907 [00:04<00:03, 11268.41 examples/s]Generating train split:  67%|██████▋   | 49567/73907 [00:04<00:01, 24037.11 examples/s]Generating train split:  77%|███████▋  | 56640/73907 [00:04<00:00, 29569.01 examples/s]Generating train split:  97%|█████████▋| 71471/73907 [00:04<00:00, 46173.69 examples/s]Generating train split: 100%|██████████| 73907/73907 [00:04<00:00, 15100.84 examples/s]
+Generating test split:   0%|          | 0/8211 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 8211/8211 [00:00<00:00, 79700.61 examples/s]
+/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/src/train.py:132: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.
+  self.trainer = Trainer(
+Tokenising dataset:   0%|          | 0/73907 [00:00<?, ? examples/s]Tokenising dataset:   5%|▌         | 4000/73907 [00:00<00:02, 27691.30 examples/s]Tokenising dataset:  11%|█         | 8000/73907 [00:00<00:02, 30010.98 examples/s]Tokenising dataset:  16%|█▌        | 12000/73907 [00:00<00:02, 30803.19 examples/s]Tokenising dataset:  22%|██▏       | 16000/73907 [00:00<00:01, 31239.61 examples/s]Tokenising dataset:  27%|██▋       | 20000/73907 [00:00<00:02, 18173.51 examples/s]Tokenising dataset:  32%|███▏      | 24000/73907 [00:01<00:02, 21222.58 examples/s]Tokenising dataset:  38%|███▊      | 28000/73907 [00:01<00:01, 23777.71 examples/s]Tokenising dataset:  43%|████▎     | 32000/73907 [00:01<00:01, 25788.23 examples/s]Tokenising dataset:  49%|████▊     | 36000/73907 [00:01<00:01, 27404.07 examples/s]Tokenising dataset:  54%|█████▍    | 40000/73907 [00:01<00:01, 28278.58 examples/s]Tokenising dataset:  60%|█████▉    | 44000/73907 [00:01<00:01, 28388.77 examples/s]Tokenising dataset:  65%|██████▍   | 48000/73907 [00:01<00:00, 28315.16 examples/s]Tokenising dataset:  70%|███████   | 52000/73907 [00:02<00:01, 19480.96 examples/s]Tokenising dataset:  76%|███████▌  | 56000/73907 [00:02<00:00, 21945.38 examples/s]Tokenising dataset:  81%|████████  | 60000/73907 [00:02<00:00, 24235.01 examples/s]Tokenising dataset:  87%|████████▋ | 64000/73907 [00:02<00:00, 24890.14 examples/s]Tokenising dataset:  92%|█████████▏| 68000/73907 [00:02<00:00, 26601.29 examples/s]Tokenising dataset:  97%|█████████▋| 72000/73907 [00:02<00:00, 27945.11 examples/s]Tokenising dataset: 100%|██████████| 73907/73907 [00:03<00:00, 24505.05 examples/s]
+Tokenising dataset:   0%|          | 0/8211 [00:00<?, ? examples/s]Tokenising dataset:  49%|████▊     | 4000/8211 [00:00<00:00, 28965.74 examples/s]Tokenising dataset:  85%|████████▌ | 7000/8211 [00:00<00:00, 11965.11 examples/s]Tokenising dataset: 100%|██████████| 8211/8211 [00:00<00:00, 14028.29 examples/s]
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'pad_token_id': 2}.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/src/main.py", line 215, in <module>
+    main()
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/src/main.py", line 211, in main
+    run_experiment(cfg, smoke=smoke)
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/src/main.py", line 125, in run_experiment
+    model = tw.train(train_ds, eval_ds)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/src/train.py", line 198, in train
+    self.trainer.train()
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2328, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 2435, in _inner_training_loop
+    self.create_optimizer_and_scheduler(num_training_steps=max_steps)
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 1261, in create_optimizer_and_scheduler
+    self.create_optimizer()
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/transformers/trainer.py", line 1327, in create_optimizer
+    self.optimizer = optimizer_cls(optimizer_grouped_parameters, **optimizer_kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/torch/optim/adamw.py", line 37, in __init__
+    super().__init__(
+  File "/home/toma/t-80-8-b-01/_work/Yoshino-15/Yoshino-15/.venv/lib/python3.11/site-packages/torch/optim/adam.py", line 58, in __init__
+    if not 0.0 <= lr:
+           ^^^^^^^^^
+TypeError: '<=' not supported between instances of 'float' and 'str'
