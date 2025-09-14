@@ -1,0 +1,20 @@
+=== [PHASE 2/2] Full experiment start Sun Sep 14 01:49:18 AM UTC 2025 ===
+{
+  "mode": "full-experiment",
+  "status": "success",
+  "metrics": {
+    "n_prompts": 32,
+    "avg_char_len": 15.0625,
+    "max_char_len": 16,
+    "min_char_len": 13
+  },
+  "checkpoint": ".research/iteration14/models/dummy.pt",
+  "config": {
+    "project": "prance_full",
+    "seed": 42,
+    "batch_size": 16,
+    "epochs": 3,
+    "learning_rate": "2e-5"
+  }
+}
+=== [PHASE 2/2] Full experiment end Sun Sep 14 01:49:19 AM UTC 2025 ===
